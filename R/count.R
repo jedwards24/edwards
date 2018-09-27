@@ -1,12 +1,12 @@
 #########################################################################################
-# count_nas: counts NAs in a tibble by column.
+# count_nas: counts NAs in a data frame by column.
 #########################################################################################
 #'
-#' count_nas: counts NAs in a tibble by column.
+#' count_nas: counts NAs in a data frame by column.
 #'
-#' Returns a vector of the number or proportion of NAs of each variable in a tibble.
+#' Returns a vector of the number or proportion of NAs of each variable in a data frame.
 #'
-#' @param tbl a tibble.
+#' @param tbl a data frame.
 #'
 #' @param prop=F Set to true to return the number of NAs as a proportion of rows, and count otherwise.
 #'
@@ -18,14 +18,14 @@ count_nas <- function(tbl, prop=F) {
 }
 
 #########################################################################################
-# count_unique: counts the number of unique values in a tibble by column.
+# count_unique: counts the number of unique values in a data frame by column.
 #########################################################################################
 #'
-#' Counts NAs in a tibble by column.
+#' Counts NAs in a data frame by column.
 #'
-#' Returns a vector of the number of unique values of each variable in a tibble.
+#' Returns a vector of the number of unique values of each variable in a data frame.
 #'
-#' @param tbl a tibble.
+#' @param tbl a data frame.
 #'
 #' @export
 count_unique <- function(tbl) {
@@ -33,15 +33,15 @@ count_unique <- function(tbl) {
 }
 
 #########################################################################################
-# count_unique: counts the number of levels in a tibble by column.
+# count_unique: counts the number of levels in a data frame by column.
 #########################################################################################
 #'
 #' count_nas
-#' Counts NAs in a tibble by column.
+#' Counts NAs in a data frame by column.
 #'
-#' Returns a vector of the number of levels of each variable in a tibble.
+#' Returns a vector of the number of levels of each variable in a data frame.
 #'
-#' @param tbl a tibble.
+#' @param tbl a data frame.
 #'
 #' @export
 count_levels <- function(tbl) {

@@ -4,7 +4,7 @@
 #'
 #' object_size_all: returns table of sizes of all object in Mb, in order
 #'
-#' @return A tibble with two columns: object name and size in Mb.
+#' @return A data frame with two columns: object name and size in Mb.
 #' @export
 object_size_all <- function(){
   Mb <- ls(envir=.GlobalEnv) %>% sapply(. %>% get %>% object.size %>% '/'(10^6))
