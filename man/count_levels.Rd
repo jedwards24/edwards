@@ -2,14 +2,15 @@
 % Please edit documentation in R/count.R
 \name{count_levels}
 \alias{count_levels}
-\title{count_nas
-Counts NAs in a tibble by column.}
+\title{Counts the number of levels in a data frame by column.}
 \usage{
-count_levels(tbl)
+count_levels(df, all = FALSE)
 }
 \arguments{
-\item{tbl}{a tibble.}
+\item{df}{A data frame.}
+
+\item{all}{By default variables with no levels are omitted from the output. Set all=T to show all.}
 }
 \description{
-Returns a vector of the number of levels of each variable in a tibble.
+Returns a vector of the number of levels of each variable in a data frame.
 }

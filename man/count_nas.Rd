@@ -2,15 +2,17 @@
 % Please edit documentation in R/count.R
 \name{count_nas}
 \alias{count_nas}
-\title{count_nas: counts NAs in a tibble by column.}
+\title{count_nas: counts NAs in a data frame by column.}
 \usage{
-count_nas(tbl, prop = F)
+count_nas(df, prop = FALSE, all = FALSE)
 }
 \arguments{
-\item{tbl}{a tibble.}
+\item{df}{a data frame.}
 
-\item{prop=F}{Set to true to return the number of NAs as a proportion of rows, and count otherwise.}
+\item{prop}{By default the count os NAs is returned. Set to TRUE instead return a proportion.}
+
+\item{all}{By default variables with no NAs are omitted from the output. Set to TRUE to show all.}
 }
 \description{
-Returns a vector of the number or proportion of NAs of each variable in a tibble.
+Returns a vector of the number or proportion of NAs of each variable in a data frame.
 }

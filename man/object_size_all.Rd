@@ -7,7 +7,7 @@
 object_size_all()
 }
 \value{
-A tibble with two columns: object name and size in Mb.
+A data frame with two columns: object name and size in Mb.
 }
 \description{
 object_size_all: returns table of sizes of all object in Mb, in order

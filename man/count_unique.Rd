@@ -2,13 +2,13 @@
 % Please edit documentation in R/count.R
 \name{count_unique}
 \alias{count_unique}
-\title{Counts NAs in a tibble by column.}
+\title{Counts the number of unique values in a data frame by column.}
 \usage{
-count_unique(tbl)
+count_unique(df)
 }
 \arguments{
-\item{tbl}{a tibble.}
+\item{df}{A data frame.}
 }
 \description{
-Returns a vector of the number of unique values of each variable in a tibble.
+Returns a vector of the number of unique values of each variable in a data frame.
 }
