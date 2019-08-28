@@ -7,7 +7,7 @@
 count_nas2(df, all = FALSE, sort = TRUE)
 }
 \arguments{
-\item{df}{a data frame.}
+\item{df}{A data frame.}
 
 \item{all}{By default variables with no NAs are omitted from the output. Set to TRUE to show all.}
 

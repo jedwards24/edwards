@@ -169,7 +169,7 @@ var_summary <- function(df) {
 #' @param n Integer passed to `print()` which gives the maximum number of rows printed in each count summary.
 #'
 #' @export
-count_at <- function(df, cols = NULL, sort = T, n = 10) {
+count_at <- function(df, cols = NULL, sort = TRUE, n = 10) {
   if (is.null(cols)) cols <- 1 : ncol(df)
   if (!is.data.frame(df)) {
     stop("`df` must be a data frame.", call. = FALSE)

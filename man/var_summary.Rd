@@ -7,7 +7,7 @@
 var_summary(df)
 }
 \arguments{
-\item{df}{a data frame.}
+\item{df}{A data frame.}
 }
 \description{
 Returns a tibble with the names, class, number of NAs, number of unique values, and the number of

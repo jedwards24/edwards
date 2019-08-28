@@ -7,7 +7,7 @@
 count_nas(df, prop = FALSE, all = FALSE)
 }
 \arguments{
-\item{df}{a data frame.}
+\item{df}{A data frame.}
 
 \item{prop}{By default the count os NAs is returned. Set to TRUE instead return a proportion.}
 
