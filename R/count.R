@@ -6,7 +6,7 @@
 #'
 #' Returns a vector of the number or proportion of NAs of each variable in a data frame.
 #'
-#' @param df a data frame.
+#' @param df A data frame.
 #'
 #' @param prop By default the count os NAs is returned. Set to TRUE instead return a proportion.
 #' @param all By default variables with no NAs are omitted from the output. Set to TRUE to show all.
@@ -79,7 +79,7 @@ count_levels <- function(df, all = FALSE) {
 #' * The number of NAs as a proportion of rows.
 #' * The class of each variable.
 #'
-#' @param df a data frame.
+#' @param df A data frame.
 #'
 #' @param all By default variables with no NAs are omitted from the output. Set to TRUE to show all.
 #' @param sort By default the output table is sorted by descending number of NAs. Set to FALSE to keep
@@ -138,7 +138,7 @@ count_string <- function(df, pattern, all = FALSE){
 #' Returns a tibble with the names, class, number of NAs, number of unique values, and the number of
 #'   levels for each variable in the data. Any NA entries are included as a unique value.
 #'
-#' @param df a data frame.
+#' @param df A data frame.
 #'
 #' @export
 var_summary <- function(df) {
@@ -147,11 +147,39 @@ var_summary <- function(df) {
   }
   tibble::tibble(var = names(df),
                  index = 1:ncol(df),
-                 class = vapply(df, function(x) class(x)[1], integer(1)),
+                 class = vapply(df, function(x) class(x)[1], character(1)),
                  missing = vapply(df, function(x) sum(is.na(x)), integer(1)),
                  unique = vapply(df, function(x) length(unique(x)), integer(1)),
                  levels = vapply(df, nlevels, integer(1))
   )
 }
 
+#########################################################################################
+# count_at: Performs dplyr::count for a range of variables in a data frame.
+#########################################################################################
+#'
+#' Performs dplyr::count for a range of variables in a data frame.
+#'
+#' Prints output from dplyr::count for each variable index given by argument `cols` (an integer vector).
+#'
+#' @param df A data frame.
+#' @param cols Vector of integer indices. If not given counts for all columns are given.
+#' @param sort Boolean passed to `count()` to say whether results are sorted by descending number of observation..
+#'   Defaults to TRUE (unlike `count()`).
+#' @param n Integer passed to `print()` which gives the maximum number of rows printed in each count summary.
+#'
+#' @export
+count_at <- function(df, cols = NULL, sort = T, n = 10) {
+  if (is.null(cols)) cols <- 1 : ncol(df)
+  if (!is.data.frame(df)) {
+    stop("`df` must be a data frame.", call. = FALSE)
+  }
+  if (!all(cols %in% 1 : ncol(df))) {
+    stop("Values in `cols` must match column numbers in `df`", call. = FALSE)
+  }
+  for(name in names(df)[cols]){
+    print(count(df, !!as.name(name), sort = sort), n = n)
+  }
+  invisible(df)
+}
 
