@@ -2,7 +2,7 @@
 # count_nas: counts NAs in a data frame by column.
 #########################################################################################
 #'
-#' count_nas: counts NAs in a data frame by column.
+#' Counts NAs in a data frame by column.
 #'
 #' Returns a vector of the number or proportion of NAs of each variable in a data frame.
 #'
@@ -70,7 +70,7 @@ count_levels <- function(df, all = FALSE) {
 # count_nas2: counts NAs in a data frame by column. Returns a tbl.
 #########################################################################################
 #'
-#' count_nas2: counts NAs in a data frame by column.
+#' Counts NAs in a data frame by column.
 #'
 #' @description
 #' Unlike `count_nas()` this returns the results in a tibble with columns giving:
@@ -106,10 +106,34 @@ count_nas2 <- function(df, all = FALSE, sort = TRUE) {
 }
 
 #########################################################################################
+# count_string: Counts the total number of string pattern matches in a data frame by column.
+#########################################################################################
+#'
+#' Counts the total number of string pattern matches in a data frame by column.
+#'
+#' Returns a vector of the number of matches to a string pattern `pattern` of each variable in a data frame.
+#'
+#' @param df A data frame.
+#' @param all By default variables with no levels are omitted from the output. Set all=T to show all.
+#'
+#' @export
+count_string <- function(df, pattern, all = FALSE){
+  if (!is.list(df)) {
+    stop("`df` must be a list.", call. = FALSE)
+  }
+  vals <- vapply(df, function(x) sum(stringr::str_count(x, pattern), na.rm = T), integer(1))
+  if(length(vals) == 0){
+    cat("String not found in data.\n")
+  }else{
+    vals[vals > 0 | all]
+  }
+}
+
+#########################################################################################
 # var_summary: Simple summary of the variables in a data frame.
 #########################################################################################
 #'
-#' var_summary: Simple summary of the variables in a data frame.
+#' Simple summary of the variables in a data frame.
 #'
 #' Returns a tibble with the names, class, number of NAs, number of unique values, and the number of
 #'   levels for each variable in the data. Any NA entries are included as a unique value.

@@ -2,7 +2,7 @@
 % Please edit documentation in R/count.R
 \name{var_summary}
 \alias{var_summary}
-\title{var_summary: Simple summary of the variables in a data frame.}
+\title{Simple summary of the variables in a data frame.}
 \usage{
 var_summary(df)
 }

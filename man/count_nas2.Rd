@@ -2,7 +2,7 @@
 % Please edit documentation in R/count.R
 \name{count_nas2}
 \alias{count_nas2}
-\title{count_nas2: counts NAs in a data frame by column.}
+\title{Counts NAs in a data frame by column.}
 \usage{
 count_nas2(df, all = FALSE, sort = TRUE)
 }

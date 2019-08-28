@@ -2,13 +2,13 @@
 % Please edit documentation in R/memory.R
 \name{object_size_all}
 \alias{object_size_all}
-\title{object_size_all: returns table of sizes of all object in Mb, in order}
+\title{Returns table of sizes of all objects in the global environment in Mb, in decreasing order of size.}
 \usage{
 object_size_all()
 }
 \value{
-A data frame with two columns: object name and size in Mb.
+A tibble with two columns: object name and size in Mb.
 }
 \description{
-object_size_all: returns table of sizes of all object in Mb, in order
+Returns table of sizes of all objects in the global environment in Mb, in decreasing order of size.
 }
