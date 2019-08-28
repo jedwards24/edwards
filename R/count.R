@@ -33,7 +33,8 @@ count_nas <- function(df, prop = FALSE, all = FALSE) {
 #'
 #' Counts the number of unique values in a data frame by column.
 #'
-#' Returns a vector of the number of unique values of each variable in a data frame.
+#' Returns a vector of the number of unique values of each variable in a data frame. Any NA entries are included as
+#'   a unique value.
 #'
 #' @param df A data frame.
 #'
@@ -64,3 +65,69 @@ count_levels <- function(df, all = FALSE) {
   vals <- vapply(df, nlevels, integer(1))
   vals[vals > 0 | all]
 }
+
+#########################################################################################
+# count_nas2: counts NAs in a data frame by column. Returns a tbl.
+#########################################################################################
+#'
+#' count_nas2: counts NAs in a data frame by column.
+#'
+#' @description
+#' Unlike `count_nas()` this returns the results in a tibble with columns giving:
+#'
+#' * The number of NAs for each variable in the data.
+#' * The number of NAs as a proportion of rows.
+#' * The class of each variable.
+#'
+#' @param df a data frame.
+#'
+#' @param all By default variables with no NAs are omitted from the output. Set to TRUE to show all.
+#' @param sort By default the output table is sorted by descending number of NAs. Set to FALSE to keep
+#'   variable ordering as in the data.
+#'
+#' @export
+count_nas2 <- function(df, all = FALSE, sort = TRUE) {
+  if (!is.data.frame(df)) {
+    stop("`df` must be a data frame.", call. = FALSE)
+  }
+  nas <- vapply(df, function(x) sum(is.na(x)), integer(1))
+  if (max(nas) == 0) {
+    cat("There are no NAs in the data.\n")
+  } else{
+    tibble::tibble(
+      variable = names(df),
+      nas = nas,
+      prop = n / nrow(df),
+      class = vapply(dt, function(x) class(x)[1], character(1))
+    ) %>%
+      dplyr::filter((n > 0) | all) %>%
+      `if`(sort, arrange(., desc(n)), .)
+  }
+}
+
+#########################################################################################
+# var_summary: Simple summary of the variables in a data frame.
+#########################################################################################
+#'
+#' var_summary: Simple summary of the variables in a data frame.
+#'
+#' Returns a tibble with the names, class, number of NAs, number of unique values, and the number of
+#'   levels for each variable in the data. Any NA entries are included as a unique value.
+#'
+#' @param df a data frame.
+#'
+#' @export
+var_summary <- function(df) {
+  if (!is.data.frame(df)) {
+    stop("`df` must be a data frame.", call. = FALSE)
+  }
+  tibble::tibble(var = names(df),
+                 index = 1:ncol(df),
+                 class = vapply(df, function(x) class(x)[1], integer(1)),
+                 missing = vapply(df, function(x) sum(is.na(x)), integer(1)),
+                 unique = vapply(df, function(x) length(unique(x)), integer(1)),
+                 levels = vapply(df, nlevels, integer(1))
+  )
+}
+
+
