@@ -97,11 +97,11 @@ count_nas2 <- function(df, all = FALSE, sort = TRUE) {
     tibble::tibble(
       variable = names(df),
       nas = nas,
-      prop = n / nrow(df),
+      prop = nas / nrow(df),
       class = vapply(dt, function(x) class(x)[1], character(1))
     ) %>%
-      dplyr::filter((n > 0) | all) %>%
-      `if`(sort, arrange(., desc(n)), .)
+      dplyr::filter((nas > 0) | all) %>%
+      `if`(sort, arrange(., desc(nas)), .)
   }
 }
 
