@@ -2,7 +2,7 @@
 % Please edit documentation in R/rang.R
 \name{rang_roc_cut}
 \alias{rang_roc_cut}
-\title{ROC curve optimal cut for a ranger object}
+\title{ROC curve optimal cut for a ranger object.}
 \usage{
 rang_roc_cut(rf, target, plot = TRUE)
 }
