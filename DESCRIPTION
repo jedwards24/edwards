@@ -2,11 +2,14 @@ Package: edwards
 Type: Package
 Title: JE personal package
 Version: 0.1.0
-Author: James Edwards <j.edwards4@lancaster.ac.uk> 
-Maintainer: James Edwards <j.edwards4@lancaster.ac.uk>
+Author: James Edwards <jamese1326+gh@gmail.com> 
+Maintainer: James Edwards <jamese1326+gh@gmail.com>
 Description: A collection of functions for general use that I have written.
 License: MIT + file LICENSE
 Encoding: UTF-8
 LazyData: true
 RoxygenNote: 6.1.1
-Imports: tidyverse
+Suggests: binom,
+          ranger,
+          ROCR,
+          tidyverse
