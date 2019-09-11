@@ -14,7 +14,7 @@
 #'
 #' @export
 mode_stat <- function(x, multiple = TRUE, na.rm = TRUE) {
-  if (!is.atomic(df)) {
+  if (!is.atomic(x)) {
     stop("`x` must be atomic.", call. = FALSE)
   }
   if(na.rm){
