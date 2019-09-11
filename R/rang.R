@@ -4,7 +4,8 @@
 #'
 #' ROC curve optimal cut for a ranger object.
 #'
-#' Calls `roc_cut()` for a fitted `ranger()` model. See `roc_cut()`` for details.
+#' Calls `roc_cut()` for a fitted ranger model. See `roc_cut()` for details. Assumes `probability = TRUE` was
+#' used when the ranger model was fitted.
 #'
 #' @param rf A ranger fitted model.
 #' @param target A binary class target vector matching `rf`.
@@ -75,6 +76,90 @@ rang_mtry <- function(data, fmla, m_vec, train = NULL, seed = 1, importance = "i
   g <- ggplot(reslong, aes(x = mtry, y = error, colour = metric)) +
     geom_line() +
     geom_point()
+  print(g)
+  res
+}
+
+#########################################################################################
+# oob_pred: Helper for rang_oob_err.
+#########################################################################################
+#'
+#' Helper for rang_oob_err.
+#'
+#' Returns vector of class predictions chosen by majority vote.
+#'
+#' Note predictions may include NaNs if there are no out-of-bag predictions for a data point.
+#'
+#' @param pred_mat Matrix of out-of-bag individual tree class predicitions with a zero where the prediciton
+#'   was in bag. Rows are observation, columns are trees.
+#' @param n_trees Positive integer. Gives the number of trees to be used in the prediction (columns `1:n_trees`
+#'   of `pred_mat` will be used).
+#'
+oob_pred <- function(pred_mat, n_trees) {
+  oob_mat <- pred_mat[, 1:n_trees, drop = F]
+  zeroes <- apply(pred_mat, 1, FUN = function(x) sum(x > 0))
+  score <- rowSums(pred_mat) / zeroes
+  round(score)
+}
+
+#########################################################################################
+# err_by_class: Error rate by class prediction.
+#########################################################################################
+#'
+#' Error rate by class prediction.
+#'
+#' Returns the rate of mismatches between entries of `pred_vec` that equal `class` and the
+#' corresponding elements of `target`.
+#'
+#' @param pred_vec Integer vector of class predictions.
+#' @param target Integer vector of true classes.
+#' @param class Integer indicating which class predictions to measure.
+#'
+#' @export
+err_by_class <- function(pred_vec, target, class = 1) {
+  inds <- which(pred_vec == class)
+  mean(pred_vec[inds] != target[inds], na.rm = T)
+}
+
+#########################################################################################
+# rang_oob_err: Out-of-bag error rates by number of trees for a ranger random forest.
+#########################################################################################
+#'
+#' Out-of-bag error rates by number of trees for a ranger random forest.
+#'
+#' Returns a table of out-of-bag error rates for a ranger randomw forest using number of trees
+#' from 10 to all trees in steps of 10.
+#'
+#' @param rf A ranger random forest object.
+#' @param data A data frame used to fit `rf`.
+#'
+#' @export
+rang_oob_err <- function(rf, data) {
+  nn <- nrow(dt)
+  ntr <- rf$num.trees
+  # Convert inbag counts (list) to matrix
+  inbag_mat <- matrix(0, nrow = nn, ncol = ntr)
+  for (i in 1 : ntr){
+    inbag_mat[, i] <- rf$inbag.counts[[i]]
+  }
+  oob_mat <- if_else(inbag_mat > 0, 0, predict(rf, data, predict.all = T)$predictions) %>%
+    matrix(., nrow = nrow(inbag_mat))
+
+  ntrees_vec <- seq(10, ntr, by = 10)
+  preds_n_mat <- matrix(0L, nrow = nn, ncol = length(ntrees_vec))
+  for (i in 1:length(ntrees_vec)){
+    preds_n_mat[, i] <- oob_pred(oob_mat, ntrees_vec[i])
+  }
+
+  errs <- apply(preds_n_mat, 2, FUN = function(x, top) mean(x != top, na.rm = T), top = top)
+  res <- tibble(num.trees = ntrees_vec,
+                total = errs,
+                class_1 = apply(preds_n_mat, 2, FUN = err_by_class, target = top, class = 1),
+                class_2 = apply(preds_n_mat, 2, FUN = err_by_class, target = top, class = 2))
+  res_long <- gather(res, key = "pred", value = "error_rate", -num.trees)
+  g <- ggplot(res_long, aes(x = num.trees, y = error_rate, color = pred)) +
+    geom_line() +
+    ylab("OOB Error Rate")
   print(g)
   res
 }

@@ -14,5 +14,6 @@ rang_roc_cut(rf, target, plot = TRUE)
 \item{plot}{Produce a plot. Defaults to `TRUE`.}
 }
 \description{
-Calls `roc_cut()` for a fitted `ranger()` model. See `roc_cut()`` for details.
+Calls `roc_cut()` for a fitted ranger model. See `roc_cut()` for details. Assumes `probability = TRUE` was
+used when the ranger model was fitted.
 }
