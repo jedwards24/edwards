@@ -9,7 +9,7 @@
 #' variables (i.e. not dates or numeric) then pariwise equality will be summarised.
 #'
 #' @param df A data frame.
-#' @param var1,var2 String names of the two columns to be compared.
+#' @param var1,var2 The two columns to be compared, either string names or integer positions.
 #'
 #' @export
 compare_vars <- function(df, var1, var2) {
@@ -18,9 +18,10 @@ compare_vars <- function(df, var1, var2) {
   if(is.factor(vec1)) vec1 <- levels(vec1)[vec1]
   if(is.factor(vec2)) vec2 <- levels(vec2)[vec2]
   both_num <- is.numeric(vec1) && is.numeric(vec2)
-  both_date <- (is.Date(vec1) && is.Date(vec2)) || (is.POSIXt(vec1) && is.POSIXt(vec2))
-  name1 <- names(df)[var1]
-  name2 <- names(df)[var2]
+  both_date <- (lubridate::is.Date(vec1) && lubridate::is.Date(vec2)) ||
+    (lubridate::is.POSIXt(vec1) && lubridate::is.POSIXt(vec2))
+  name1 <- if (is.numeric(var1)) names(df)[var1] else var1
+  name2 <- if (is.numeric(var1)) names(df)[var2] else var2
   if(!(both_num || both_date)){
     diff_all <- vec1 == vec2
     diff <- diff_all[!is.na(diff_all)]
