@@ -4,7 +4,7 @@ This is a package of some R functions I wrote for personal use.
 
 The functions are a loose collection with a general data science theme. A quick summary in rough categories is:
 
-+ Counting functions. These begin with `count_` and count NAs, levels, string patterns, or unique values by variable in a data frame. `count_at()` gives a shortcut to use `dplyr::count()` over several variables.
++ Counting functions. These begin with `count_` and count NAs, levels, string patterns, or unique values by variable in a data frame. `count_at()` gives a shortcut to use `dplyr::count()` over several variables. `var_summary()` performs a number of these counts and puts the results in a table.
 + Basic functions. `mode_stat()` (Statistical mode), `factor_to_numeric()` (factor conversion), `ilogit()` (inverse logit function), and `object_size_all()` (summary of memory used by objects).
 + Binning functions. `bin_numeric()` and `bin_integer_fct()` for converting to binned factors with appropriate level names.
 + Kable helpers. `my_kable()` and `split_kable()`.
@@ -16,3 +16,12 @@ The functions are a loose collection with a general data science theme. A quick 
 + `convert_date()`: date conversion for a particular pattern.
 
 I haven't finalised dependencies yet. Some functions are tidyverse-based, while in others I have made an effort to stick to base R. The ROC and ranger functions require ROCR and ranger.
+
+## Installation
+
+You can install the package from github with:
+
+```
+# install.packages("devtools")
+devtools::install_github("jedwards24/edwards")
+```
