@@ -38,7 +38,7 @@ bin_numeric <- function(x, cuts, na_level = NULL, na_at_end = FALSE){
 # bin_integer_fct: Bins integer levels in a factor.
 #########################################################################################
 #'
-#' bin_integer_fct: Bins integer levels in a factor.
+#' Bins integer levels in a factor.
 #'
 #' Input is a vector with levels that, all except one, are naturally integers e.g. "60". The other level is a
 #' string e.g. "missing".  An ordered factor is returned with the "integer" levels grouped into bins

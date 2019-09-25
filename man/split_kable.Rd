@@ -2,7 +2,7 @@
 % Please edit documentation in R/kable.R
 \name{split_kable}
 \alias{split_kable}
-\title{split_kable: Split a table in into parts of balanced size.}
+\title{Split a table in into parts of balanced size.}
 \usage{
 split_kable(df, index, n_tb = 2, digits = 3)
 }

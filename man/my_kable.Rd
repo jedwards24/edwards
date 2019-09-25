@@ -2,7 +2,7 @@
 % Please edit documentation in R/kable.R
 \name{my_kable}
 \alias{my_kable}
-\title{my_kable: Version of kable with standard styling to save typing.}
+\title{Version of kable with standard styling to save typing.}
 \usage{
 my_kable(df, digits = 3)
 }

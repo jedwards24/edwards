@@ -9,7 +9,7 @@ compare_vars(df, var1, var2)
 \arguments{
 \item{df}{A data frame.}
 
-\item{var1, var2}{String names of the two columns to be compared.}
+\item{var1, var2}{The two columns to be compared, either string names or integer positions.}
 }
 \description{
 Returns a table summarising the ordering of corresponding elements of two columns in a data frame.
