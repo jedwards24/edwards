@@ -2,17 +2,17 @@
 % Please edit documentation in R/compare.R
 \name{compare_vars}
 \alias{compare_vars}
-\title{Summarise pairwise element ordering of two variables in a dataframe.}
+\title{Summarise pairwise element comparison of two variables in a dataframe.}
 \usage{
-compare_vars(df, var1, var2)
+compare_vars(df, var1, var2, simple = F)
 }
 \arguments{
 \item{df}{A data frame.}
 
 \item{var1, var2}{The two columns to be compared, either string names or integer positions.}
+
+\item{simple}{Boolean. If TRUE then only checks for pairwise differences, not ordering.}
 }
 \description{
 Returns a table summarising the ordering of corresponding elements of two columns in a data frame.
-Also prints a comparison of the means of the vectors if numeric. If ordering is not appropriate for the
-variables (i.e. not dates or numeric) then pariwise equality will be summarised.
 }
