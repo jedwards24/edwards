@@ -16,7 +16,6 @@ compare_vars <- function(df, var1, var2, simple = F) {
   vec2 <- df[, var2, drop=T]
   name1 <- if (is.numeric(var1)) names(df)[var1] else var1
   name2 <- if (is.numeric(var2)) names(df)[var2] else var2
-  print(names(vec1))
   compare_vecs(vec1, vec2, names = c(name1, name2), simple = simple)
 }
 
