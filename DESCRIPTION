@@ -9,7 +9,9 @@ License: MIT + file LICENSE
 Encoding: UTF-8
 LazyData: true
 RoxygenNote: 6.1.1
-Suggests: binom,
-          ranger,
-          ROCR,
-          tidyverse
+Suggests: 
+    binom,
+    ranger,
+    ROCR,
+    tidyverse,
+    testthat (>= 2.1.0)
