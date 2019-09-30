@@ -2,15 +2,28 @@
 % Please edit documentation in R/count.R
 \name{count_string}
 \alias{count_string}
-\title{Counts the total number of string pattern matches in a data frame by column.}
+\title{Counts the total number, by column, of entries in a data frame that match a string pattern.}
 \usage{
 count_string(df, pattern, all = FALSE)
 }
 \arguments{
 \item{df}{A data frame.}
 
-\item{all}{By default variables with no levels are omitted from the output. Set all=T to show all.}
+\item{pattern}{A string pattern (regular expression).}
+
+\item{all}{By default variables with no matches are omitted from the output. Set all=T to show all.}
 }
 \description{
-Returns a vector of the number of matches to a string pattern `pattern` of each variable in a data frame.
+Returns a named integer vector with elements that give the number of entries in the corresponding
+column of \code{df} that contain a match to the string pattern \code{pattern}.
+}
+\details{
+Note that repeated occurences of \code{pattern} in a single string are only counted once (see examples).
+}
+\examples{
+x <- data.frame(a = c("an", "banana", "candy"), b = c("on", "bon", "bonbon"))
+count_string(x, "an", all = T)
+count_string(x, "an")
+count_string(x, "b")
+
 }
