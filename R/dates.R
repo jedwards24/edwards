@@ -7,20 +7,22 @@
 #' Reads text vectors which are either in dmy or dmy:time format. If all of the times are
 #' zeroes then the output is a date. Fully `NA` vectors are returned as dates.
 #'
-#' @param df A data frame.
-#' @param var1,var2 String names of the two columns to be compared.
+#' @param x A character vector to be converted.
 #'
 #' @export
 convert_date <- function(x) {
-  if(all(is.na(x))){
-    return(as_date(x))
+  if (!is.character(x)){
+    stop("Input must be a character vector.")
   }
+    if (all(is.na(x))) {
+      return(as_date(x))
+    }
   xstr <- x[which.max(str_length(x))]
-  if(stringr::str_detect(xstr, ":")){
-    xsplit <- stringr::str_split_fixed(xstr, ":", 2)[, ,drop = T]
-    if(any(stringr::str_detect(xsplit[2], "[1-9]"))){
+  if (stringr::str_detect(xstr, ":")) {
+    xsplit <- stringr::str_split_fixed(xstr, ":", 2)[, , drop = T]
+    if (any(stringr::str_detect(xsplit[2], "[1-9]"))) {
       return(lubridate::dmy_hms(x))
-    }else{
+    } else{
       x <- stringr::str_split_fixed(x, ":", 2)[, 1, drop = T]
     }
   }

@@ -7,9 +7,7 @@
 convert_date(x)
 }
 \arguments{
-\item{df}{A data frame.}
-
-\item{var1, var2}{String names of the two columns to be compared.}
+\item{x}{A character vector to be converted.}
 }
 \description{
 Reads text vectors which are either in dmy or dmy:time format. If all of the times are
