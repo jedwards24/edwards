@@ -144,6 +144,53 @@ count_string <- function(df, pattern, all = FALSE){
 }
 
 #########################################################################################
+# count_matches: Counts the total number of exact matches to a value in a data frame by column.
+#########################################################################################
+#'
+#' count_matches: Counts the total number of exact matches to a value in a data frame by column.
+#'
+#' Returns a named integer vector with elements that give the number of entries in the corresponding
+#' column of \code{df} that match to the argument \code{value}. No coercion is used so type must also match.
+#'
+#' @param df A data frame.
+#' @param value A length one vector.
+#' @param all By default variables with no matches are omitted from the output. Set all=T to show all.
+#' @examples
+#' x <- data.frame(a = c("an", "banana", "candy"), b = c("on", "bon", "bonbon"), c = 1:3)
+#' count_matches(x, "an", all = T)
+#' count_matches(x, "an")
+#' count_matches(x, 1L)
+#' count_matches(x, 1) # type must match
+#' count_matches(x, "1") # type must match
+#'
+#' @export
+#'
+count_matches <- function(df, value, all = FALSE){
+  if (!is.list(df)) {
+    stop("`df` must be a list.", call. = FALSE)
+  }
+  if (length(value) != 1){
+    stop("value must be length 1.", call. = FALSE)
+  }
+  type <- typeof(value)
+  f <- function(x){
+    if (typeof(x) == type | (is.factor(x) & type == "character")){
+      sum(x == value, na.rm = TRUE)
+    }else{
+      0L
+    }
+  }
+  vals <- vapply(df, f, integer(1))
+  vals <- vals[vals > 0 | all]
+  if(length(vals) == 0){
+    message("No matches found in data.")
+    invisible(vals)
+  }else{
+    vals
+  }
+}
+
+#########################################################################################
 # var_summary: Simple summary of the variables in a data frame.
 #########################################################################################
 #'
