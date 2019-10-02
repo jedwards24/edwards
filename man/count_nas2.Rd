@@ -15,9 +15,10 @@ count_nas2(df, all = FALSE, sort = TRUE)
 variable ordering as in the data.}
 }
 \description{
-Unlike `count_nas()` this returns the results in a tibble with columns giving:
-
-* The number of NAs for each variable in the data.
-* The number of NAs as a proportion of rows.
-* The class of each variable.
+Unlike \code{count_nas()} this returns the results in a tibble with columns giving:
+\itemize{
+\item{The number of NAs for each variable in the data.}
+\item{The number of NAs as a proportion of rows.}
+\item{The class of each variable.}
+}
 }

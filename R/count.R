@@ -4,26 +4,23 @@
 #'
 #' Counts NAs in a data frame by column.
 #'
-#' Returns a vector of the number or proportion of NAs of each variable in a data frame.
+#' Returns a vector of the number of NAs of each variable in a data frame.
 #'
 #' @param df A data frame.
-#'
-#' @param prop By default the count os NAs is returned. Set to TRUE instead return a proportion.
 #' @param all By default variables with no NAs are omitted from the output. Set to TRUE to show all.
 #'
 #' @export
-count_nas <- function(df, prop = FALSE, all = FALSE) {
+count_nas <- function(df, all = FALSE) {
   if (!is.list(df)) {
     stop("`df` must be a list.", call. = FALSE)
   }
   vals <- vapply(df, function(x) sum(is.na(x)), integer(1))
-  if (prop) {
-    vals <- vals / dim(df)[1]
-  }
-  if(max(vals) == 0){
-    cat("There are no NAs in the data.\n")
+  vals <- vals[vals > 0 | all]
+  if(length(vals) == 0){
+    message("There are no NAs in the data.")
+    invisible(vals)
   }else{
-    vals[vals > 0 | all]
+    vals
   }
 }
 
@@ -63,7 +60,13 @@ count_levels <- function(df, all = FALSE) {
     stop("`df` must be a list.", call. = FALSE)
   }
   vals <- vapply(df, nlevels, integer(1))
-  vals[vals > 0 | all]
+  vals <- vals[vals > 0 | all]
+  if(length(vals) == 0){
+    message("There are no factors in the data.")
+    invisible(vals)
+  }else{
+    vals
+  }
 }
 
 #########################################################################################
@@ -73,11 +76,12 @@ count_levels <- function(df, all = FALSE) {
 #' Counts NAs in a data frame by column.
 #'
 #' @description
-#' Unlike `count_nas()` this returns the results in a tibble with columns giving:
-#'
-#' * The number of NAs for each variable in the data.
-#' * The number of NAs as a proportion of rows.
-#' * The class of each variable.
+#' Unlike \code{count_nas()} this returns the results in a tibble with columns giving:
+#' \itemize{
+#' \item{The number of NAs for each variable in the data.}
+#' \item{The number of NAs as a proportion of rows.}
+#' \item{The class of each variable.}
+#' }
 #'
 #' @param df A data frame.
 #'
@@ -92,13 +96,13 @@ count_nas2 <- function(df, all = FALSE, sort = TRUE) {
   }
   nas <- vapply(df, function(x) sum(is.na(x)), integer(1))
   if (max(nas) == 0) {
-    cat("There are no NAs in the data.\n")
+    message("There are no NAs in the data")
   } else{
     tibble::tibble(
       variable = names(df),
       nas = nas,
       prop = nas / nrow(df),
-      class = vapply(dt, function(x) class(x)[1], character(1))
+      class = vapply(df, function(x) class(x)[1], character(1))
     ) %>%
       dplyr::filter((nas > 0) | all) %>%
       `if`(sort, arrange(., desc(nas)), .)
@@ -138,7 +142,7 @@ count_string <- function(df, pattern, all = FALSE){
   vals <- vapply(df, f, integer(1))
   vals <- vals[vals > 0 | all]
   if(length(vals) == 0){
-    message("String not found in data..")
+    message("String not found in data.")
     invisible(vals)
   }else{
     vals
@@ -172,7 +176,7 @@ count_matches <- function(df, value, all = FALSE){
     stop("`df` must be a list.", call. = FALSE)
   }
   if (length(value) != 1){
-    stop("value must be length 1.", call. = FALSE)
+    stop("`value` must be length 1.", call. = FALSE)
   }
   type <- typeof(value)
   f <- function(x){
