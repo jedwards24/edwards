@@ -112,7 +112,8 @@ count_nas2 <- function(df, all = FALSE, sort = TRUE) {
 #' Counts the total number, by column, of entries in a data frame that match a string pattern.
 #'
 #' Returns a named integer vector with elements that give the number of entries in the corresponding
-#' column of \code{df} that contain a match to the string pattern \code{pattern}.
+#' column of \code{df} that contain a match to the string pattern \code{pattern}. No coercion is used
+#' so only characters or factors are matched (see examples).
 #'
 #' Note that repeated occurences of \code{pattern} in a single string are only counted once (see examples).
 #'
@@ -120,17 +121,21 @@ count_nas2 <- function(df, all = FALSE, sort = TRUE) {
 #' @param pattern A string pattern (regular expression).
 #' @param all By default variables with no matches are omitted from the output. Set all=T to show all.
 #' @examples
-#' x <- data.frame(a = c("an", "banana", "candy"), b = c("on", "bon", "bonbon"))
+#' x <- data.frame(a = c("an", "banana", "candy"), b = c("on", "bon", "bonbon"), d = 1:3)
 #' count_string(x, "an", all = T)
 #' count_string(x, "an")
 #' count_string(x, "b")
+#' count_string(x, "1") # not matched to integers
 #'
 #' @export
 count_string <- function(df, pattern, all = FALSE){
   if (!is.list(df)) {
     stop("`df` must be a list.", call. = FALSE)
   }
-  vals <- vapply(df, function(x) sum(stringr::str_detect(x, pattern), na.rm = T), integer(1))
+  f <- function(x){
+    if (is.character(x) | is.factor(x)) sum(stringr::str_detect(x, pattern), na.rm = T) else 0L
+  }
+  vals <- vapply(df, f, integer(1))
   if(length(vals) == 0){
     cat("String not found in data.\n")
   }else{

@@ -15,15 +15,17 @@ count_string(df, pattern, all = FALSE)
 }
 \description{
 Returns a named integer vector with elements that give the number of entries in the corresponding
-column of \code{df} that contain a match to the string pattern \code{pattern}.
+column of \code{df} that contain a match to the string pattern \code{pattern}. No coercion is used
+so only characters or factors are matched (see examples).
 }
 \details{
 Note that repeated occurences of \code{pattern} in a single string are only counted once (see examples).
 }
 \examples{
-x <- data.frame(a = c("an", "banana", "candy"), b = c("on", "bon", "bonbon"))
+x <- data.frame(a = c("an", "banana", "candy"), b = c("on", "bon", "bonbon"), d = 1:3)
 count_string(x, "an", all = T)
 count_string(x, "an")
 count_string(x, "b")
+count_string(x, "1") # not matched to integers
 
 }
