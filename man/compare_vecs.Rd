@@ -15,5 +15,6 @@ compare_vecs(x, y, names = NULL, simple = F)
 }
 \description{
 Returns a table summarising the ordering of corresponding elements of the two supplied vectors. Inputs can be
-factors but must be atomic and the same length.
+factors but must be atomic and the same length. If the vectors are of different classes or types then the
+comparison will depend on coercion.
 }

@@ -4,7 +4,8 @@
 #'
 #' Summarise pairwise element comparison of two variables in a dataframe.
 #'
-#' Returns a table summarising the ordering of corresponding elements of two columns in a data frame.
+#' Returns a table summarising the ordering of corresponding elements of two columns in a data frame. Columns
+#' can be of different type or class but will then depend on coercion.
 #'
 #' @param df A data frame.
 #' @param var1,var2 The two columns to be compared, either string names or integer positions.
@@ -26,7 +27,8 @@ compare_vars <- function(df, var1, var2, simple = F) {
 #' Summarise pairwise element comparison of two vectors.
 #'
 #' Returns a table summarising the ordering of corresponding elements of the two supplied vectors. Inputs can be
-#' factors but must be atomic and the same length.
+#' factors but must be atomic and the same length. If the vectors are of different classes or types then the
+#' comparison will depend on coercion.
 #'
 #' @param x,y The two vectors to be compared. Both vectors must be atomic and of the same length.
 #' @param names Optional length 2 string vector of names for each vector. Otherwise, "x" and "y" are used.
@@ -48,6 +50,9 @@ compare_vecs <- function(x, y, names = NULL, simple = F){
   }else{
     name1 <- names[1]
     name2 <- names[2]
+  }
+  if (class(x) != class(y)){
+    warning("Vectors have different classes: ", class(x), " and ", class(y), ".", call. = FALSE)
   }
   both_na <- is.na(x) & is.na(y)
   equal <- sum(x == y, na.rm = T)

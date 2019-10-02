@@ -14,5 +14,6 @@ compare_vars(df, var1, var2, simple = F)
 \item{simple}{Boolean. If TRUE then only checks for pairwise differences, not ordering.}
 }
 \description{
-Returns a table summarising the ordering of corresponding elements of two columns in a data frame.
+Returns a table summarising the ordering of corresponding elements of two columns in a data frame. Columns
+can be of different type or class but will then depend on coercion.
 }
