@@ -136,10 +136,12 @@ count_string <- function(df, pattern, all = FALSE){
     if (is.character(x) | is.factor(x)) sum(stringr::str_detect(x, pattern), na.rm = T) else 0L
   }
   vals <- vapply(df, f, integer(1))
+  vals <- vals[vals > 0 | all]
   if(length(vals) == 0){
-    cat("String not found in data.\n")
+    message("String not found in data..")
+    invisible(vals)
   }else{
-    vals[vals > 0 | all]
+    vals
   }
 }
 
@@ -183,7 +185,7 @@ count_matches <- function(df, value, all = FALSE){
   vals <- vapply(df, f, integer(1))
   vals <- vals[vals > 0 | all]
   if(length(vals) == 0){
-    message("No matches found in data.")
+    message("No matches in data.")
     invisible(vals)
   }else{
     vals
