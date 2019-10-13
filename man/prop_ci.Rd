@@ -5,35 +5,44 @@
 \title{Confidence intervals for binary target variable by values of a discrete predictor.}
 \usage{
 prop_ci(dt, target_name, var_name, min_n = 1, show_all = T,
-  conf.level = 0.95, prop_lim = NULL)
+  conf_level = 0.95, prop_lim = NULL, pos_class = NULL)
 }
 \arguments{
 \item{dt}{A data frame.}
 
-\item{target_name}{String. Name of target variable. Must be binary (either TRUE/FALSE or 0/1).}
+\item{target_name}{String. Name of target variable.}
 
 \item{var_name}{String. Name of predictor variable.}
 
-\item{min_n}{Integer >= 1. Predictor levels with less than `min_n` observations are not displayed.}
+\item{min_n}{Integer >= 1. Predictor levels with less than \code{min_n} observations are not displayed.}
 
-\item{show_all}{Boolean. Defaults to TRUE. If FALSE will not show levels whose confidence interval
+\item{show_all}{Boolean. Defaults to \code{TRUE}. If \code{FALSE} will not show levels whose confidence interval
 overlaps the mean response of all observations.}
 
-\item{conf.level}{Numeric in (0,1). Confidence level used for confidence intervals.}
+\item{prop_lim}{Optional x axis limits passed to \code{ggplot()} e.g. \code{c(0,1)}.}
 
-\item{prop_lim}{Optional x axis limits passed to `ggplot()` e.g. `c(0,1)`.}
+\item{pos_class}{Optional. Specify value in target to associate with class 1.}
+
+\item{conf.level}{Numeric in (0,1). Confidence level used for confidence intervals.}
 }
 \description{
-For a data frame input, one variable is a binary target (`target_name`) and another is selected to
-be a predictor variable (`var_name`). Mean response and a confidence interval is calculated for the
+For a data frame input, one variable is a binary target (\code{target_name}) and another is selected to
+be a predictor variable (\code{var_name}). Mean response and a confidence interval is calculated for the
 target variable for each level or value of the predictor. The results are plotted and returned as a
 table. The function most appropriate for factor predictors but will work with other variable types also.
 }
 \details{
-Currently requires various functions from various tidyverse packages.
-* Different colours are used depending on whether the interval is above/below/overlapping the population
-  mean. Currently sometimes inconsistent.
-* Predictor levels are sorted by n but good to add option to keep usual ordering. Detect ordered factors?
-* Doesn't handle NAs currently.
-* Target must currently be a non-factor. Need to handle this.
+The target variable must be binary. Top compute confidence intervals this is converted to 0 and 1 values.
+If it is not obvious which value corresponds to 1 and which to 0 then it will be based on level order
+if a factor and the first observation otherwise. Giving the value of corresponding to 1 in the argument
+\code{pos_class} will override this.
+
+Currently requires various functions from various tidyverse packages. Some known issues:
+
+\itemize{
+  \item Different colours are used depending on whether the interval is above/below/overlapping the population
+    mean. Currently sometimes inconsistent.
+  \item Predictor levels are sorted by n but good to add option to keep usual ordering. Detect ordered factors?
+  \item Doesn't handle NAs currently.
+}
 }
