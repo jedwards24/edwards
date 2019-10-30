@@ -9,7 +9,7 @@ count_levels(df, all = FALSE)
 \arguments{
 \item{df}{A data frame.}
 
-\item{all}{By default variables with no levels are omitted from the output. Set all=T to show all.}
+\item{all}{By default variables with no levels are omitted from the output. Set \code{all=TRUE} to show all.}
 }
 \description{
 Returns a vector of the number of levels of each variable in a data frame.

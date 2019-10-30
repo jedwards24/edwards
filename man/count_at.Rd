@@ -2,7 +2,7 @@
 % Please edit documentation in R/count.R
 \name{count_at}
 \alias{count_at}
-\title{Performs dplyr::count for a range of variables in a data frame.}
+\title{Performs \code{dplyr::count()} for a range of variables in a data frame.}
 \usage{
 count_at(df, cols = NULL, sort = TRUE, n = 10)
 }
@@ -11,11 +11,11 @@ count_at(df, cols = NULL, sort = TRUE, n = 10)
 
 \item{cols}{Vector of integer indices. If not given counts for all columns are given.}
 
-\item{sort}{Boolean passed to `count()` to say whether results are sorted by descending number of observation..
-Defaults to TRUE (unlike `count()`).}
+\item{sort}{Boolean passed to \code{count()} to say whether results are sorted by descending number of observation..
+Unlike in \code{count()}, this defaults to \code{TRUE}.}
 
-\item{n}{Integer passed to `print()` which gives the maximum number of rows printed in each count summary.}
+\item{n}{Integer passed to \code{print()} which gives the maximum number of rows printed in each count summary.}
 }
 \description{
-Prints output from dplyr::count for each variable index given by argument `cols` (an integer vector).
+Prints output from \code{dplyr::count()} for each variable index given by argument \code{cols} (an integer vector).
 }

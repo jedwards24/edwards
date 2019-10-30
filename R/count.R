@@ -7,7 +7,7 @@
 #' Returns a vector of the number of NAs of each variable in a data frame.
 #'
 #' @param df A data frame.
-#' @param all By default variables with no NAs are omitted from the output. Set to TRUE to show all.
+#' @param all By default variables with no NAs are omitted from the output. Set to \code{TRUE} to show all.
 #'
 #' @export
 count_nas <- function(df, all = FALSE) {
@@ -38,7 +38,7 @@ count_nas <- function(df, all = FALSE) {
 #' @export
 count_unique <- function(df) {
   if (!is.list(df)) {
-    stop("`df` must be a list.", call. = FALSE)
+    stop("Argument \"df\" must be a list.", call. = FALSE)
   }
   vapply(df, function(x) length(unique(x)), integer(1))
 }
@@ -52,12 +52,12 @@ count_unique <- function(df) {
 #' Returns a vector of the number of levels of each variable in a data frame.
 #'
 #' @param df A data frame.
-#' @param all By default variables with no levels are omitted from the output. Set all=T to show all.
+#' @param all By default variables with no levels are omitted from the output. Set \code{all=TRUE} to show all.
 #'
 #' @export
 count_levels <- function(df, all = FALSE) {
   if (!is.list(df)) {
-    stop("`df` must be a list.", call. = FALSE)
+    stop("Argument \"df\" must be a list.", call. = FALSE)
   }
   vals <- vapply(df, nlevels, integer(1))
   vals <- vals[vals > 0 | all]
@@ -85,14 +85,14 @@ count_levels <- function(df, all = FALSE) {
 #'
 #' @param df A data frame.
 #'
-#' @param all By default variables with no NAs are omitted from the output. Set to TRUE to show all.
-#' @param sort By default the output table is sorted by descending number of NAs. Set to FALSE to keep
+#' @param all By default variables with no NAs are omitted from the output. Set to \code{TRUE} to show all.
+#' @param sort By default the output table is sorted by descending number of NAs. Set to \code{FALSE} to keep
 #'   variable ordering as in the data.
 #'
 #' @export
 count_nas2 <- function(df, all = FALSE, sort = TRUE) {
   if (!is.data.frame(df)) {
-    stop("`df` must be a data frame.", call. = FALSE)
+    stop("Argument \"df\" must be a data frame.", call. = FALSE)
   }
   nas <- vapply(df, function(x) sum(is.na(x)), integer(1))
   if (max(nas) == 0) {
@@ -134,7 +134,7 @@ count_nas2 <- function(df, all = FALSE, sort = TRUE) {
 #' @export
 count_string <- function(df, pattern, all = FALSE){
   if (!is.list(df)) {
-    stop("`df` must be a list.", call. = FALSE)
+    stop("Argument \"df\" must be a list.", call. = FALSE)
   }
   f <- function(x){
     if (is.character(x) | is.factor(x)) sum(stringr::str_detect(x, pattern), na.rm = T) else 0L
@@ -173,10 +173,10 @@ count_string <- function(df, pattern, all = FALSE){
 #'
 count_matches <- function(df, value, all = FALSE){
   if (!is.list(df)) {
-    stop("`df` must be a list.", call. = FALSE)
+    stop("Argument \"df\" must be a list.", call. = FALSE)
   }
   if (length(value) != 1){
-    stop("`value` must be length 1.", call. = FALSE)
+    stop("Argument \"value\" must be length 1.", call. = FALSE)
   }
   type <- typeof(value)
   f <- function(x){
@@ -202,22 +202,24 @@ count_matches <- function(df, value, all = FALSE){
 #'
 #' Simple summary of the variables in a data frame.
 #'
-#' Returns a tibble with the names, class, number of NAs, number of unique values, and the number of
-#'   levels for each variable in the data. Any NA entries are included as a unique value.
+#' Returns a tibble with the names, class, number of NAs, and number of unique values for
+#' each variable in the data. If there are \code{NA} values then they are included as a unique value.
 #'
 #' @param df A data frame.
 #'
 #' @export
 var_summary <- function(df) {
   if (!is.data.frame(df)) {
-    stop("`df` must be a data frame.", call. = FALSE)
+    stop("Argument \"df\" must be a data frame.", call. = FALSE)
   }
+   if (ncol(df) == 0) {
+     message("The data frame has zero columns.")
+   }
   tibble::tibble(var = names(df),
-                 index = 1:ncol(df),
+                 index = seq_along(df),
                  class = vapply(df, function(x) class(x)[1], character(1)),
                  missing = vapply(df, function(x) sum(is.na(x)), integer(1)),
-                 unique = vapply(df, function(x) length(unique(x)), integer(1)),
-                 levels = vapply(df, nlevels, integer(1))
+                 unique = vapply(df, function(x) length(unique(x)), integer(1))
   )
 }
 
@@ -225,24 +227,24 @@ var_summary <- function(df) {
 # count_at: Performs dplyr::count for a range of variables in a data frame.
 #########################################################################################
 #'
-#' Performs dplyr::count for a range of variables in a data frame.
+#' Performs \code{dplyr::count()} for a range of variables in a data frame.
 #'
-#' Prints output from dplyr::count for each variable index given by argument `cols` (an integer vector).
+#' Prints output from \code{dplyr::count()} for each variable index given by argument \code{cols} (an integer vector).
 #'
 #' @param df A data frame.
 #' @param cols Vector of integer indices. If not given counts for all columns are given.
-#' @param sort Boolean passed to `count()` to say whether results are sorted by descending number of observation..
-#'   Defaults to TRUE (unlike `count()`).
-#' @param n Integer passed to `print()` which gives the maximum number of rows printed in each count summary.
+#' @param sort Boolean passed to \code{count()} to say whether results are sorted by descending number of observation..
+#'   Unlike in \code{count()}, this defaults to \code{TRUE}.
+#' @param n Integer passed to \code{print()} which gives the maximum number of rows printed in each count summary.
 #'
 #' @export
 count_at <- function(df, cols = NULL, sort = TRUE, n = 10) {
   if (is.null(cols)) cols <- 1 : ncol(df)
   if (!is.data.frame(df)) {
-    stop("`df` must be a data frame.", call. = FALSE)
+    stop("Argument \"df\" must be a data frame.", call. = FALSE)
   }
   if (!all(cols %in% 1 : ncol(df))) {
-    stop("Values in `cols` must match column numbers in `df`", call. = FALSE)
+    stop("Values in \"cols\" must match column numbers in \"df\"", call. = FALSE)
   }
   for(name in names(df)[cols]){
     print(count(df, !!as.name(name), sort = sort), n = n)

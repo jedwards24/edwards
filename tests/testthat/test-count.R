@@ -26,3 +26,11 @@ test_that("count_nas is correct", {
   expect_true(is.integer(mt))
   expect_gt(sum(count_nas(airquality)), 0)
 })
+
+test_that("var_summary works", {
+  df <- data.frame()
+  expect_message(var_summary(df), "zero columns")
+  expect_type(var_summary(df), "list")
+  expect_error(var_summary(list(1)), "must be a data frame")
+})
+

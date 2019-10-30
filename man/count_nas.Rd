@@ -9,7 +9,7 @@ count_nas(df, all = FALSE)
 \arguments{
 \item{df}{A data frame.}
 
-\item{all}{By default variables with no NAs are omitted from the output. Set to TRUE to show all.}
+\item{all}{By default variables with no NAs are omitted from the output. Set to \code{TRUE} to show all.}
 }
 \description{
 Returns a vector of the number of NAs of each variable in a data frame.

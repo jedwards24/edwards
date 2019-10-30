@@ -9,9 +9,9 @@ count_nas2(df, all = FALSE, sort = TRUE)
 \arguments{
 \item{df}{A data frame.}
 
-\item{all}{By default variables with no NAs are omitted from the output. Set to TRUE to show all.}
+\item{all}{By default variables with no NAs are omitted from the output. Set to \code{TRUE} to show all.}
 
-\item{sort}{By default the output table is sorted by descending number of NAs. Set to FALSE to keep
+\item{sort}{By default the output table is sorted by descending number of NAs. Set to \code{FALSE} to keep
 variable ordering as in the data.}
 }
 \description{
