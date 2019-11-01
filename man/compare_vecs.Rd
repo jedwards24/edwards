@@ -4,7 +4,7 @@
 \alias{compare_vecs}
 \title{Summarise pairwise element comparison of two vectors.}
 \usage{
-compare_vecs(x, y, names = NULL, simple = F)
+compare_vecs(x, y, names = NULL, simple = F, tol = 1e-06)
 }
 \arguments{
 \item{x, y}{The two vectors to be compared. Both vectors must be atomic and of the same length.}
@@ -12,6 +12,8 @@ compare_vecs(x, y, names = NULL, simple = F)
 \item{names}{Optional length 2 string vector of names for each vector. Otherwise, "x" and "y" are used.}
 
 \item{simple}{Boolean. If TRUE then only checks for pairwise differences, not ordering.}
+
+\item{tol}{When comparing numeric vectors, equality and inequality comparisons use this tolerance.}
 }
 \description{
 Returns a table summarising the ordering of corresponding elements of the two supplied vectors. Inputs can be

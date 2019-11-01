@@ -10,14 +10,15 @@
 #' @param df A data frame.
 #' @param var1,var2 The two columns to be compared, either string names or integer positions.
 #' @param simple Boolean. If TRUE then only checks for pairwise differences, not ordering.
+#' @param tol When comparing numeric vectors, equality and inequality comparisons use this tolerance.
 #'
 #' @export
-compare_vars <- function(df, var1, var2, simple = F) {
+compare_vars <- function(df, var1, var2, simple = F, tol = 1E-6) {
   vec1 <- df[, var1, drop=T]
   vec2 <- df[, var2, drop=T]
   name1 <- if (is.numeric(var1)) names(df)[var1] else var1
   name2 <- if (is.numeric(var2)) names(df)[var2] else var2
-  compare_vecs(vec1, vec2, names = c(name1, name2), simple = simple)
+  compare_vecs(vec1, vec2, names = c(name1, name2), simple = simple, tol = tol)
 }
 
 #########################################################################################
@@ -33,9 +34,10 @@ compare_vars <- function(df, var1, var2, simple = F) {
 #' @param x,y The two vectors to be compared. Both vectors must be atomic and of the same length.
 #' @param names Optional length 2 string vector of names for each vector. Otherwise, "x" and "y" are used.
 #' @param simple Boolean. If TRUE then only checks for pairwise differences, not ordering.
+#' @param tol When comparing numeric vectors, equality and inequality comparisons use this tolerance.
 #'
 #' @export
-compare_vecs <- function(x, y, names = NULL, simple = F){
+compare_vecs <- function(x, y, names = NULL, simple = F, tol = 1E-6){
   if (!(is.atomic(x) & is.atomic(y))){
     stop("Both vectors must be atomic.")
   }
@@ -54,8 +56,17 @@ compare_vecs <- function(x, y, names = NULL, simple = F){
   if (class(x) != class(y)){
     warning("Vectors have different classes: ", class(x), " and ", class(y), ".", call. = FALSE)
   }
+  both_num <- is.numeric(x) && is.numeric(y)
   both_na <- is.na(x) & is.na(y)
-  equal <- sum(x == y, na.rm = T)
+  if (both_num){
+    equal <- sum(abs(x - y) <= tol, na.rm = T)
+    hi <- sum(x - y > tol, na.rm = T)
+    lo <- sum(y - x > tol, na.rm = T)
+  }else{
+    equal <- sum(x == y, na.rm = T)
+    hi <- sum(x > y, na.rm = T)
+    lo <- sum(x < y, na.rm = T)
+  }
   if(simple){
     same = sum(both_na) + equal
     return(tibble::tibble(comparison = c("Match", "Different"),
@@ -70,9 +81,9 @@ compare_vecs <- function(x, y, names = NULL, simple = F){
                                 paste(name1, "NA only"),
                                 paste(name2, "NA only")
   ),
-  count = c(sum(equal),
-            sum(x > y, na.rm = T),
-            sum(x < y, na.rm = T),
+  count = c(equal,
+            hi,
+            lo,
             sum(both_na),
             sum(!both_na & is.na(x)),
             sum(!both_na & is.na(y))

@@ -4,7 +4,7 @@
 \alias{compare_vars}
 \title{Summarise pairwise element comparison of two variables in a dataframe.}
 \usage{
-compare_vars(df, var1, var2, simple = F)
+compare_vars(df, var1, var2, simple = F, tol = 1e-06)
 }
 \arguments{
 \item{df}{A data frame.}
@@ -12,6 +12,8 @@ compare_vars(df, var1, var2, simple = F)
 \item{var1, var2}{The two columns to be compared, either string names or integer positions.}
 
 \item{simple}{Boolean. If TRUE then only checks for pairwise differences, not ordering.}
+
+\item{tol}{When comparing numeric vectors, equality and inequality comparisons use this tolerance.}
 }
 \description{
 Returns a table summarising the ordering of corresponding elements of two columns in a data frame. Columns
