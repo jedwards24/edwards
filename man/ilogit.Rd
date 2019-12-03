@@ -2,7 +2,7 @@
 % Please edit documentation in R/basic.R
 \name{ilogit}
 \alias{ilogit}
-\title{Vectorised inverse logit function: $exp(x) / (1 + exp(x))$.}
+\title{Vectorised inverse logit function: \eqn{exp(x) / (1 + exp(x))}.}
 \usage{
 ilogit(x)
 }
@@ -10,7 +10,8 @@ ilogit(x)
 \item{x}{A numeric vector.}
 }
 \description{
-Modified inverse logit function from Faraway package. The original allowed for some elements to be NA which
-  this does not. I added a check on `x` to avoid `NaN`. This occurs when x >~750 but
-  since exp(x) / (1 + exp(x)) = 1 for x >=20 I only check for x > 20 and output 1 for these cases.
+Modified inverse logit function from Faraway package. The original allowed for some elements to be \code{NA} which
+  this does not. I added a check on \code{x} to avoid \code{NaN}. This occurs when \code{x} is greater than about
+  750 but, since \eqn{exp(x) / (1 + exp(x)) = 1} for \eqn{x>=20}, I only check for x > 20 and
+  output 1 for these cases.
 }

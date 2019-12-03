@@ -11,5 +11,5 @@ convert_date(x)
 }
 \description{
 Reads text vectors which are either in dmy or dmy:time format. If all of the times are
-zeroes then the output is a date. Fully `NA` vectors are returned as dates.
+zeroes then the output is a date. Fully  \code{NA} vectors are returned as dates.
 }
