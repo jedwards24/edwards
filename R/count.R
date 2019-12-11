@@ -268,5 +268,5 @@ count_at <- function(df, cols = NULL, sort = TRUE, n = 10) {
 #'
 #' @export
 count_n <- function(df, ...) {
-  count(count(df, ...), n)
+  dplyr::count(dplyr::count(df, ...), n)
 }
