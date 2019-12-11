@@ -2,7 +2,7 @@
 % Please edit documentation in R/plot.R
 \name{plot_nas}
 \alias{plot_nas}
-\title{Plots missing values per variable.}
+\title{Plot missing values per variable}
 \usage{
 plot_nas(df, show_all = F, sort = T)
 }

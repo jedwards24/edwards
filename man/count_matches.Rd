@@ -2,7 +2,7 @@
 % Please edit documentation in R/count.R
 \name{count_matches}
 \alias{count_matches}
-\title{count_matches: Counts the total number of exact matches to a value in a data frame by column.}
+\title{Count the total number of exact matches to a value in a data frame by column}
 \usage{
 count_matches(df, value, all = FALSE)
 }

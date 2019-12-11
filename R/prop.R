@@ -2,7 +2,7 @@
 # prop_ci: Confidence intervals for binary target variable by values of a discrete predictor.
 #########################################################################################
 #'
-#' Confidence intervals for binary target variable by values of a discrete predictor.
+#' Confidence intervals for binary target variable by values of a discrete predictor
 #'
 #' For a data frame input, one variable is a binary target (\code{target_name}) and another is selected to
 #' be a predictor variable (\code{var_name}). Mean response and a confidence interval is calculated for the

@@ -2,7 +2,7 @@
 % Please edit documentation in R/count.R
 \name{count_string}
 \alias{count_string}
-\title{Counts the total number, by column, of entries in a data frame that match a string pattern.}
+\title{Count the total number, by column, of entries in a data frame that match a string pattern}
 \usage{
 count_string(df, pattern, all = FALSE)
 }

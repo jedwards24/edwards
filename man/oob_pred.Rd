@@ -2,7 +2,7 @@
 % Please edit documentation in R/rang.R
 \name{oob_pred}
 \alias{oob_pred}
-\title{Helper for rang_oob_err.}
+\title{Helper for \code{rang_oob_err()}}
 \usage{
 oob_pred(pred_mat, n_trees)
 }
@@ -19,3 +19,4 @@ Returns vector of class predictions chosen by majority vote.
 \details{
 Note predictions may include NaNs if there are no out-of-bag predictions for a data point.
 }
+\keyword{internal}

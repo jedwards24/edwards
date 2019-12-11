@@ -2,7 +2,7 @@
 # plot_nas: Plots missing values per variable.
 #########################################################################################
 #'
-#' Plots missing values per variable.
+#' Plot missing values per variable
 #'
 #' Based on `DataExplorer::plot_missing` but simpler.
 #'
@@ -28,7 +28,7 @@ plot_nas <- function(df, show_all = F, sort = T) {
 # plot_missing2: Plots missing values per variable.
 #########################################################################################
 #'
-#' Plots missing values per variable.
+#' Plot missing values per variable
 #'
 #' Adaptation of `DataExplorer::plot_missing` but with option to not show variables with no NAs.
 #' Also has different default lables for each group.

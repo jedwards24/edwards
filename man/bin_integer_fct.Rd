@@ -2,7 +2,7 @@
 % Please edit documentation in R/factor.R
 \name{bin_integer_fct}
 \alias{bin_integer_fct}
-\title{Bins integer levels in a factor.}
+\title{Bin integer levels in a factor}
 \usage{
 bin_integer_fct(ff, cuts)
 }

@@ -2,7 +2,7 @@
 % Please edit documentation in R/plot.R
 \name{plot_missing2}
 \alias{plot_missing2}
-\title{Plots missing values per variable.}
+\title{Plot missing values per variable}
 \usage{
 plot_missing2(data, group = list(Low = 0.05, OK = 0.4, High = 1),
   geom_label_args = list(), title = NULL, ggtheme = theme_gray(),

@@ -2,7 +2,7 @@
 # rang_roc_cut: ROC curve optimal cut for a ranger object.
 #########################################################################################
 #'
-#' ROC curve optimal cut for a ranger object.
+#' ROC curve optimal cut for a ranger object
 #'
 #' Calls `roc_cut()` for a fitted ranger model. See `roc_cut()` for details. Assumes `probability = TRUE` was
 #' used when the ranger model was fitted.
@@ -26,7 +26,7 @@ rang_roc_cut <- function(rf, target, plot = TRUE) {
 # rang_mtry: Tune ranger models for mtry.
 #########################################################################################
 #'
-#' Tune ranger models for mtry.
+#' Tune ranger models for mtry
 #'
 #' Fits `ranger()` models for a given range of values of mtry. Output is a table and graph giving
 #' errors for OOB training data and optional validation data.
@@ -84,7 +84,7 @@ rang_mtry <- function(data, fmla, m_vec, train = NULL, seed = 1, importance = "i
 # oob_pred: Helper for rang_oob_err.
 #########################################################################################
 #'
-#' Helper for rang_oob_err.
+#' Helper for \code{rang_oob_err()}
 #'
 #' Returns vector of class predictions chosen by majority vote.
 #'
@@ -95,6 +95,7 @@ rang_mtry <- function(data, fmla, m_vec, train = NULL, seed = 1, importance = "i
 #' @param n_trees Positive integer. Gives the number of trees to be used in the prediction (columns `1:n_trees`
 #'   of `pred_mat` will be used).
 #'
+#' @keywords internal
 oob_pred <- function(pred_mat, n_trees) {
   oob_mat <- pred_mat[, 1:n_trees, drop = F]
   zeroes <- apply(pred_mat, 1, FUN = function(x) sum(x > 0))
@@ -106,7 +107,7 @@ oob_pred <- function(pred_mat, n_trees) {
 # err_by_class: Error rate by class prediction.
 #########################################################################################
 #'
-#' Error rate by class prediction.
+#' Error rate of class predictions
 #'
 #' Returns the rate of mismatches between entries of `pred_vec` that equal `class` and the
 #' corresponding elements of `target`.
@@ -125,7 +126,7 @@ err_by_class <- function(pred_vec, target, class = 1) {
 # rang_oob_err: Out-of-bag error rates by number of trees for a ranger random forest.
 #########################################################################################
 #'
-#' Out-of-bag error rates by number of trees for a ranger random forest.
+#' Out-of-bag error rates by number of trees for a ranger random forest
 #'
 #' Returns a table of out-of-bag error rates for a ranger randomw forest using number of trees
 #' from 10 to all trees in steps of 10.

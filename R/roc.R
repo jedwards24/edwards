@@ -2,7 +2,7 @@
 # roc_cut: Optimal cut for ROC curve.
 #########################################################################################
 #'
-#' Optimal cut for ROC curve.
+#' Optimal cut for ROC curve
 #'
 #' Calculates the "optimal" cutoff for a classifier from a ROC curve. This is the cutoff that minimises the
 #' distance from the point (FPR = 0, TPR = 1). Also returns sensitivity and specitivity for this cutoff and

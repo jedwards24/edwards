@@ -2,7 +2,7 @@
 % Please edit documentation in R/count.R
 \name{count_at}
 \alias{count_at}
-\title{Performs \code{dplyr::count()} for a range of variables in a data frame.}
+\title{Perform  \code{dplyr::count} for a range of variables in a data frame}
 \usage{
 count_at(df, cols = NULL, sort = TRUE, n = 10)
 }

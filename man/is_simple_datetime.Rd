@@ -2,7 +2,7 @@
 % Please edit documentation in R/dates.R
 \name{is_simple_datetime}
 \alias{is_simple_datetime}
-\title{Returns \code{TRUE} if the input is a datetime object where the time part of every element is zero.}
+\title{Test if a datetime object has times that are all zero}
 \usage{
 is_simple_datetime(x)
 }

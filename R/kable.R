@@ -4,10 +4,11 @@
 # my_kable: Version of kable with standard styling to save typing.
 #########################################################################################
 #'
-#' Version of kable with standard styling to save typing.
+#' Version of \code{kable()} with standard styling
 #'
-#' Returns a table for R Markdown with kableExtra::kable_styling options `bootstrap_options = c("striped", "condensed")`
-#'   and `full_width = F`. The number of digits is set using the argument `digits` (defaults to 3).
+#' To save typing. Returns a table for R Markdown with \code{kableExtra::kable_styling}
+#' options `bootstrap_options = c("striped", "condensed")` and `full_width = F`.
+#' The number of digits is set using the argument `digits` (defaults to 3).
 #'
 #' @param df A data frame.
 #' @param digits=3 Sets the number of digits (via the `kable()` `digits` argument).
@@ -26,7 +27,7 @@ my_kable <- function(df, digits = 3){
 # split_kable: Split a table in into `n` parts of balanced size.
 #########################################################################################
 #'
-#' Split a table in into parts of balanced size.
+#' Split a table in into parts of balanced size
 #'
 #' Splits a table into a `n_tb` parts of similar sizing using standard styling in `my_kable()`. This is
 #'   used when I want to split a long thin table across multiple columns to reduce a document's size. Returns

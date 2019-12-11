@@ -2,7 +2,7 @@
 % Please edit documentation in R/factor.R
 \name{bin_numeric}
 \alias{bin_numeric}
-\title{Converts numeric into binned factor with appropriately named levels.}
+\title{Convert numeric into binned factor with appropriately named levels}
 \usage{
 bin_numeric(x, cuts, na_level = NULL, na_at_end = FALSE)
 }

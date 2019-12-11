@@ -2,7 +2,7 @@
 % Please edit documentation in R/count.R
 \name{count_levels}
 \alias{count_levels}
-\title{Counts the number of levels in a data frame by column.}
+\title{Count the number of levels in a data frame by column}
 \usage{
 count_levels(df, all = FALSE)
 }

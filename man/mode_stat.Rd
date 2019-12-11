@@ -2,7 +2,7 @@
 % Please edit documentation in R/basic.R
 \name{mode_stat}
 \alias{mode_stat}
-\title{Calculate the statistical mode of an atomic vector.}
+\title{Calculate the statistical mode of an atomic vector}
 \usage{
 mode_stat(x, multiple = TRUE, na.rm = TRUE)
 }

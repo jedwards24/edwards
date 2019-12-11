@@ -2,7 +2,7 @@
 % Please edit documentation in R/compare.R
 \name{compare_vars}
 \alias{compare_vars}
-\title{Summarise pairwise element comparison of two variables in a dataframe.}
+\title{Pairwise element comparison of two variables in a dataframe}
 \usage{
 compare_vars(df, var1, var2, simple = F, tol = 1e-06)
 }

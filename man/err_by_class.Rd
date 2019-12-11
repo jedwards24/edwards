@@ -2,7 +2,7 @@
 % Please edit documentation in R/rang.R
 \name{err_by_class}
 \alias{err_by_class}
-\title{Error rate by class prediction.}
+\title{Error rate of class predictions}
 \usage{
 err_by_class(pred_vec, target, class = 1)
 }

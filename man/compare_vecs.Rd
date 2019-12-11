@@ -2,7 +2,7 @@
 % Please edit documentation in R/compare.R
 \name{compare_vecs}
 \alias{compare_vecs}
-\title{Summarise pairwise element comparison of two vectors.}
+\title{Pairwise element comparison of two vectors}
 \usage{
 compare_vecs(x, y, names = NULL, simple = F, tol = 1e-06)
 }

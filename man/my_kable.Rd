@@ -2,7 +2,7 @@
 % Please edit documentation in R/kable.R
 \name{my_kable}
 \alias{my_kable}
-\title{Version of kable with standard styling to save typing.}
+\title{Version of \code{kable()} with standard styling}
 \usage{
 my_kable(df, digits = 3)
 }
@@ -12,6 +12,7 @@ my_kable(df, digits = 3)
 \item{digits=3}{Sets the number of digits (via the `kable()` `digits` argument).}
 }
 \description{
-Returns a table for R Markdown with kableExtra::kable_styling options `bootstrap_options = c("striped", "condensed")`
-  and `full_width = F`. The number of digits is set using the argument `digits` (defaults to 3).
+To save typing. Returns a table for R Markdown with \code{kableExtra::kable_styling}
+options `bootstrap_options = c("striped", "condensed")` and `full_width = F`.
+The number of digits is set using the argument `digits` (defaults to 3).
 }

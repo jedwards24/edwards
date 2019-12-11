@@ -2,7 +2,7 @@
 % Please edit documentation in R/prop.R
 \name{prop_ci}
 \alias{prop_ci}
-\title{Confidence intervals for binary target variable by values of a discrete predictor.}
+\title{Confidence intervals for binary target variable by values of a discrete predictor}
 \usage{
 prop_ci(dt, target_name, var_name, min_n = 1, show_all = T,
   conf_level = 0.95, prop_lim = NULL, pos_class = NULL)

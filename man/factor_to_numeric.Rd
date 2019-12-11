@@ -2,7 +2,7 @@
 % Please edit documentation in R/basic.R
 \name{factor_to_numeric}
 \alias{factor_to_numeric}
-\title{Convert a numeric factor to a numeric vector.}
+\title{Convert a numeric factor to a numeric vector}
 \usage{
 factor_to_numeric(x)
 }

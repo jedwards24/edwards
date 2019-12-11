@@ -2,7 +2,7 @@
 % Please edit documentation in R/count.R
 \name{count_unique}
 \alias{count_unique}
-\title{Counts the number of unique values in a data frame by column.}
+\title{Count the number of unique values in a data frame by column}
 \usage{
 count_unique(df)
 }

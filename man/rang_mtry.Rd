@@ -2,7 +2,7 @@
 % Please edit documentation in R/rang.R
 \name{rang_mtry}
 \alias{rang_mtry}
-\title{Tune ranger models for mtry.}
+\title{Tune ranger models for mtry}
 \usage{
 rang_mtry(data, fmla, m_vec, train = NULL, seed = 1,
   importance = "impurity", num.trees = 500,

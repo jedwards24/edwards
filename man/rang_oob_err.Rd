@@ -2,7 +2,7 @@
 % Please edit documentation in R/rang.R
 \name{rang_oob_err}
 \alias{rang_oob_err}
-\title{Out-of-bag error rates by number of trees for a ranger random forest.}
+\title{Out-of-bag error rates by number of trees for a ranger random forest}
 \usage{
 rang_oob_err(rf, data)
 }

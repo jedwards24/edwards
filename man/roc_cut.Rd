@@ -2,7 +2,7 @@
 % Please edit documentation in R/roc.R
 \name{roc_cut}
 \alias{roc_cut}
-\title{Optimal cut for ROC curve.}
+\title{Optimal cut for ROC curve}
 \usage{
 roc_cut(perf, pred, plot = T)
 }
