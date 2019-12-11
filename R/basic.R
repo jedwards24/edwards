@@ -2,7 +2,7 @@
 # mode_stat: Calculate mode of a vector.
 #########################################################################################
 #'
-#' Calculate the statistical mode of an atomic vector.
+#' Calculate the statistical mode of an atomic vector
 #'
 #' Returns the statistical mode of an atomic vector (can be numeric, character or factor).
 #'
@@ -30,7 +30,7 @@ mode_stat <- function(x, multiple = TRUE, na.rm = TRUE) {
 # factor_to_numeric: Convert a numeric factor to a numeric vector.
 #########################################################################################
 #'
-#' Convert a numeric factor to a numeric vector.
+#' Convert a numeric factor to a numeric vector
 #'
 #' The obvious `as.numeric()` is incorrect.
 #'
@@ -47,12 +47,13 @@ factor_to_numeric <- function(x) {
 # ilogit: Vectorised inverse logit function.
 #########################################################################################
 #'
-#' Vectorised inverse logit function: \eqn{exp(x) / (1 + exp(x))}.
+#' Vectorised inverse logit function
 #'
-#' Modified inverse logit function from Faraway package. The original allowed for some elements to be \code{NA} which
-#'   this does not. I added a check on \code{x} to avoid \code{NaN}. This occurs when \code{x} is greater than about
-#'   750 but, since \eqn{exp(x) / (1 + exp(x)) = 1} for \eqn{x>=20}, I only check for x > 20 and
-#'   output 1 for these cases.
+#' Calculate the inverse logit function \eqn{exp(x) / (1 + exp(x))}. Modified from Faraway package.
+#' The original allowed for some elements to be \code{NA} which this does not. I added a check
+#' on \code{x} to avoid \code{NaN}. This occurs when \code{x} is greater than about
+#' 750 but, since \eqn{exp(x) / (1 + exp(x)) = 1} for \eqn{x>=20}, I only check for x > 20 and
+#' output 1 for these cases.
 #'
 #' @param x A numeric vector.
 #'
@@ -66,4 +67,24 @@ ilogit <- function (x){
     return(lv)
   }
   exp(x) / (1 + exp(x))
+}
+
+#########################################################################################
+# prinf: Shorthand for print(n = Inf)
+#########################################################################################
+#'
+#' Print all rows of a tibble
+#'
+#' Shorthand for \code{print_tbl(x, n = Inf)}. Ok, I'm lazy.
+#'
+#' @param x A tibble.
+#'
+#' @export
+prinf <- function(x) {
+  if (tibble::is_tibble(x)){
+    print(x, n = Inf)
+  }else{
+    print(x)
+  }
+  invisible(x)
 }

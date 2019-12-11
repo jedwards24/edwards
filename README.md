@@ -12,8 +12,10 @@ The functions are a loose collection with a general data science theme. A quick 
 + Ranger functions. Several functions beginning `rang_` to work with the ranger package: mtry tuning, ROC output, out-of-bag errors by number of trees.
 + My variants on `DataExplorer::plot_missing()`: `plot_nas()` and `plot_missing2()`.
 + `prop_ci()`: Quick plotting of mean and confidence intervals of binary target variable by discrete predictor variables.
-+ `compare_vars()`: Pairwise similarity and ordering of two variables.
++ `compare_vars()`: pairwise similarity and ordering of two variables.
 + `convert_date()`: date conversion for a particular pattern.
++ `find_similar()`: to look for matched or similar columns in data frames.
++ Some minor helper functions to save a bit of typing: `count_n()` and `prinf()`. 
 
 I haven't finalised dependencies yet. Some functions are tidyverse-based, while in others I have made an effort to stick to base R. The ROC and ranger functions require ROCR and ranger.
 

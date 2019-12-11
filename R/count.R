@@ -2,7 +2,7 @@
 # count_nas: counts NAs in a data frame by column.
 #########################################################################################
 #'
-#' Counts NAs in a data frame by column.
+#' Count NAs in a data frame by column
 #'
 #' Returns a vector of the number of NAs of each variable in a data frame.
 #'
@@ -28,7 +28,7 @@ count_nas <- function(df, all = FALSE) {
 # count_unique: counts the number of unique values in a data frame by column.
 #########################################################################################
 #'
-#' Counts the number of unique values in a data frame by column.
+#' Count the number of unique values in a data frame by column
 #'
 #' Returns a vector of the number of unique values of each variable in a data frame. Any NA entries are included as
 #'   a unique value.
@@ -47,7 +47,7 @@ count_unique <- function(df) {
 # count_levels: counts the total number of levels in a data frame by column.
 #########################################################################################
 #'
-#' Counts the number of levels in a data frame by column.
+#' Count the number of levels in a data frame by column
 #'
 #' Returns a vector of the number of levels of each variable in a data frame.
 #'
@@ -73,7 +73,7 @@ count_levels <- function(df, all = FALSE) {
 # count_nas2: counts NAs in a data frame by column. Returns a tbl.
 #########################################################################################
 #'
-#' Counts NAs in a data frame by column.
+#' Count NAs in a data frame by column
 #'
 #' @description
 #' Unlike \code{count_nas()} this returns the results in a tibble with columns giving:
@@ -113,7 +113,7 @@ count_nas2 <- function(df, all = FALSE, sort = TRUE) {
 # count_string: Counts the total number of string pattern matches in a data frame by column.
 #########################################################################################
 #'
-#' Counts the total number, by column, of entries in a data frame that match a string pattern.
+#' Count the total number, by column, of entries in a data frame that match a string pattern
 #'
 #' Returns a named integer vector with elements that give the number of entries in the corresponding
 #' column of \code{df} that contain a match to the string pattern \code{pattern}. No coercion is used
@@ -153,7 +153,7 @@ count_string <- function(df, pattern, all = FALSE){
 # count_matches: Counts the total number of exact matches to a value in a data frame by column.
 #########################################################################################
 #'
-#' count_matches: Counts the total number of exact matches to a value in a data frame by column.
+#' Count the total number of exact matches to a value in a data frame by column
 #'
 #' Returns a named integer vector with elements that give the number of entries in the corresponding
 #' column of \code{df} that match to the argument \code{value}. No coercion is used so type must also match.
@@ -200,7 +200,7 @@ count_matches <- function(df, value, all = FALSE){
 # var_summary: Simple summary of the variables in a data frame.
 #########################################################################################
 #'
-#' Simple summary of the variables in a data frame.
+#' Simple summary of the variables in a data frame
 #'
 #' Returns a tibble with the names, class, number of NAs, and number of unique values for
 #' each variable in the data. If there are \code{NA} values then they are included as a unique value.
@@ -227,7 +227,7 @@ var_summary <- function(df) {
 # count_at: Performs dplyr::count for a range of variables in a data frame.
 #########################################################################################
 #'
-#' Performs \code{dplyr::count()} for a range of variables in a data frame.
+#' Perform  \code{dplyr::count} for a range of variables in a data frame
 #'
 #' Prints output from \code{dplyr::count()} for each variable index given by argument \code{cols} (an integer vector).
 #'
@@ -252,3 +252,21 @@ count_at <- function(df, cols = NULL, sort = TRUE, n = 10) {
   invisible(df)
 }
 
+#########################################################################################
+# count_n: Shorthand for `count(df, ...) %>% count(n)`
+#########################################################################################
+#'
+#' Count the number of repetitions in grouped variables
+#'
+#' Shorthand for \code{count(count(df, ...), n)}.
+#'
+#' @param df A data frame.
+#' @param ... Variables to group by.
+#'
+#' @examples
+#' count_n(mtcars, disp)
+#'
+#' @export
+count_n <- function(df, ...) {
+  count(count(df, ...), n)
+}
