@@ -4,12 +4,12 @@
 #'
 #' ROC curve optimal cut for a ranger object
 #'
-#' Calls `roc_cut()` for a fitted ranger model. See `roc_cut()` for details. Assumes `probability = TRUE` was
-#' used when the ranger model was fitted.
+#' Calls \code{roc_cut()} for a fitted ranger model. See \code{roc_cut()} for details. Assumes
+#'  \code{probability = TRUE} was used when the ranger model was fitted.
 #'
 #' @param rf A ranger fitted model.
-#' @param target A binary class target vector matching `rf`.
-#' @param plot Produce a plot. Defaults to `TRUE`.
+#' @param target A binary class target vector matching \code{rf}.
+#' @param plot Produce a plot. Defaults to \code{TRUE}.
 #'
 #' @export
 rang_roc_cut <- function(rf, target, plot = TRUE) {
@@ -28,17 +28,17 @@ rang_roc_cut <- function(rf, target, plot = TRUE) {
 #'
 #' Tune ranger models for mtry
 #'
-#' Fits `ranger()` models for a given range of values of mtry. Output is a table and graph giving
+#' Fits \code{ranger()} models for a given range of values of mtry. Output is a table and graph giving
 #' errors for OOB training data and optional validation data.
 #'
 #' @param data A data frame.
 #' @param fmla A formula for the model.
-#' @param mvec Integer vector of values of tuning parameter `mtry`.
+#' @param mvec Integer vector of values of tuning parameter \code{mtry}.
 #' @param train Optional integer vector giving rows indices to be used in training set. Remaining rows are used for
-#'   validation. If default `train = NULL` is used then all data is used for training and there is no validation.
+#'   validation. If default \code{train = NULL} is used then all data is used for training and there is no validation.
 #' @param seed Integer. Random number seed used for fitting each model.
-#' @param importance,num.trees,respect.unordered.factors Optional arguments passed to `ranger()`. Defaults are
-#'   `"impurity`, `500`, and `TRUE` respectively.
+#' @param importance,num.trees,respect.unordered.factors Optional arguments passed to \code{ranger()}. Defaults are
+#'   \code{"impurity"}, \code{500} and \code{TRUE} respectively.
 #'
 #' @export
 rang_mtry <- function(data, fmla, m_vec, train = NULL, seed = 1, importance = "impurity", num.trees = 500,
@@ -81,45 +81,29 @@ rang_mtry <- function(data, fmla, m_vec, train = NULL, seed = 1, importance = "i
 }
 
 #########################################################################################
-# oob_pred: Helper for rang_oob_err.
+# oob_errors: Helper for rang_oob_err().
 #########################################################################################
 #'
 #' Helper for \code{rang_oob_err()}
 #'
-#' Returns vector of class predictions chosen by majority vote.
+#' Returns vector of error indicators chosen by majority vote. Where the vote is split the entry wil be 0.5.
+#' The entry will be \code{NaN} Where there are no out-of-bag predictions for a data point.
 #'
-#' Note predictions may include NaNs if there are no out-of-bag predictions for a data point.
-#'
-#' @param pred_mat Matrix of out-of-bag individual tree class predicitions with a zero where the prediciton
+#' @param oob_mat Matrix of out-of-bag individual tree class predicitions with an \code{NA} where the prediciton
 #'   was in bag. Rows are observation, columns are trees.
-#' @param n_trees Positive integer. Gives the number of trees to be used in the prediction (columns `1:n_trees`
-#'   of `pred_mat` will be used).
+#' @param n_trees Positive integer. Gives the number of trees to be used in the prediction (columns \code{1:n_trees}
+#'   of \code{oob_mat} will be used).
+#' @param target Vector of true classes (either 1 or 2).
 #'
 #' @keywords internal
-oob_pred <- function(pred_mat, n_trees) {
-  oob_mat <- pred_mat[, 1:n_trees, drop = F]
-  zeroes <- apply(pred_mat, 1, FUN = function(x) sum(x > 0))
-  score <- rowSums(pred_mat) / zeroes
-  round(score)
-}
-
-#########################################################################################
-# err_by_class: Error rate by class prediction.
-#########################################################################################
-#'
-#' Error rate of class predictions
-#'
-#' Returns the rate of mismatches between entries of `pred_vec` that equal `class` and the
-#' corresponding elements of `target`.
-#'
-#' @param pred_vec Integer vector of class predictions.
-#' @param target Integer vector of true classes.
-#' @param class Integer indicating which class predictions to measure.
-#'
-#' @export
-err_by_class <- function(pred_vec, target, class = 1) {
-  inds <- which(pred_vec == class)
-  mean(pred_vec[inds] != target[inds], na.rm = T)
+oob_errors <- function(oob_mat, n_trees, target) {
+  oob_mat2 <- oob_mat[, 1:n_trees, drop = F]
+  err_mat <- sweep(oob_mat2, 1, target, FUN = `!=`)
+  err_vec <- rowMeans(err_mat, na.rm = TRUE)
+  splits <- err_vec == 0.5
+  err_vec <- round(err_vec)
+  err_vec[splits] <- 0.5
+  err_vec
 }
 
 #########################################################################################
@@ -132,31 +116,38 @@ err_by_class <- function(pred_vec, target, class = 1) {
 #' from 10 to all trees in steps of 10.
 #'
 #' @param rf A ranger random forest object.
-#' @param data A data frame used to fit `rf`.
+#' @param data A data frame used to fit \code{rf}.
+#' @param n_trees_vec Optional vector of number of trees to get results for. Defaults to \code{1:ntrees}.
 #'
 #' @export
-rang_oob_err <- function(rf, data) {
-  nn <- nrow(dt)
+rang_oob_err <- function(rf, data, n_trees_vec = NULL) {
+  nn <- nrow(data)
   ntr <- rf$num.trees
+  if (is.null(n_trees_vec)){
+    n_trees_vec <- seq(1, ntr, by = 10)
+  }
+  fmla <- as.character(rf$call)[2]
+  target_name <- str_split(fmla, " ~")[[1]][1]
+  target <- data[[target_name]] %>% as.numeric() #use classes in {1,2}
+
   # Convert inbag counts (list) to matrix
   inbag_mat <- matrix(0, nrow = nn, ncol = ntr)
   for (i in 1 : ntr){
     inbag_mat[, i] <- rf$inbag.counts[[i]]
   }
-  oob_mat <- if_else(inbag_mat > 0, 0, predict(rf, data, predict.all = T)$predictions) %>%
+  oob_mat <- if_else(inbag_mat > 0, NA_real_, predict(rf, data, predict.all = T)$predictions) %>%
     matrix(., nrow = nrow(inbag_mat))
 
-  ntrees_vec <- seq(10, ntr, by = 10)
-  preds_n_mat <- matrix(0L, nrow = nn, ncol = length(ntrees_vec))
-  for (i in 1:length(ntrees_vec)){
-    preds_n_mat[, i] <- oob_pred(oob_mat, ntrees_vec[i])
+  len_ntv <- length(n_trees_vec)
+  errs <- matrix(0L, nrow = nn, ncol = len_ntv)
+  for (i in 1: len_ntv){
+    errs[, i] <- oob_errors(oob_mat, n_trees = n_trees_vec[i], target = target)
   }
-
-  errs <- apply(preds_n_mat, 2, FUN = function(x, top) mean(x != top, na.rm = T), top = top)
-  res <- tibble(num.trees = ntrees_vec,
-                total = errs,
-                class_1 = apply(preds_n_mat, 2, FUN = err_by_class, target = top, class = 1),
-                class_2 = apply(preds_n_mat, 2, FUN = err_by_class, target = top, class = 2))
+  res <- tibble(num.trees = n_trees_vec,
+                total = colMeans(errs, na.rm = TRUE),
+                class_1 = colMeans(errs[target == 1, ], na.rm = T),
+                class_2 = colMeans(errs[target == 2, ], na.rm = T)
+  )
   res_long <- gather(res, key = "pred", value = "error_rate", -num.trees)
   g <- ggplot(res_long, aes(x = num.trees, y = error_rate, color = pred)) +
     geom_line() +
@@ -164,3 +155,4 @@ rang_oob_err <- function(rf, data) {
   print(g)
   res
 }
+

@@ -4,12 +4,14 @@
 \alias{rang_oob_err}
 \title{Out-of-bag error rates by number of trees for a ranger random forest}
 \usage{
-rang_oob_err(rf, data)
+rang_oob_err(rf, data, n_trees_vec = NULL)
 }
 \arguments{
 \item{rf}{A ranger random forest object.}
 
-\item{data}{A data frame used to fit `rf`.}
+\item{data}{A data frame used to fit \code{rf}.}
+
+\item{n_trees_vec}{Optional vector of number of trees to get results for. Defaults to \code{1:ntrees}.}
 }
 \description{
 Returns a table of out-of-bag error rates for a ranger randomw forest using number of trees

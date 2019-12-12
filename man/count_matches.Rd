@@ -19,7 +19,7 @@ column of \code{df} that match to the argument \code{value}. No coercion is used
 }
 \examples{
 x <- data.frame(a = c("an", "banana", "candy"), b = c("on", "bon", "bonbon"), c = 1:3)
-count_matches(x, "an", all = T)
+count_matches(x, "an", all = TRUE)
 count_matches(x, "an")
 count_matches(x, 1L)
 count_matches(x, 1) # type must match

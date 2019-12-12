@@ -163,7 +163,7 @@ count_string <- function(df, pattern, all = FALSE){
 #' @param all By default variables with no matches are omitted from the output. Set all=T to show all.
 #' @examples
 #' x <- data.frame(a = c("an", "banana", "candy"), b = c("on", "bon", "bonbon"), c = 1:3)
-#' count_matches(x, "an", all = T)
+#' count_matches(x, "an", all = TRUE)
 #' count_matches(x, "an")
 #' count_matches(x, 1L)
 #' count_matches(x, 1) # type must match

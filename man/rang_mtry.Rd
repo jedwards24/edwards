@@ -14,16 +14,16 @@ rang_mtry(data, fmla, m_vec, train = NULL, seed = 1,
 \item{fmla}{A formula for the model.}
 
 \item{train}{Optional integer vector giving rows indices to be used in training set. Remaining rows are used for
-validation. If default `train = NULL` is used then all data is used for training and there is no validation.}
+validation. If default \code{train = NULL} is used then all data is used for training and there is no validation.}
 
 \item{seed}{Integer. Random number seed used for fitting each model.}
 
-\item{importance, num.trees, respect.unordered.factors}{Optional arguments passed to `ranger()`. Defaults are
-`"impurity`, `500`, and `TRUE` respectively.}
+\item{importance, num.trees, respect.unordered.factors}{Optional arguments passed to \code{ranger()}. Defaults are
+\code{"impurity"}, \code{500} and \code{TRUE} respectively.}
 
-\item{mvec}{Integer vector of values of tuning parameter `mtry`.}
+\item{mvec}{Integer vector of values of tuning parameter \code{mtry}.}
 }
 \description{
-Fits `ranger()` models for a given range of values of mtry. Output is a table and graph giving
+Fits \code{ranger()} models for a given range of values of mtry. Output is a table and graph giving
 errors for OOB training data and optional validation data.
 }

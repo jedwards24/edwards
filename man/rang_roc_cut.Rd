@@ -9,11 +9,11 @@ rang_roc_cut(rf, target, plot = TRUE)
 \arguments{
 \item{rf}{A ranger fitted model.}
 
-\item{target}{A binary class target vector matching `rf`.}
+\item{target}{A binary class target vector matching \code{rf}.}
 
-\item{plot}{Produce a plot. Defaults to `TRUE`.}
+\item{plot}{Produce a plot. Defaults to \code{TRUE}.}
 }
 \description{
-Calls `roc_cut()` for a fitted ranger model. See `roc_cut()` for details. Assumes `probability = TRUE` was
-used when the ranger model was fitted.
+Calls \code{roc_cut()} for a fitted ranger model. See \code{roc_cut()} for details. Assumes
+ \code{probability = TRUE} was used when the ranger model was fitted.
 }
