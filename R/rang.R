@@ -4,8 +4,8 @@
 #'
 #' ROC curve optimal cut for a ranger object
 #'
-#' Calls \code{roc_cut()} for a fitted ranger model. See \code{roc_cut()} for details. Assumes
-#'  \code{probability = TRUE} was used when the ranger model was fitted.
+#' Calls \code{roc_cut()} for a fitted ranger model. See \code{roc_cut()} for details. Requires
+#'  \code{probability = TRUE} to be used when the ranger model was fitted.
 #'
 #' @param rf A ranger fitted model.
 #' @param target A binary class target vector matching \code{rf}.
@@ -117,15 +117,14 @@ oob_errors <- function(oob_mat, n_trees, target) {
 #'
 #' @param rf A ranger random forest object.
 #' @param data A data frame used to fit \code{rf}.
-#' @param n_trees_vec Optional vector of number of trees to get results for. Defaults to \code{1:ntrees}.
+#' @param start,by Error rates are evaluated for number of trees from \code{start} to maximum number
+#'   of trees in steps of \code{by}.
 #'
 #' @export
-rang_oob_err <- function(rf, data, n_trees_vec = NULL) {
+rang_oob_err <- function(rf, data, start = 5L, by = 5L) {
   nn <- nrow(data)
   ntr <- rf$num.trees
-  if (is.null(n_trees_vec)){
-    n_trees_vec <- seq(1, ntr, by = 10)
-  }
+  n_trees_vec <- seq(start, ntr, by = by)
   fmla <- as.character(rf$call)[2]
   target_name <- str_split(fmla, " ~")[[1]][1]
   target <- data[[target_name]] %>% as.numeric() #use classes in {1,2}
@@ -135,7 +134,7 @@ rang_oob_err <- function(rf, data, n_trees_vec = NULL) {
   for (i in 1 : ntr){
     inbag_mat[, i] <- rf$inbag.counts[[i]]
   }
-  oob_mat <- if_else(inbag_mat > 0, NA_real_, predict(rf, data, predict.all = T)$predictions) %>%
+  oob_mat <- dplyr::if_else(inbag_mat > 0, NA_real_, predict(rf, data, predict.all = T)$predictions) %>%
     matrix(., nrow = nrow(inbag_mat))
 
   len_ntv <- length(n_trees_vec)
@@ -143,15 +142,15 @@ rang_oob_err <- function(rf, data, n_trees_vec = NULL) {
   for (i in 1: len_ntv){
     errs[, i] <- oob_errors(oob_mat, n_trees = n_trees_vec[i], target = target)
   }
-  res <- tibble(num.trees = n_trees_vec,
+  res <- tibble::tibble(num.trees = n_trees_vec,
                 total = colMeans(errs, na.rm = TRUE),
                 class_1 = colMeans(errs[target == 1, ], na.rm = T),
                 class_2 = colMeans(errs[target == 2, ], na.rm = T)
   )
   res_long <- gather(res, key = "pred", value = "error_rate", -num.trees)
-  g <- ggplot(res_long, aes(x = num.trees, y = error_rate, color = pred)) +
-    geom_line() +
-    ylab("OOB Error Rate")
+  g <- ggplot2::ggplot(res_long, aes(x = num.trees, y = error_rate, color = pred)) +
+    ggplot2::geom_line() +
+    ggplot2::ylab("OOB Error Rate")
   print(g)
   res
 }

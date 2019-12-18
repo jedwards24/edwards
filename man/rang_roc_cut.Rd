@@ -14,6 +14,6 @@ rang_roc_cut(rf, target, plot = TRUE)
 \item{plot}{Produce a plot. Defaults to \code{TRUE}.}
 }
 \description{
-Calls \code{roc_cut()} for a fitted ranger model. See \code{roc_cut()} for details. Assumes
- \code{probability = TRUE} was used when the ranger model was fitted.
+Calls \code{roc_cut()} for a fitted ranger model. See \code{roc_cut()} for details. Requires
+ \code{probability = TRUE} to be used when the ranger model was fitted.
 }
