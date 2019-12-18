@@ -119,9 +119,10 @@ oob_errors <- function(oob_mat, n_trees, target) {
 #' @param data A data frame used to fit \code{rf}.
 #' @param start,by Error rates are evaluated for number of trees from \code{start} to maximum number
 #'   of trees in steps of \code{by}.
+#' @param plot Optional logical. Output a plot or not.
 #'
 #' @export
-rang_oob_err <- function(rf, data, start = 5L, by = 5L) {
+rang_oob_err <- function(rf, data, start = 5L, by = 5L, plot = TRUE) {
   nn <- nrow(data)
   ntr <- rf$num.trees
   n_trees_vec <- seq(start, ntr, by = by)
@@ -148,10 +149,12 @@ rang_oob_err <- function(rf, data, start = 5L, by = 5L) {
                 class_2 = colMeans(errs[target == 2, ], na.rm = T)
   )
   res_long <- gather(res, key = "pred", value = "error_rate", -num.trees)
-  g <- ggplot2::ggplot(res_long, aes(x = num.trees, y = error_rate, color = pred)) +
-    ggplot2::geom_line() +
-    ggplot2::ylab("OOB Error Rate")
-  print(g)
+  if (plot){
+    g <- ggplot2::ggplot(res_long, aes(x = num.trees, y = error_rate, color = pred)) +
+      ggplot2::geom_line() +
+      ggplot2::ylab("OOB Error Rate")
+    print(g)
+  }
   res
 }
 

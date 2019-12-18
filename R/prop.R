@@ -32,10 +32,11 @@
 #' @param conf.level Numeric in (0,1). Confidence level used for confidence intervals.
 #' @param prop_lim Optional x axis limits passed to \code{ggplot()} e.g. \code{c(0,1)}.
 #' @param pos_class Optional. Specify value in target to associate with class 1.
+#' @param plot Optional logical. Output a plot or not.
 #'
 #' @export
 prop_ci <- function(dt, target_name, var_name, min_n = 1, show_all = T,
-                     conf_level = 0.95, prop_lim = NULL, pos_class = NULL) {
+                     conf_level = 0.95, prop_lim = NULL, pos_class = NULL, plot = TRUE) {
   dt <- rename(dt,
                target = !!as.name(target_name),
                var = !!as.name(var_name))
@@ -76,19 +77,19 @@ prop_ci <- function(dt, target_name, var_name, min_n = 1, show_all = T,
     filter(n >= min_n) %>%
     purrr::when(!show_all ~ filter(., sig != "none"), ~.) %>%
     arrange(desc(n))
-
-  g <- dt_summ %>%
-    ggplot(aes(x = reorder(value, n), y = prop, color = sig)) +
-    geom_point() +
-    geom_errorbar(aes(ymin = lo, ymax = hi)) +
-    coord_flip() +
-    geom_hline(yintercept = mean_all, linetype = 2) +
-    ylab("Mean Proportion Target") +
-    xlab(var_name) +
-    theme(legend.position = "none") +
-    {if(all(!is.null(prop_lim))) ylim(prop_lim[1], prop_lim[2])}
-
-  print(g)
+  if (plot){
+    g <- dt_summ %>%
+      ggplot(aes(x = reorder(value, n), y = prop, color = sig)) +
+      geom_point() +
+      geom_errorbar(aes(ymin = lo, ymax = hi)) +
+      coord_flip() +
+      geom_hline(yintercept = mean_all, linetype = 2) +
+      ylab("Mean Proportion Target") +
+      xlab(var_name) +
+      theme(legend.position = "none") +
+      {if(all(!is.null(prop_lim))) ylim(prop_lim[1], prop_lim[2])}
+    print(g)
+  }
   dt_summ
 }
 

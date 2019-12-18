@@ -5,7 +5,8 @@
 \title{Confidence intervals for binary target variable by values of a discrete predictor}
 \usage{
 prop_ci(dt, target_name, var_name, min_n = 1, show_all = T,
-  conf_level = 0.95, prop_lim = NULL, pos_class = NULL)
+  conf_level = 0.95, prop_lim = NULL, pos_class = NULL,
+  plot = TRUE)
 }
 \arguments{
 \item{dt}{A data frame.}
@@ -22,6 +23,8 @@ overlaps the mean response of all observations.}
 \item{prop_lim}{Optional x axis limits passed to \code{ggplot()} e.g. \code{c(0,1)}.}
 
 \item{pos_class}{Optional. Specify value in target to associate with class 1.}
+
+\item{plot}{Optional logical. Output a plot or not.}
 
 \item{conf.level}{Numeric in (0,1). Confidence level used for confidence intervals.}
 }

@@ -8,7 +8,7 @@ dt <- ggplot2::diamonds %>%
 
 test_that("rang_oob_error() works", {
   rf <- ranger::ranger(top ~ . , dt, seed = 20, keep.inbag = T, num.trees = 200)
-  expect_known_hash(rang_oob_err(rf, dt), hash = "5cb256f2ca")
+  expect_known_hash(rang_oob_err(rf, dt, plot = FALSE), hash = "5cb256f2ca")
 })
 
 test_that("rang_roc_cut() works", {

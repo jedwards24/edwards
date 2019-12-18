@@ -4,7 +4,7 @@
 \alias{rang_oob_err}
 \title{Out-of-bag error rates by number of trees for a ranger random forest}
 \usage{
-rang_oob_err(rf, data, start = 5L, by = 5L)
+rang_oob_err(rf, data, start = 5L, by = 5L, plot = TRUE)
 }
 \arguments{
 \item{rf}{A ranger random forest object.}
@@ -13,6 +13,8 @@ rang_oob_err(rf, data, start = 5L, by = 5L)
 
 \item{start, by}{Error rates are evaluated for number of trees from \code{start} to maximum number
 of trees in steps of \code{by}.}
+
+\item{plot}{Optional logical. Output a plot or not.}
 }
 \description{
 Returns a table of out-of-bag error rates for a ranger randomw forest using number of trees
