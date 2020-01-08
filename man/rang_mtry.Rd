@@ -4,9 +4,16 @@
 \alias{rang_mtry}
 \title{Tune ranger models for mtry}
 \usage{
-rang_mtry(data, fmla, m_vec, train = NULL, seed = 1,
-  importance = "impurity", num.trees = 500,
-  respect.unordered.factors = T)
+rang_mtry(
+  data,
+  fmla,
+  m_vec,
+  train = NULL,
+  seed = 1,
+  importance = "impurity",
+  num.trees = 500,
+  respect.unordered.factors = T
+)
 }
 \arguments{
 \item{data}{A data frame.}

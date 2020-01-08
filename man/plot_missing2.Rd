@@ -4,9 +4,15 @@
 \alias{plot_missing2}
 \title{Plot missing values per variable}
 \usage{
-plot_missing2(data, group = list(Low = 0.05, OK = 0.4, High = 1),
-  geom_label_args = list(), title = NULL, ggtheme = theme_gray(),
-  theme_config = list(legend.position = c("bottom")), show_all = F)
+plot_missing2(
+  data,
+  group = list(Low = 0.05, OK = 0.4, High = 1),
+  geom_label_args = list(),
+  title = NULL,
+  ggtheme = theme_gray(),
+  theme_config = list(legend.position = c("bottom")),
+  show_all = F
+)
 }
 \arguments{
 \item{show_all}{Logical. If `FALSE` (default) then do not show variables with no NAs.}
