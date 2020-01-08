@@ -9,10 +9,10 @@ my_kable(df, digits = 3)
 \arguments{
 \item{df}{A data frame.}
 
-\item{digits=3}{Sets the number of digits (via the `kable()` `digits` argument).}
+\item{digits=3}{Sets the number of digits (via the \code{kable()} \code{digits} argument).}
 }
 \description{
 To save typing. Returns a table for R Markdown with \code{kableExtra::kable_styling}
-options `bootstrap_options = c("striped", "condensed")` and `full_width = F`.
-The number of digits is set using the argument `digits` (defaults to 3).
+options \code{bootstrap_options = c("striped", "condensed")} and \code{full_width = F}.
+The number of digits is set using the argument \code{digits} (defaults to 3).
 }

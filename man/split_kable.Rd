@@ -13,14 +13,14 @@ split_kable(df, index, n_tb = 2, digits = 3)
 
 \item{n_tb=2}{The number of parts to split the table into.}
 
-\item{digits=3}{Sets the number of digits (via the `kable()` `digits` argument).}
+\item{digits=3}{Sets the number of digits (via the  \code{kable()}  \code{digits} argument).}
 }
 \description{
-Splits a table into a `n_tb` parts of similar sizing using standard styling in `my_kable()`. This is
+Splits a table into a  \code{n_tb} parts of similar sizing using standard styling in  \code{my_kable()}. This is
   used when I want to split a long thin table across multiple columns to reduce a document's size. Returns
-  a single table part. Which part given by argument `index`.
+  a single table part. Which part given by argument  \code{index}.
 }
 \details{
 Printing all table parts in one function call didn't work since I couldn't get
-  `kable()` to print from within a function.
+   \code{kable()} to print from within a function.
 }

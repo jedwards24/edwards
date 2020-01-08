@@ -1,17 +1,15 @@
-
-
-#########################################################################################
+########################################################################################
 # my_kable: Version of kable with standard styling to save typing.
 #########################################################################################
 #'
 #' Version of \code{kable()} with standard styling
 #'
 #' To save typing. Returns a table for R Markdown with \code{kableExtra::kable_styling}
-#' options `bootstrap_options = c("striped", "condensed")` and `full_width = F`.
-#' The number of digits is set using the argument `digits` (defaults to 3).
+#' options \code{bootstrap_options = c("striped", "condensed")} and \code{full_width = F}.
+#' The number of digits is set using the argument \code{digits} (defaults to 3).
 #'
 #' @param df A data frame.
-#' @param digits=3 Sets the number of digits (via the `kable()` `digits` argument).
+#' @param digits=3 Sets the number of digits (via the \code{kable()} \code{digits} argument).
 #'
 #' @export
 my_kable <- function(df, digits = 3){
@@ -23,23 +21,46 @@ my_kable <- function(df, digits = 3){
   return(tb)
 }
 
+########################################################################################
+# kbl_ctable: edwards::my_kable() with a 2-d contingency table input
+#########################################################################################
+#'
+#' \code{edwards::my_kable()} with a two way contingency table input.
+#'
+#' @param ct A two way table object.
+#' @param digits=3 Sets the number of digits (passed to \code{my_kable()}).
+#'
+#' @export
+kbl_ctable <- function(ct, digits = 3) {
+  if (length(dim(ct)) != 2 | !is.table(ct)){
+    stop("`ct` must be a two way contingency table.", .call = FALSE)
+  }
+  dfmat <- as.data.frame.matrix(ct)
+  var1 <- names(dimnames(ct)[1])
+  var2 <- names(dimnames(ct)[2])
+  rnames <- dimnames(ct)[[2]]
+  main <- paste0(var1, " / ", var2)
+  df <- bind_cols(tibble::tibble(!!as.name(main) := rnames), dfmat)
+  edwards::my_kable(df, digits = digits)
+}
+
 #########################################################################################
 # split_kable: Split a table in into `n` parts of balanced size.
 #########################################################################################
 #'
 #' Split a table in into parts of balanced size
 #'
-#' Splits a table into a `n_tb` parts of similar sizing using standard styling in `my_kable()`. This is
+#' Splits a table into a  \code{n_tb} parts of similar sizing using standard styling in  \code{my_kable()}. This is
 #'   used when I want to split a long thin table across multiple columns to reduce a document's size. Returns
-#'   a single table part. Which part given by argument `index`.
+#'   a single table part. Which part given by argument  \code{index}.
 #'
 #' Printing all table parts in one function call didn't work since I couldn't get
-#'   `kable()` to print from within a function.
+#'    \code{kable()} to print from within a function.
 #'
 #' @param df A data frame.
 #' @param index Which part of the split table to return.
 #' @param n_tb=2 The number of parts to split the table into.
-#' @param digits=3 Sets the number of digits (via the `kable()` `digits` argument).
+#' @param digits=3 Sets the number of digits (via the  \code{kable()}  \code{digits} argument).
 #'
 #' @export
 split_kable <- function(df, index, n_tb = 2, digits = 3) {
