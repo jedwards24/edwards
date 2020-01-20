@@ -7,12 +7,12 @@
 bin_integer_fct(ff, cuts)
 }
 \arguments{
-\item{cuts}{A numeric vector giving bin cuts. Don't add `-Inf` or `Inf` end cuts as these are handled automatically.}
+\item{cuts}{A numeric vector giving bin cuts. Don't add \code{-Inf} or \code{Inf} end cuts as these are handled automatically.}
 }
 \description{
 Input is a vector with levels that, all except one, are naturally integers e.g. "60". The other level is a
 string e.g. "missing".  An ordered factor is returned with the "integer" levels grouped into bins
-based on the argument `cuts` with appropriate names.
+based on the argument \code{cuts} with appropriate names.
 }
 \details{
 FACTOR ORDERING HAS NOT BEEN CHECKED.
