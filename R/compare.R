@@ -39,10 +39,10 @@ compare_vars <- function(df, var1, var2, simple = F, tol = 1E-6) {
 #' @export
 compare_vecs <- function(x, y, names = NULL, simple = F, tol = 1E-6){
   if (!(is.atomic(x) & is.atomic(y))){
-    stop("Both vectors must be atomic.")
+    stop("Both vectors must be atomic.", call. = FALSE)
   }
   if (length(x) != length(y)){
-    stop("x and y must be the same length.")
+    stop("x and y must be the same length.", call. = FALSE)
   }
   if(is.factor(x)) x <- levels(x)[x]
   if(is.factor(y)) y <- levels(y)[y]
@@ -53,8 +53,8 @@ compare_vecs <- function(x, y, names = NULL, simple = F, tol = 1E-6){
     name1 <- names[1]
     name2 <- names[2]
   }
-  if (class(x) != class(y)){
-    warning("Vectors have different classes: ", class(x), " and ", class(y), ".", call. = FALSE)
+  if (class(x)[1] != class(y)[1]){
+    warning("Vectors have different classes: ", class(x)[1], " and ", class(y)[1], ".", call. = FALSE)
   }
   both_num <- is.numeric(x) && is.numeric(y)
   both_na <- is.na(x) & is.na(y)
