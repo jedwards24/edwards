@@ -68,7 +68,9 @@ prop_ci <- function(dt, target_name, var_name, min_n = 1, show_all = TRUE, order
 
   dt_summ <- dt %>%
     group_by(var) %>%
-    summarise(n = n(), prop = mean(target)) %>%
+    summarise(n = n(),
+              n_pos = sum(target),
+              prop = mean(target)) %>%
     rename(value = var) %>%
     arrange(desc(n)) %>%
     mutate(lo = binom::binom.wilson(prop * n, n, conf.level = conf_level)[['lower']],
