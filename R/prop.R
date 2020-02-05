@@ -20,13 +20,16 @@
 #' @param min_n Integer >= 1. Predictor levels with less than \code{min_n} observations are not displayed.
 #' @param show_all Boolean. Defaults to \code{TRUE}. If \code{FALSE} will not show levels whose confidence interval
 #'   overlaps the mean response of all observations.
+#' @param order_n Boolean. Whether to force plot and table to order by number of observations of the
+#'   predictior. The default setting \code{NULL} retains ordering if predictor is numeric or ordered factor
+#'   and orders by number of observations otherwise.
 #' @param conf.level Numeric in (0,1). Confidence level used for confidence intervals.
 #' @param prop_lim Optional x axis limits passed to \code{ggplot()} e.g. \code{c(0,1)}.
 #' @param pos_class Optional. Specify value in target to associate with class 1.
 #' @param plot Optional logical. Output a plot or not.
 #'
 #' @export
-prop_ci <- function(dt, target_name, var_name, min_n = 1, show_all = T,
+prop_ci <- function(dt, target_name, var_name, min_n = 1, show_all = TRUE, order_n = NULL,
                      conf_level = 0.95, prop_lim = NULL, pos_class = NULL, plot = TRUE) {
   dt <- rename(dt,
                target = !!as.name(target_name),
@@ -54,9 +57,13 @@ prop_ci <- function(dt, target_name, var_name, min_n = 1, show_all = T,
     targ_vec <- as.numeric(levels(targ_vec))[targ_vec]
   }
   dt <- mutate(dt, target = targ_vec)
-  if (is.factor(dt$var) & !("(Missing)" %in% dt$var)){
+  if (is.factor(dt$var) && !("(Missing)" %in% dt$var)){
     dt <- mutate(dt, var = fct_explicit_na(var))
   }
+  if (is.null(order_n)){
+    order_n <- if (is.numeric(dt$var) || is.ordered(dt$var)) FALSE else TRUE
+  }
+
   mean_all <- mean(targ_vec)
 
   dt_summ <- dt %>%
@@ -74,11 +81,16 @@ prop_ci <- function(dt, target_name, var_name, min_n = 1, show_all = T,
     ) %>%
     filter(n >= min_n) %>%
     purrr::when(!show_all ~ filter(., sig != "none"), ~.) %>%
-    arrange(desc(n))
+    purrr::when(order_n ~ arrange(., desc(n)), ~arrange(., value))
+  if (order_n){
+    dt_plot <- mutate(dt_summ, value = reorder(value, n))
+  }else{
+    dt_plot <- dt_summ
+  }
   if (plot){
     cols <- c("#F8766D", "#00BA38", "#619CFF")
-    g <- dt_summ %>%
-      ggplot(aes(x = reorder(value, n), y = prop, color = sig)) +
+    g <- dt_plot %>%
+      ggplot(aes(x = value, y = prop, color = sig)) +
       geom_point() +
       geom_errorbar(aes(ymin = lo, ymax = hi)) +
       coord_flip() +

@@ -9,7 +9,8 @@ prop_ci(
   target_name,
   var_name,
   min_n = 1,
-  show_all = T,
+  show_all = TRUE,
+  order_n = NULL,
   conf_level = 0.95,
   prop_lim = NULL,
   pos_class = NULL,
@@ -27,6 +28,10 @@ prop_ci(
 
 \item{show_all}{Boolean. Defaults to \code{TRUE}. If \code{FALSE} will not show levels whose confidence interval
 overlaps the mean response of all observations.}
+
+\item{order_n}{Boolean. Whether to force plot and table to order by number of observations of the
+predictior. The default setting \code{NULL} retains ordering if predictor is numeric or ordered factor
+and orders by number of observations otherwise.}
 
 \item{prop_lim}{Optional x axis limits passed to \code{ggplot()} e.g. \code{c(0,1)}.}
 
