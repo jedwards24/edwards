@@ -88,3 +88,31 @@ prinf <- function(x) {
   }
   invisible(x)
 }
+
+#########################################################################################
+# latest_file: Get file name of most recent file in a directory
+#########################################################################################
+#'
+#' Get file name of most recent file in a directory
+#'
+#' Looks for files in a directory \code{path} with names beginning \code{"root_name_dd"}, where
+#' dd are digits, then returns the full path of the file with the maximum numeric part of its name.
+#' This maximum is decided alphabetically so the numeric part of the file names should be structured
+#' similarly across the compared filed e.g. a two digit version number or date in yyyy-mm-dd form.
+#'
+#' @param path A string path name for the directory to search in.
+#' @param root_name A string giving the part of the file name before the date.
+#'
+#' @export
+
+latest_file <- function(path, root_name) {
+  if (!dir.exists(path)){
+    stop(paste0("Directory ", path, " does not exist."), call. = FALSE)
+  }
+  files_match <- stringr::str_subset(list.files(path), paste0(root_name, "_[\\d]{2}"))
+  if(length(files_match) == 0){
+    stop("No matching files found in that directory.", call. = FALSE)
+  }
+  message("Files found matching root_name:\n", paste0(files_match, sep = "\n"))
+  paste0(path, max(files_match))
+}
