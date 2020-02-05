@@ -47,13 +47,4 @@ The target variable must be binary. Top compute confidence intervals this is con
 If it is not obvious which value corresponds to 1 and which to 0 then it will be based on level order
 if a factor and the first observation otherwise. Giving the value of corresponding to 1 in the argument
 \code{pos_class} will override this.
-
-Currently requires various functions from various tidyverse packages. Some known issues:
-
-\itemize{
-  \item Different colours are used depending on whether the interval is above/below/overlapping the population
-    mean. Currently sometimes inconsistent.
-  \item Predictor levels are sorted by n but good to add option to keep usual ordering. Detect ordered factors?
-  \item Doesn't handle NAs currently.
-}
 }

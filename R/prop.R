@@ -14,13 +14,6 @@
 #' if a factor and the first observation otherwise. Giving the value of corresponding to 1 in the argument
 #' \code{pos_class} will override this.
 #'
-#' Currently requires various functions from various tidyverse packages. Some known issues:
-#'
-#' \itemize{
-#'   \item Predictor levels are sorted by n but good to add option to keep usual ordering. Detect ordered factors?
-#'   \item Doesn't handle NAs currently.
-#' }
-#'
 #' @param dt A data frame.
 #' @param target_name String. Name of target variable.
 #' @param var_name String. Name of predictor variable.
@@ -38,6 +31,10 @@ prop_ci <- function(dt, target_name, var_name, min_n = 1, show_all = T,
   dt <- rename(dt,
                target = !!as.name(target_name),
                var = !!as.name(var_name))
+  if (any(is.na(dt$target))){
+    dt <- filter(dt, !is.na(target))
+    message("There are NA values in target variable. These rows will be excluded from any calculations.")
+  }
   targ_vec <- pull(dt, target)
 
   if (length(unique(targ_vec)) > 2L){
@@ -56,8 +53,11 @@ prop_ci <- function(dt, target_name, var_name, min_n = 1, show_all = T,
   if(is.factor(targ_vec)){
     targ_vec <- as.numeric(levels(targ_vec))[targ_vec]
   }
-  mean_all <- mean(targ_vec)
   dt <- mutate(dt, target = targ_vec)
+  if (is.factor(dt$var) & !("(Missing)" %in% dt$var)){
+    dt <- mutate(dt, var = fct_explicit_na(var))
+  }
+  mean_all <- mean(targ_vec)
 
   dt_summ <- dt %>%
     group_by(var) %>%
