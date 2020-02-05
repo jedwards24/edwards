@@ -17,8 +17,6 @@
 #' Currently requires various functions from various tidyverse packages. Some known issues:
 #'
 #' \itemize{
-#'   \item Different colours are used depending on whether the interval is above/below/overlapping the population
-#'     mean. Currently sometimes inconsistent.
 #'   \item Predictor levels are sorted by n but good to add option to keep usual ordering. Detect ordered factors?
 #'   \item Doesn't handle NAs currently.
 #' }
@@ -69,15 +67,16 @@ prop_ci <- function(dt, target_name, var_name, min_n = 1, show_all = T,
     mutate(lo = binom::binom.wilson(prop * n, n, conf.level = conf_level)[['lower']],
            hi = binom::binom.wilson(prop * n, n, conf.level = conf_level)[['upper']],
            sig = case_when(
-             lo > mean_all ~ 2,
+             lo > mean_all ~ 3,
              hi < mean_all ~ 1,
-             T ~ 3),
-           sig = factor(sig, levels = c(1, 2, 3), labels = c("lo", "hi", "none"))
+             T ~ 2),
+           sig = factor(sig, levels = c(1, 2, 3), labels = c("lo", "none", "hi"))
     ) %>%
     filter(n >= min_n) %>%
     purrr::when(!show_all ~ filter(., sig != "none"), ~.) %>%
     arrange(desc(n))
   if (plot){
+    cols <- c("#F8766D", "#00BA38", "#619CFF")
     g <- dt_summ %>%
       ggplot(aes(x = reorder(value, n), y = prop, color = sig)) +
       geom_point() +
@@ -87,9 +86,9 @@ prop_ci <- function(dt, target_name, var_name, min_n = 1, show_all = T,
       ylab("Mean Proportion Target") +
       xlab(var_name) +
       theme(legend.position = "none") +
+      scale_colour_manual(values = c("lo" = cols[1], "none" = cols[3], "hi" = cols[2])) +
       {if(all(!is.null(prop_lim))) ylim(prop_lim[1], prop_lim[2])}
     print(g)
   }
   dt_summ
 }
-
