@@ -232,8 +232,8 @@ var_summary <- function(df) {
 #' Prints output from \code{dplyr::count()} for each variable index given by argument \code{cols} (an integer vector).
 #'
 #' @param df A data frame.
-#' @param cols Vector of integer indices. If not given counts for all columns are given.
-#' @param sort Boolean passed to \code{count()} to say whether results are sorted by descending number of observation..
+#' @param cols Vector of integer indices. If missing, all columns are included.
+#' @param sort Boolean passed to \code{count()} to say whether results are sorted by descending number of observation.
 #'   Unlike in \code{count()}, this defaults to \code{TRUE}.
 #' @param n Integer passed to \code{print()} which gives the maximum number of rows printed in each count summary.
 #'

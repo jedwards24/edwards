@@ -32,7 +32,7 @@ mode_stat <- function(x, multiple = TRUE, na.rm = TRUE) {
 #'
 #' Convert a numeric factor to a numeric vector
 #'
-#' The obvious `as.numeric()` is incorrect.
+#' The obvious \code{as.numeric()} is incorrect.
 #'
 #' From  https://stackoverflow.com/questions/3418128/how-to-convert-a-factor-to-integer-numeric-without-loss-of-information
 #'

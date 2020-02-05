@@ -9,15 +9,15 @@ roc_plot(pred, target, train, test = NULL)
 \arguments{
 \item{pred}{A vector of prediction probabilities.}
 
-\item{target}{A vector of outcome classes corresponding to `pred`.}
+\item{target}{A vector of outcome classes corresponding to \code{pred}.}
 
 \item{train}{A vector of indices indicating which predictions are "training" data.}
 
-\item{test}{Optional vector of indices indicating which predictions are "test" data. Defaults to `NULL`, in
-which case `test` will be set to the data not in `train`.}
+\item{test}{Optional vector of indices indicating which predictions are "test" data. Defaults to \code{NULL}, in
+which case \code{test} will be set to the data not in \code{train}.}
 }
 \description{
 Returns a ggplot of a ROC curve from prediction and target vectors. These are partitioned by the argument
-`train` into two separate curves so that differences between train and test data can be seen. AUC for each
+\code{train} into two separate curves so that differences between train and test data can be seen. AUC for each
 is printed. Functions from ROCR are used.
 }

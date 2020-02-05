@@ -7,7 +7,7 @@
 find_similar_single(df)
 }
 \description{
-Is called from `find_similar()` when the second data frame argument is omitted.
-See `find_similar()` documentation for details.
+Is called from \code{find_similar()} when the second data frame argument is omitted.
+See \code{find_similar()} documentation for details.
 }
 \keyword{internal}

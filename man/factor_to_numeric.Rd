@@ -10,7 +10,7 @@ factor_to_numeric(x)
 \item{x}{A numeric factor.}
 }
 \description{
-The obvious `as.numeric()` is incorrect.
+The obvious \code{as.numeric()} is incorrect.
 }
 \details{
 From  https://stackoverflow.com/questions/3418128/how-to-convert-a-factor-to-integer-numeric-without-loss-of-information

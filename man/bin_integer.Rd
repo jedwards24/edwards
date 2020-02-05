@@ -13,7 +13,7 @@ bin_integer(x, cuts, na_level = NULL, na_at_end = FALSE)
 level will be formed.}
 
 \item{na_at_end}{Boolean indicating whether to put any explicit NA level at the end of the levels. The
-default `na_at_end = FALSE` will put the level at the start.}
+default \code{na_at_end = FALSE} will put the level at the start.}
 }
 \description{
 Takes a numeric input vector, groups into bins based on the argument \code{cuts}, and

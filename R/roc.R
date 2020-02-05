@@ -58,14 +58,14 @@ roc_cut = function(perf, pred, plot = T) {
 #' Plots ROC curves for training and test data.
 #'
 #' Returns a ggplot of a ROC curve from prediction and target vectors. These are partitioned by the argument
-#' `train` into two separate curves so that differences between train and test data can be seen. AUC for each
+#' \code{train} into two separate curves so that differences between train and test data can be seen. AUC for each
 #' is printed. Functions from ROCR are used.
 #'
 #' @param pred A vector of prediction probabilities.
-#' @param target A vector of outcome classes corresponding to `pred`.
+#' @param target A vector of outcome classes corresponding to \code{pred}.
 #' @param train A vector of indices indicating which predictions are "training" data.
-#' @param test Optional vector of indices indicating which predictions are "test" data. Defaults to `NULL`, in
-#'   which case `test` will be set to the data not in `train`.
+#' @param test Optional vector of indices indicating which predictions are "test" data. Defaults to \code{NULL}, in
+#'   which case \code{test} will be set to the data not in \code{train}.
 #'
 #' @export
 roc_plot <- function(pred, target, train, test = NULL) {

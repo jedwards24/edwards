@@ -15,12 +15,12 @@ plot_missing2(
 )
 }
 \arguments{
-\item{show_all}{Logical. If `FALSE` (default) then do not show variables with no NAs.}
+\item{show_all}{Logical. If \code{FALSE} (default) then do not show variables with no NAs.}
 }
 \description{
-Adaptation of `DataExplorer::plot_missing` but with option to not show variables with no NAs.
+Adaptation of \code{DataExplorer::plot_missing} but with option to not show variables with no NAs.
 Also has different default lables for each group.
 }
 \details{
-For details and main arguments see `DataExplorer::plot_missing`.
+For details and main arguments see \code{DataExplorer::plot_missing}.
 }

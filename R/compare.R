@@ -164,8 +164,8 @@ find_similar <- function(df1, df2 = NULL){
 #'
 #' Count pairwise matches between columns in a single data frame
 #'
-#' Is called from `find_similar()` when the second data frame argument is omitted.
-#' See `find_similar()` documentation for details.
+#' Is called from \code{find_similar()} when the second data frame argument is omitted.
+#' See \code{find_similar()} documentation for details.
 #'
 #' @keywords internal
 find_similar_single <- function(df){

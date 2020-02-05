@@ -12,7 +12,7 @@
 #' @param na_level A name for the explicit NA level (if any). If left as the default NULL then no explicit NA
 #'   level will be formed.
 #' @param na_at_end Boolean indicating whether to put any explicit NA level at the end of the levels. The
-#'   default `na_at_end = FALSE` will put the level at the start.
+#'   default \code{na_at_end = FALSE} will put the level at the start.
 #'
 #' @export
 bin_integer <- function(x, cuts, na_level = NULL, na_at_end = FALSE){

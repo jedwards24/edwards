@@ -4,11 +4,11 @@
 #'
 #' Plot missing values per variable
 #'
-#' Based on `DataExplorer::plot_missing` but simpler.
+#' Based on \code{DataExplorer::plot_missing} but simpler.
 #'
 #' @param df A data frame.
 #' @param show_all Boolean. Default FALSE doesn't show variables with no NAs.
-#' @param sort Boolean. Sort variables by number of NAs? Defaults to `TRUE`.
+#' @param sort Boolean. Sort variables by number of NAs? Defaults to \code{TRUE}.
 #'
 #' @export
 plot_nas <- function(df, show_all = F, sort = T) {
@@ -30,12 +30,12 @@ plot_nas <- function(df, show_all = F, sort = T) {
 #'
 #' Plot missing values per variable
 #'
-#' Adaptation of `DataExplorer::plot_missing` but with option to not show variables with no NAs.
+#' Adaptation of \code{DataExplorer::plot_missing} but with option to not show variables with no NAs.
 #' Also has different default lables for each group.
 #'
-#' For details and main arguments see `DataExplorer::plot_missing`.
+#' For details and main arguments see \code{DataExplorer::plot_missing}.
 #'
-#' @param show_all Logical. If `FALSE` (default) then do not show variables with no NAs.
+#' @param show_all Logical. If \code{FALSE} (default) then do not show variables with no NAs.
 #'
 #' @export
 plot_missing2 <- function (data, group = list(Low = 0.05, OK = 0.4, High = 1),
