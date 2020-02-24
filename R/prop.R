@@ -46,7 +46,7 @@ prop_ci <- function(dt, target_name, var_name, min_n = 1, show_all = TRUE, order
   if (!all(targ_vec %in% c(0, 1))){
     if (is.null(pos_class)) pos_class <- as.vector(targ_vec)[1]
     neg_class <- setdiff(as.vector(targ_vec), pos_class)
-    targ_vec <- ifelse(targ_vec == pos_class, 1, 0)
+    targ_vec <- ifelse(targ_vec == pos_class, 1L, 0L)
     message("Target not binary or logical. Treating ",
             pos_class,
             " as 1 and ",
@@ -54,7 +54,7 @@ prop_ci <- function(dt, target_name, var_name, min_n = 1, show_all = TRUE, order
             " as 0.\nUse 'pos_class' argument to set different value for class 1.")
   }
   if(is.factor(targ_vec)){
-    targ_vec <- as.numeric(levels(targ_vec))[targ_vec]
+    targ_vec <- as.integer(levels(targ_vec))[targ_vec]
   }
   dt <- mutate(dt, target = targ_vec)
   if (is.factor(dt$var) && !("(Missing)" %in% dt$var)){
