@@ -1,6 +1,8 @@
 context("Counting functions")
 
 x <- data.frame(a = c("an", "banana", "candy"), b = c("on", "bon", "bonbon"), c = 1:3)
+y <- tibble::tibble(a = c("a", ".", ".", "a"), b = c("-", "-", "b", "b"), c = c("n/a", "na", "f", ""))
+strs <- c(".", "-", "n/a", "na", "")
 
 test_that("count_string is correct", {
   expect_identical(count_string(x, "an"), c(a = 3L))
@@ -17,6 +19,20 @@ test_that("count_matches is correct", {
   expect_identical(count_matches(x, 1L), c(c = 1L))
   expect_identical(length(count_matches(x, 1)), 0L)
   expect_identical(length(count_matches(x, "1")), 0L)
+})
+
+test_that("count_matches2 works", {
+  tb1 <- count_matches2(y, strs)
+  tb2 <- count_matches2(y[, 1], strs)
+  tb3 <- count_matches2(y, ".")
+  tb4 <- count_matches2(y[, 1], ".")
+  n_str <- length(strs)
+  ycol <- ncol(y)
+  expect_identical(dim(tb1), c(ycol, n_str + 1L))
+  expect_identical(dim(tb2), c(1L, n_str + 1L))
+  expect_identical(dim(tb3), c(ycol, 2L))
+  expect_identical(dim(tb4), c(1L, 2L))
+  expect_identical(names(tb1), c("col_names", strs))
 })
 
 test_that("count_nas is correct", {

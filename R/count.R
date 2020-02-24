@@ -197,6 +197,37 @@ count_matches <- function(df, value, all = FALSE){
 }
 
 #########################################################################################
+# count_matches2: Count exact string matches in a data frame by column.
+#########################################################################################
+#'
+#' Count exact string matches in a data frame by column.
+#'
+#' Similar to \code{count_matches()} but counts matches for multiple strings rather than just one. The
+#' output is a tibble with a row for each column in \code{df}. Unlike \code{count_matches}, only non-string
+#' matching is not enabled.
+#'
+#' @param df A data frame.
+#' @param strings A character vector.
+#'
+#' @export
+
+count_matches2 <- function(df, strings) {
+  if (!is.list(df)) {
+    stop("Argument \"df\" must be a list.", call. = FALSE)
+  }
+  if (!is.character(strings)||!is.vector(strings)){
+    stop("Argument \"strings\" must be a character vector.", call. = FALSE)
+  }
+  tb <- lapply(strings,
+               FUN = edwards::count_matches,
+               df = df,
+               all = TRUE) %>%
+    dplyr::bind_cols(col_names = names(df), .)
+  names(tb) <- c("col_names", strings)
+  tb
+}
+
+#########################################################################################
 # var_summary: Simple summary of the variables in a data frame.
 #########################################################################################
 #'
