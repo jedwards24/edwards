@@ -2,7 +2,7 @@
 % Please edit documentation in R/dates.R
 \name{convert_date}
 \alias{convert_date}
-\title{Parse a string in a particular format and convert to a date or datetime}
+\title{Parse a character vector in a particular format and convert to a date or datetime}
 \usage{
 convert_date(x)
 }

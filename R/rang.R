@@ -157,4 +157,3 @@ rang_oob_err <- function(rf, data, start = 5L, by = 5L, plot = TRUE) {
   }
   res
 }
-

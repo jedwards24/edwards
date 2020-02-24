@@ -97,4 +97,3 @@ bin_integer_fct <- function(ff, cuts){
   }
   ff
 }
-

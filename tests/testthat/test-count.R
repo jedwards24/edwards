@@ -49,4 +49,3 @@ test_that("var_summary works", {
   expect_type(var_summary(df), "list")
   expect_error(var_summary(list(1)), "must be a data frame")
 })
-
