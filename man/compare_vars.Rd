@@ -11,7 +11,7 @@ compare_vars(df, var1, var2, simple = F, tol = 1e-06)
 
 \item{var1, var2}{The two columns to be compared, either string names or integer positions.}
 
-\item{simple}{Boolean. If TRUE then only checks for pairwise differences, not ordering.}
+\item{simple}{Logical. If TRUE then only checks for pairwise differences, not ordering.}
 
 \item{tol}{When comparing numeric vectors, equality and inequality comparisons use this tolerance.}
 }

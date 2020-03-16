@@ -9,7 +9,7 @@
 #'
 #' @param df A data frame.
 #' @param var1,var2 The two columns to be compared, either string names or integer positions.
-#' @param simple Boolean. If TRUE then only checks for pairwise differences, not ordering.
+#' @param simple Logical. If TRUE then only checks for pairwise differences, not ordering.
 #' @param tol When comparing numeric vectors, equality and inequality comparisons use this tolerance.
 #'
 #' @export
@@ -33,7 +33,7 @@ compare_vars <- function(df, var1, var2, simple = F, tol = 1E-6) {
 #'
 #' @param x,y The two vectors to be compared. Both vectors must be atomic and of the same length.
 #' @param names Optional length 2 string vector of names for each vector. Otherwise, "x" and "y" are used.
-#' @param simple Boolean. If TRUE then only checks for pairwise differences, not ordering.
+#' @param simple Logical. If TRUE then only checks for pairwise differences, not ordering.
 #' @param tol When comparing numeric vectors, equality and inequality comparisons use this tolerance.
 #'
 #' @export

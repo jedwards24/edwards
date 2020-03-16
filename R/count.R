@@ -117,7 +117,7 @@ count_nas2 <- function(df, all = FALSE, sort = TRUE) {
 #'
 #' Returns a named integer vector with elements that give the number of entries in the corresponding
 #' column of \code{df} that contain a match to the string pattern \code{pattern}. No coercion is used
-#' so only characters or factors are matched (see examples).
+#' so only characters or factors are m'atched (see examples).
 #'
 #' Note that repeated occurences of \code{pattern} in a single string are only counted once (see examples).
 #'
@@ -264,7 +264,7 @@ var_summary <- function(df) {
 #'
 #' @param df A data frame.
 #' @param cols Vector of integer indices. If missing, all columns are included.
-#' @param sort Boolean passed to \code{count()} to say whether results are sorted by descending number of observation.
+#' @param sort Logical passed to \code{count()} to say whether results are sorted by descending number of observation.
 #'   Unlike in \code{count()}, this defaults to \code{TRUE}.
 #' @param n Integer passed to \code{print()} which gives the maximum number of rows printed in each count summary.
 #'

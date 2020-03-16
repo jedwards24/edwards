@@ -12,7 +12,7 @@
 #'
 #' @param perf A ROCR performance object.
 #' @param pred A ROCR prediction object.
-#' @param plot Boolean indicating whether to plot a ROC curve together with distance from the optimal corner.
+#' @param plot Logical indicating whether to plot a ROC curve together with distance from the optimal corner.
 #'
 #' @export
 roc_cut = function(perf, pred, plot = T) {

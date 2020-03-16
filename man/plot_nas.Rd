@@ -9,9 +9,9 @@ plot_nas(df, show_all = F, sort = T)
 \arguments{
 \item{df}{A data frame.}
 
-\item{show_all}{Boolean. Default FALSE doesn't show variables with no NAs.}
+\item{show_all}{Logical. Default FALSE doesn't show variables with no NAs.}
 
-\item{sort}{Boolean. Sort variables by number of NAs? Defaults to \code{TRUE}.}
+\item{sort}{Logical. Sort variables by number of NAs? Defaults to \code{TRUE}.}
 }
 \description{
 Based on \code{DataExplorer::plot_missing} but simpler.

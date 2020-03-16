@@ -11,7 +11,7 @@ compare_vecs(x, y, names = NULL, simple = F, tol = 1e-06)
 
 \item{names}{Optional length 2 string vector of names for each vector. Otherwise, "x" and "y" are used.}
 
-\item{simple}{Boolean. If TRUE then only checks for pairwise differences, not ordering.}
+\item{simple}{Logical. If TRUE then only checks for pairwise differences, not ordering.}
 
 \item{tol}{When comparing numeric vectors, equality and inequality comparisons use this tolerance.}
 }

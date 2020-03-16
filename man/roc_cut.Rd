@@ -11,7 +11,7 @@ roc_cut(perf, pred, plot = T)
 
 \item{pred}{A ROCR prediction object.}
 
-\item{plot}{Boolean indicating whether to plot a ROC curve together with distance from the optimal corner.}
+\item{plot}{Logical indicating whether to plot a ROC curve together with distance from the optimal corner.}
 }
 \description{
 Calculates the "optimal" cutoff for a classifier from a ROC curve. This is the cutoff that minimises the

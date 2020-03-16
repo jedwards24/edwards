@@ -26,10 +26,10 @@ prop_ci(
 
 \item{min_n}{Integer >= 1. Predictor levels with less than \code{min_n} observations are not displayed.}
 
-\item{show_all}{Boolean. Defaults to \code{TRUE}. If \code{FALSE} will not show levels whose confidence interval
+\item{show_all}{Logical. Defaults to \code{TRUE}. If \code{FALSE} will not show levels whose confidence interval
 overlaps the mean response of all observations.}
 
-\item{order_n}{Boolean. Whether to force plot and table to order by number of observations of the
+\item{order_n}{Logical. Whether to force plot and table to order by number of observations of the
 predictior. The default setting \code{NULL} retains ordering if predictor is numeric or ordered factor
 and orders by number of observations otherwise.}
 

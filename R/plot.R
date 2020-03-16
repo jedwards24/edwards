@@ -7,8 +7,8 @@
 #' Based on \code{DataExplorer::plot_missing} but simpler.
 #'
 #' @param df A data frame.
-#' @param show_all Boolean. Default FALSE doesn't show variables with no NAs.
-#' @param sort Boolean. Sort variables by number of NAs? Defaults to \code{TRUE}.
+#' @param show_all Logical. Default FALSE doesn't show variables with no NAs.
+#' @param sort Logical. Sort variables by number of NAs? Defaults to \code{TRUE}.
 #'
 #' @export
 plot_nas <- function(df, show_all = F, sort = T) {

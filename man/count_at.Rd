@@ -11,7 +11,7 @@ count_at(df, cols = NULL, sort = TRUE, n = 10)
 
 \item{cols}{Vector of integer indices. If missing, all columns are included.}
 
-\item{sort}{Boolean passed to \code{count()} to say whether results are sorted by descending number of observation.
+\item{sort}{Logical passed to \code{count()} to say whether results are sorted by descending number of observation.
 Unlike in \code{count()}, this defaults to \code{TRUE}.}
 
 \item{n}{Integer passed to \code{print()} which gives the maximum number of rows printed in each count summary.}

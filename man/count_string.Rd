@@ -16,7 +16,7 @@ count_string(df, pattern, all = FALSE)
 \description{
 Returns a named integer vector with elements that give the number of entries in the corresponding
 column of \code{df} that contain a match to the string pattern \code{pattern}. No coercion is used
-so only characters or factors are matched (see examples).
+so only characters or factors are m'atched (see examples).
 }
 \details{
 Note that repeated occurences of \code{pattern} in a single string are only counted once (see examples).

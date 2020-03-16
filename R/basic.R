@@ -9,8 +9,8 @@
 #' From https://stackoverflow.com/questions/2547402/is-there-a-built-in-function-for-finding-the-mode.
 #'
 #' @param x An atomic vector.
-#' @param multiple Boolean. If TRUE returns a vector of modes, or just the first otherwise.
-#' @param na.rm Boolean. Indicates whether to ignore NAs.
+#' @param multiple Logical. If TRUE returns a vector of modes, or just the first otherwise.
+#' @param na.rm Logical. Indicates whether to ignore NAs.
 #'
 #' @export
 mode_stat <- function(x, multiple = TRUE, na.rm = TRUE) {

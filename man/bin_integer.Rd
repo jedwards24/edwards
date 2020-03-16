@@ -12,7 +12,7 @@ bin_integer(x, cuts, na_level = NULL, na_at_end = FALSE)
 \item{na_level}{A name for the explicit NA level (if any). If left as the default NULL then no explicit NA
 level will be formed.}
 
-\item{na_at_end}{Boolean indicating whether to put any explicit NA level at the end of the levels. The
+\item{na_at_end}{Logical indicating whether to put any explicit NA level at the end of the levels. The
 default \code{na_at_end = FALSE} will put the level at the start.}
 }
 \description{

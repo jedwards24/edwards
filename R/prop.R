@@ -18,9 +18,9 @@
 #' @param target_name String. Name of target variable.
 #' @param var_name String. Name of predictor variable.
 #' @param min_n Integer >= 1. Predictor levels with less than \code{min_n} observations are not displayed.
-#' @param show_all Boolean. Defaults to \code{TRUE}. If \code{FALSE} will not show levels whose confidence interval
+#' @param show_all Logical. Defaults to \code{TRUE}. If \code{FALSE} will not show levels whose confidence interval
 #'   overlaps the mean response of all observations.
-#' @param order_n Boolean. Whether to force plot and table to order by number of observations of the
+#' @param order_n Logical. Whether to force plot and table to order by number of observations of the
 #'   predictior. The default setting \code{NULL} retains ordering if predictor is numeric or ordered factor
 #'   and orders by number of observations otherwise.
 #' @param conf.level Numeric in (0,1). Confidence level used for confidence intervals.

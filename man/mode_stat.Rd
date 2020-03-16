@@ -9,9 +9,9 @@ mode_stat(x, multiple = TRUE, na.rm = TRUE)
 \arguments{
 \item{x}{An atomic vector.}
 
-\item{multiple}{Boolean. If TRUE returns a vector of modes, or just the first otherwise.}
+\item{multiple}{Logical. If TRUE returns a vector of modes, or just the first otherwise.}
 
-\item{na.rm}{Boolean. Indicates whether to ignore NAs.}
+\item{na.rm}{Logical. Indicates whether to ignore NAs.}
 }
 \description{
 Returns the statistical mode of an atomic vector (can be numeric, character or factor).
