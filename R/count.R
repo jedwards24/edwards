@@ -142,7 +142,7 @@ count_string <- function(df, pattern, all = FALSE){
   vals <- vapply(df, f, integer(1))
   vals <- vals[vals > 0 | all]
   if(length(vals) == 0){
-    message("String not found in data.")
+    message("String not found in the data.")
     invisible(vals)
   }else{
     vals
@@ -189,7 +189,7 @@ count_matches <- function(df, value, all = FALSE){
   vals <- vapply(df, f, integer(1))
   vals <- vals[vals > 0 | all]
   if(length(vals) == 0){
-    message("No matches in data.")
+    message("No matches in the data.")
     invisible(vals)
   }else{
     vals
@@ -203,15 +203,23 @@ count_matches <- function(df, value, all = FALSE){
 #' Count exact string matches in a data frame by column.
 #'
 #' Similar to \code{count_matches()} but counts matches for multiple strings rather than just one. The
-#' output is a tibble with a row for each column in \code{df}. Unlike \code{count_matches}, only non-string
+#' output is a tibble with a row for each column in \code{df}. Unlike \code{count_matches}, non-string
 #' matching is not enabled.
 #'
 #' @param df A data frame.
 #' @param strings A character vector.
+#' @param all Logical. If \code{FALSE} (default) then rows/columns with no non-zero entry are not shown.
 #'
+#' @examples
+#' df <- tibble::tibble(col1 = c("a", ".", ".", "a"),
+#'                      col2 = c("-", "-", "b", "b"),
+#'                      col3 = rep("z", 4),
+#'                      col4 = c("n/a", "f", "f", ""))
+#' strs <- c(".", "-", "n/a", "na", "")
+#' count_matches2(df, strs, all = TRUE)
+#' count_matches2(df, strs)
 #' @export
-
-count_matches2 <- function(df, strings) {
+count_matches2 <- function(df, strings, all = FALSE) {
   if (!is.list(df)) {
     stop("Argument \"df\" must be a list.", call. = FALSE)
   }
@@ -224,6 +232,17 @@ count_matches2 <- function(df, strings) {
                all = TRUE) %>%
     dplyr::bind_cols(col_names = names(df), .)
   names(tb) <- c("col_names", strings)
+  if (all){
+    return(tb)
+  }
+
+  sum_rows <- rowSums(tb[, -1])
+  sum_cols <- c(1, colSums(tb[, -1]))
+  tb <- tb[sum_rows > 0, sum_cols > 0]
+  if (sum(sum_rows) == 0){
+    message("No matches in the data.")
+    return(invisible(tb))
+  }
   tb
 }
 

@@ -4,15 +4,26 @@
 \alias{count_matches2}
 \title{Count exact string matches in a data frame by column.}
 \usage{
-count_matches2(df, strings)
+count_matches2(df, strings, all = FALSE)
 }
 \arguments{
 \item{df}{A data frame.}
 
 \item{strings}{A character vector.}
+
+\item{all}{Logical. If \code{FALSE} (default) then rows/columns with no non-zero entry are not shown.}
 }
 \description{
 Similar to \code{count_matches()} but counts matches for multiple strings rather than just one. The
-output is a tibble with a row for each column in \code{df}. Unlike \code{count_matches}, only non-string
+output is a tibble with a row for each column in \code{df}. Unlike \code{count_matches}, non-string
 matching is not enabled.
+}
+\examples{
+df <- tibble::tibble(col1 = c("a", ".", ".", "a"),
+                     col2 = c("-", "-", "b", "b"),
+                     col3 = rep("z", 4),
+                     col4 = c("n/a", "f", "f", ""))
+strs <- c(".", "-", "n/a", "na", "")
+count_matches2(df, strs, all = TRUE)
+count_matches2(df, strs)
 }
