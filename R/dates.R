@@ -62,3 +62,21 @@ is_simple_datetime <- function(x) {
   }
   FALSE
 }
+
+#########################################################################################
+# diff_days: Difference in days of two dates as a numeric
+#########################################################################################
+#'
+#' Difference in days of two dates as a numeric
+#'
+#' Finds \code{difftime(date1, date2)} using \code{units = "days"}, then converts to a numeric. If either
+#' input is a datetime then only the date part is used (the datetime is first coerced to a date using
+#' \code{lubridate::as_date()}).
+#'
+#' @param date1 A date or datetime.
+#' @param date2 A date or datetime.
+#'
+#' @export
+diff_days <- function(date1, date2) {
+  as.numeric(difftime(lubridate::as_date(date1), lubridate::as_date(date2), units = "days"))
+}
