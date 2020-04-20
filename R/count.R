@@ -306,7 +306,7 @@ count_at <- function(df, cols = NULL, sort = TRUE, n = 10) {
 # count_n: Shorthand for `count(df, ...) %>% count(n)`
 #########################################################################################
 #'
-#' Count the number of repetitions in grouped variables
+#' Count group sizes by grouped variables
 #'
 #' Shorthand for \code{count(count(df, ...), n)}.
 #'
@@ -318,5 +318,5 @@ count_at <- function(df, cols = NULL, sort = TRUE, n = 10) {
 #'
 #' @export
 count_n <- function(df, ...) {
-  dplyr::count(dplyr::count(df, ...), n)
+  dplyr::count(dplyr::count(df, ...), n, name = "freq")
 }

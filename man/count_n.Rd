@@ -2,7 +2,7 @@
 % Please edit documentation in R/count.R
 \name{count_n}
 \alias{count_n}
-\title{Count the number of repetitions in grouped variables}
+\title{Count group sizes by grouped variables}
 \usage{
 count_n(df, ...)
 }
