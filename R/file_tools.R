@@ -28,7 +28,12 @@ latest_file <- function(path, root_name, file_ext = NULL) {
   if(length(files_match) == 0){
     stop("No matching files found in that directory.", call. = FALSE)
   }
-  message("Files found matching root_name:\n", paste0(sort(files_match), sep = "\n"))
+  message('Filenames found containing "', root_name, '_dd":\n', paste0(sort(files_match), sep = "\n"))
+  other_matches <- setdiff(stringr::str_subset(list.files(path), root_name), files_match)
+  if (length(other_matches) > 0){
+    warning('There are other filenames containing "', root_name, '" (ignored for latest file):\n',
+            paste0(sort(other_matches), sep = "\n"), call. = FALSE)
+  }
   if (stringr::str_detect(path, "/$")){
     paste0(path, max(files_match))
   }else{
