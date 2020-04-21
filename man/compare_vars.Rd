@@ -4,12 +4,12 @@
 \alias{compare_vars}
 \title{Pairwise element comparison of two variables in a dataframe}
 \usage{
-compare_vars(df, var1, var2, simple = F, tol = 1e-06)
+compare_vars(df, ..., simple = F, tol = 1e-06)
 }
 \arguments{
 \item{df}{A data frame.}
 
-\item{var1, var2}{The two columns to be compared, either string names or integer positions.}
+\item{...}{The two columns to be compared either by name (quoted or unquoted) or integer positions.}
 
 \item{simple}{Logical. If TRUE then only checks for pairwise differences, not ordering.}
 

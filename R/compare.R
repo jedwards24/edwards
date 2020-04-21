@@ -8,16 +8,23 @@
 #' can be of different type or class but will then depend on coercion.
 #'
 #' @param df A data frame.
-#' @param var1,var2 The two columns to be compared, either string names or integer positions.
+#' @param ... The two columns to be compared either by name (quoted or unquoted) or integer positions.
 #' @param simple Logical. If TRUE then only checks for pairwise differences, not ordering.
 #' @param tol When comparing numeric vectors, equality and inequality comparisons use this tolerance.
 #'
 #' @export
-compare_vars <- function(df, var1, var2, simple = F, tol = 1E-6) {
-  vec1 <- df[, var1, drop=T]
-  vec2 <- df[, var2, drop=T]
-  name1 <- if (is.numeric(var1)) names(df)[var1] else var1
-  name2 <- if (is.numeric(var2)) names(df)[var2] else var2
+compare_vars <- function(df, ..., simple = F, tol = 1E-6) {
+  if (!is.data.frame(df)) {
+    stop("`df` must be a data frame.", call. = FALSE)
+  }
+  df <- select(df, ...)
+  if (ncol(df) != 2){
+    stop("Must select exactly two columns to compare.", call. = FALSE)
+  }
+  vec1 <- df[, 1, drop=T]
+  vec2 <- df[, 2, drop=T]
+  name1 <- names(df)[1]
+  name2 <- names(df)[2]
   compare_vecs(vec1, vec2, names = c(name1, name2), simple = simple, tol = tol)
 }
 
@@ -32,7 +39,8 @@ compare_vars <- function(df, var1, var2, simple = F, tol = 1E-6) {
 #' comparison will depend on coercion.
 #'
 #' @param x,y The two vectors to be compared. Both vectors must be atomic and of the same length.
-#' @param names Optional length 2 string vector of names for each vector. Otherwise, "x" and "y" are used.
+#' @param names Optional length 2 string vector of names for the input vectors, to be used in the output
+#'   table. Otherwise, "x" and "y" are used.
 #' @param simple Logical. If TRUE then only checks for pairwise differences, not ordering.
 #' @param tol When comparing numeric vectors, equality and inequality comparisons use this tolerance.
 #'
@@ -46,12 +54,15 @@ compare_vecs <- function(x, y, names = NULL, simple = F, tol = 1E-6){
   }
   if(is.factor(x)) x <- levels(x)[x]
   if(is.factor(y)) y <- levels(y)[y]
-  if (is.null(names)) {
-    name1 <- "x"
-    name2 <- "y"
-  }else{
-    name1 <- names[1]
-    name2 <- names[2]
+  name1 <- "x"
+  name2 <- "y"
+  if (!is.null(names)) {
+    if(length(names) == 2 & is.character(names)){
+      name1 <- names[1]
+      name2 <- names[2]
+    }else{
+      warning('Argument "names" must be a length 2 character vector. Using "x" and "y" instead.', call. = FALSE)
+    }
   }
   if (class(x)[1] != class(y)[1]){
     warning("Vectors have different classes: ", class(x)[1], " and ", class(y)[1], ".", call. = FALSE)

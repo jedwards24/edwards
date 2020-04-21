@@ -9,7 +9,8 @@ compare_vecs(x, y, names = NULL, simple = F, tol = 1e-06)
 \arguments{
 \item{x, y}{The two vectors to be compared. Both vectors must be atomic and of the same length.}
 
-\item{names}{Optional length 2 string vector of names for each vector. Otherwise, "x" and "y" are used.}
+\item{names}{Optional length 2 string vector of names for the input vectors, to be used in the output
+table. Otherwise, "x" and "y" are used.}
 
 \item{simple}{Logical. If TRUE then only checks for pairwise differences, not ordering.}
 
