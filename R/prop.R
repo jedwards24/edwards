@@ -45,6 +45,7 @@ prop_ci <- function(dt, target_name, var_name, min_n = 1, show_all = TRUE, order
   if (length(unique(targ_vec)) > 2L){
     stop("Target variable must be binary.", call. = FALSE)
   }
+  if (is.factor(targ_vec) && all(targ_vec %in% c("TRUE", "FALSE"))) targ_vec <- as.logical(targ_vec) #use expected pos class if factor
   if (!all(targ_vec %in% c(0, 1))){
     if (is.null(pos_class)) pos_class <- as.vector(targ_vec)[1]
     neg_class <- setdiff(as.vector(targ_vec), pos_class)
