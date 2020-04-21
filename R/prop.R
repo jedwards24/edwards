@@ -15,8 +15,8 @@
 #' \code{pos_class} will override this.
 #'
 #' @param dt A data frame.
-#' @param target_name String. Name of target variable.
-#' @param var_name String. Name of predictor variable.
+#' @param target_name Column to use as target variable. Column name (quoted or unquoted) or position.
+#' @param var_name Column to use as predictor variable. Column name (quoted or unquoted) or position.
 #' @param min_n Integer >= 1. Predictor levels with less than \code{min_n} observations are not displayed.
 #' @param show_all Logical. Defaults to \code{TRUE}. If \code{FALSE} will not show levels whose confidence interval
 #'   overlaps the mean response of all observations.
@@ -31,15 +31,17 @@
 #' @export
 prop_ci <- function(dt, target_name, var_name, min_n = 1, show_all = TRUE, order_n = NULL,
                      conf_level = 0.95, prop_lim = NULL, pos_class = NULL, plot = TRUE) {
+  if (!is.data.frame(dt)) stop("`dt` must be a data frame.", call. = FALSE)
+  y_label <- names(select(dt, {{var_name}})) #for plot
   dt <- rename(dt,
-               target = !!as.name(target_name),
-               var = !!as.name(var_name))
+               target = {{target_name}},
+               var = {{var_name}})
   if (any(is.na(dt$target))){
     dt <- filter(dt, !is.na(target))
     message("There are NA values in target variable. These rows will be excluded from any calculations.")
   }
   targ_vec <- pull(dt, target)
-
+  # target vector checks
   if (length(unique(targ_vec)) > 2L){
     stop("Target variable must be binary.", call. = FALSE)
   }
@@ -98,7 +100,7 @@ prop_ci <- function(dt, target_name, var_name, min_n = 1, show_all = TRUE, order
       coord_flip() +
       geom_hline(yintercept = mean_all, linetype = 2) +
       ylab("Mean Proportion Target") +
-      xlab(var_name) +
+      xlab(y_label) +
       theme(legend.position = "none") +
       scale_colour_manual(values = c("lo" = cols[1], "none" = cols[3], "hi" = cols[2])) +
       {if(all(!is.null(prop_lim))) ylim(prop_lim[1], prop_lim[2])}

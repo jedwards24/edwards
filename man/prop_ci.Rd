@@ -20,9 +20,9 @@ prop_ci(
 \arguments{
 \item{dt}{A data frame.}
 
-\item{target_name}{String. Name of target variable.}
+\item{target_name}{Column to use as target variable. Column name (quoted or unquoted) or position.}
 
-\item{var_name}{String. Name of predictor variable.}
+\item{var_name}{Column to use as predictor variable. Column name (quoted or unquoted) or position.}
 
 \item{min_n}{Integer >= 1. Predictor levels with less than \code{min_n} observations are not displayed.}
 
