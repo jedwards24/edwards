@@ -17,7 +17,7 @@ compare_vars <- function(df, ..., simple = F, tol = 1E-6) {
   if (!is.data.frame(df)) {
     stop("`df` must be a data frame.", call. = FALSE)
   }
-  df <- select(df, ...)
+  df <- dplyr::select(df, ...)
   if (ncol(df) != 2){
     stop("Must select exactly two columns to compare.", call. = FALSE)
   }
@@ -183,7 +183,7 @@ find_similar_single <- function(df){
   classes <- sapply(df, function(x) class(x)[1])
   counts <- table(classes)
   sz <- sum(counts * (counts - 1) / 2)
-  res <- tibble(var1 = NA_character_,
+  res <- tibble::tibble(var1 = NA_character_,
                 var2 = NA_character_,
                 class = NA_character_,
                 match = NA_integer_,
@@ -215,4 +215,37 @@ find_similar_single <- function(df){
   res %>%
     mutate(diff = nrow(df) - match - both_na - na_1 - na_2) %>%
     mutate(prop_match_nz = (match - match_zero) / (nrow(df) - match_zero - both_na - na_1 - na_2))
+}
+
+#########################################################################################
+# is_one2one: Check if specified columns in a dataframe have one-to-one relationship.
+#########################################################################################
+#'
+#' Check data frame columns for one-to-one relationship. Returns \code{TRUE} if all chosen columns
+#' are one-to-one and \code{FALSE} otherwise. A message gives the first column found with a many-to
+#' relationship with another column.
+#'
+#' @param df A data frame.
+#' @param ... Two or more columns to be compared either by name (quoted or unquoted) or integer positions.
+#'
+#' @export
+is_one2one <- function(df, ...) {
+  if (!is.data.frame(df)) {
+    stop("`df` must be a data frame.", call. = FALSE)
+  }
+  counts_all <- dplyr::select(df, ...) %>%
+    dplyr::group_by_all() %>%
+    dplyr::tally() %>%
+    dplyr::ungroup()
+  for (col in 1 : (ncol(counts_all) - 1)){
+    max_count <- dplyr::group_by_at(counts_all, {{col}}) %>%
+      dplyr::tally() %>%
+      dplyr::pull(n) %>%
+      max()
+    if (max_count > 1){
+      message("Column ", names(counts_all)[col], " has a many-to relationship.")
+      return(FALSE)
+    }
+  }
+  TRUE
 }

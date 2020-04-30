@@ -15,3 +15,12 @@ test_that("compare_vecs() is correct", {
   expect_equal(ct2, c(2, 1, 0, 0, 0, 0))
   #expect_is(compare_vecs(1:10, 1:10), "data.frame")
 })
+
+test_that("is_one2one() is correct", {
+  d1 <- tibble::tibble(x = 1:5,
+               y = c("a", "b", "c", "d", "e"),
+               z = c(1 : 4, 2))
+  expect_true(is_one2one(d1, x, y))
+  expect_false(is_one2one(d1, 1:3))
+  expect_message(is_one2one(d1, 1:3), "Column z")
+})
