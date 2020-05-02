@@ -4,7 +4,7 @@
 \alias{latest_file}
 \title{Get file name of most recent file in a directory}
 \usage{
-latest_file(path, root_name, file_ext = NULL)
+latest_file(path = ".", root_name = ".*", file_ext = NULL)
 }
 \arguments{
 \item{path}{A string path name for the directory to search in.}

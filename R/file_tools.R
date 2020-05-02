@@ -17,7 +17,7 @@
 #' @param file_ext An optional string giving a file extension which the returned file name must end in.
 #'
 #' @export
-latest_file <- function(path, root_name, file_ext = NULL) {
+latest_file <- function(path = ".", root_name=".*", file_ext = NULL) {
   if (!dir.exists(path)){
     stop(paste0("Directory ", path, " does not exist."), call. = FALSE)
   }
