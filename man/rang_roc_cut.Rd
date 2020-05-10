@@ -4,12 +4,12 @@
 \alias{rang_roc_cut}
 \title{ROC curve optimal cut for a ranger object}
 \usage{
-rang_roc_cut(rf, target, plot = TRUE)
+rang_roc_cut(rf, target_vec, plot = TRUE)
 }
 \arguments{
 \item{rf}{A ranger fitted model.}
 
-\item{target}{A binary class target vector matching \code{rf}.}
+\item{target_vec}{A binary class target vector matching \code{rf}.}
 
 \item{plot}{Produce a plot. Defaults to \code{TRUE}.}
 }

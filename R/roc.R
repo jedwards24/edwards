@@ -10,15 +10,17 @@
 #'
 #' Adapted from https://www.r-bloggers.com/a-small-introduction-to-the-rocr-package/.
 #'
-#' @param perf A ROCR performance object.
-#' @param pred A ROCR prediction object.
+#' @param pred_vec A vector of prediction probabilities.
+#' @param target_vec A vector of outcome classes corresponding to \code{pred}.
 #' @param plot Logical indicating whether to plot a ROC curve together with distance from the optimal corner.
 #'
 #' @export
-roc_cut = function(perf, pred, plot = T) {
+roc_cut <- function(pred_vec, target_vec, plot = T) {
+  roc_pred <- ROCR::prediction(pred_vec, target_vec)
+  perf <- ROCR::performance(roc_pred, measure = "tpr", x.measure = "fpr")
   x <- perf@x.values[[1]]
   y <- perf@y.values[[1]]
-  p <- pred@cutoffs[[1]]
+  p <- roc_pred@cutoffs[[1]]
   d = x^2 + (y - 1)^2
   ind = which(d == min(d))
 

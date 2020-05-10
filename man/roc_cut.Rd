@@ -4,12 +4,12 @@
 \alias{roc_cut}
 \title{Optimal cut for ROC curve}
 \usage{
-roc_cut(perf, pred, plot = T)
+roc_cut(pred_vec, target_vec, plot = T)
 }
 \arguments{
-\item{perf}{A ROCR performance object.}
+\item{pred_vec}{A vector of prediction probabilities.}
 
-\item{pred}{A ROCR prediction object.}
+\item{target_vec}{A vector of outcome classes corresponding to \code{pred}.}
 
 \item{plot}{Logical indicating whether to plot a ROC curve together with distance from the optimal corner.}
 }
