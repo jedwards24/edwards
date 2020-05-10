@@ -5,8 +5,8 @@
 #' Optimal cut for ROC curve
 #'
 #' Calculates the "optimal" cutoff for a classifier from a ROC curve. This is the cutoff that minimises the
-#' distance from the point (FPR = 0, TPR = 1). Also returns sensitivity and specitivity for this cutoff and
-#' optionally plots the curve together with the distance measure.
+#' distance from the point (FPR = 0, TPR = 1). Also returns sensitivity and specitivity for this cutoff, the AUC
+#' of the ROC curve, and optionally plots the curve together with the distance measure.
 #'
 #' Adapted from https://www.r-bloggers.com/a-small-introduction-to-the-rocr-package/.
 #'
@@ -41,8 +41,8 @@ roc_cut <- function(pred_vec, target_vec, plot = T) {
   }
   c(sensitivity = y[[ind]],
     specificity = 1 - x[[ind]],
-    cutoff = p[[ind]]
-  )
+    cutoff = p[[ind]],
+    auc = unlist(ROCR::performance(roc_pred, measure = "auc")@y.values))
 }
 
 ###################
