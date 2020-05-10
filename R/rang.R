@@ -8,12 +8,12 @@
 #'  \code{probability = TRUE} to be used when the ranger model was fitted.
 #'
 #' @param rf A ranger fitted model.
-#' @param target_vec A binary class target vector matching \code{rf}.
+#' @param actual A binary class target vector matching \code{rf}.
 #' @param plot Produce a plot. Defaults to \code{TRUE}.
 #'
 #' @export
-rang_roc_cut <- function(rf, target_vec, plot = TRUE) {
-  roc_cut(rf$predictions[, 1], target_vec, plot = plot)
+rang_roc_cut <- function(rf, actual, plot = TRUE) {
+  roc_cut(rf$predictions[, 1], actual, plot = plot)
 }
 
 # Fits a series of random forest models using the ranger package with different values of mtry, as given in m_vec.

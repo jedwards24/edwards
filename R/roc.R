@@ -11,12 +11,12 @@
 #' Adapted from https://www.r-bloggers.com/a-small-introduction-to-the-rocr-package/.
 #'
 #' @param pred_vec A vector of prediction probabilities.
-#' @param target_vec A vector of outcome classes corresponding to \code{pred}.
+#' @param actual A vector of outcome classes corresponding to \code{pred}.
 #' @param plot Logical indicating whether to plot a ROC curve together with distance from the optimal corner.
 #'
 #' @export
-roc_cut <- function(pred_vec, target_vec, plot = T) {
-  roc_pred <- ROCR::prediction(pred_vec, target_vec)
+roc_cut <- function(pred, actual, plot = T) {
+  roc_pred <- ROCR::prediction(pred, actual)
   perf <- ROCR::performance(roc_pred, measure = "tpr", x.measure = "fpr")
   x <- perf@x.values[[1]]
   y <- perf@y.values[[1]]

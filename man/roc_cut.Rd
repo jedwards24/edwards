@@ -4,14 +4,14 @@
 \alias{roc_cut}
 \title{Optimal cut for ROC curve}
 \usage{
-roc_cut(pred_vec, target_vec, plot = T)
+roc_cut(pred, actual, plot = T)
 }
 \arguments{
-\item{pred_vec}{A vector of prediction probabilities.}
-
-\item{target_vec}{A vector of outcome classes corresponding to \code{pred}.}
+\item{actual}{A vector of outcome classes corresponding to \code{pred}.}
 
 \item{plot}{Logical indicating whether to plot a ROC curve together with distance from the optimal corner.}
+
+\item{pred_vec}{A vector of prediction probabilities.}
 }
 \description{
 Calculates the "optimal" cutoff for a classifier from a ROC curve. This is the cutoff that minimises the
