@@ -11,11 +11,17 @@ test_that("rang_oob_error() works", {
   expect_known_hash(rang_oob_err(rf, dt, plot = FALSE), hash = "5cb256f2ca")
 })
 
-test_that("rang_roc_cut() works", {
-  rf <- ranger::ranger(top ~ . , dt, seed = 20, num.trees = 100, probability = T)
-  expect_equal(rang_roc_cut(rf, dt$top, plot = FALSE),
-         c(sensitivity = 0.8837209, specificity = 0.8947368, cutoff = 0.4741270, auc = 0.8816809),
+test_that("rang_roc_cut() and roc_cut() work", {
+  rf1 <- ranger::ranger(top ~ . , dt, seed = 20, num.trees = 100, probability = TRUE)
+  rf2 <- ranger::ranger(top ~ . , dt, seed = 20, num.trees = 100, probability = FALSE)
+  out <- c(sensitivity = 0.8837209, specificity = 0.8947368, cutoff = 0.4741270, auc = 0.8816809)
+  expect_equal(rang_roc_cut(rf1, dt$top, plot = FALSE),
+         out,
          tolerance = 1e-6)
+  expect_equal(roc_cut(rf1$predictions[, 1], dt$top, plot = FALSE),
+               out,
+               tolerance = 1e-6)
+  expect_error(rang_roc_cut(rf2, dt$top, plot = FALSE), "matrix")
 })
 
 

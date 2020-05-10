@@ -13,6 +13,10 @@
 #'
 #' @export
 rang_roc_cut <- function(rf, actual, plot = TRUE) {
+  if (!is.matrix(rf$predictions)){
+    stop("'rf$predictions' is not a matrix. When fitting the ranger model 'rf', you must use `probability = TRUE`.",
+         call. = FALSE)
+  }
   roc_cut(rf$predictions[, 1], actual, plot = plot)
 }
 
