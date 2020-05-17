@@ -249,3 +249,40 @@ is_one2one <- function(df, ...) {
   }
   TRUE
 }
+
+#########################################################################################
+# compare_sets(): Compare two sets for overlap and differences.
+#########################################################################################
+#'
+#' Compare two sets for overlap and differences.
+#'
+#' Compares two vectors and returns information on their overlap and differences, ignoring
+#' ordering and duplicated elements.
+#'
+#' A tibble is returned with contents dependent on the argument \code{summmary}. If \code{TRUE},
+#' counts of elements in both sets and only one set is given. If \code{FALSE}, the returned tibble
+#' will have a row for each element in the union of \code{x} and \code{y}, together with which set(s)
+#' it belongs to.
+#'
+#' @param x,y Vectors to compare.
+#' @param summary Logical, controls what information is returned. See details.
+#'
+#' @export
+compare_sets <- function(x, y, summary = TRUE) {
+  if (!is.atomic(x) && !is.atomic(x)){
+    stop("Both `x` and `y` must be atomic vectors.", call. = FALSE)
+  }
+  both <- intersect(x, y)
+  just_x <- setdiff(x, y)
+  just_y <- setdiff(y, x)
+  union <- union(x, y)
+  if(summary){
+    return(tibble::tibble(set = c("both", "just x", "just y"),
+                          count = c(length(both), length(just_x), length(just_y)),
+                          prop = count / length(union)))
+  }
+  tibble::tibble(var = union,
+                 both = var %in% both,
+                 just_x = var %in% just_x,
+                 just_y = var %in% just_y)
+}

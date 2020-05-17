@@ -24,3 +24,16 @@ test_that("is_one2one() is correct", {
   expect_false(is_one2one(d1, 1:3))
   expect_message(is_one2one(d1, 1:3), "Column z")
 })
+
+test_that("compare_sets() is correct", {
+  x <- letters[1:5]
+  y <- letters[4:6]
+  tb1 <- compare_sets(x, y, TRUE)
+  tb2 <- compare_sets(x, y, FALSE)
+  expect_s3_class(tb1, "data.frame")
+  expect_equal(nrow(tb1), 3)
+  expect_equal(sort(tb2$var), sort(union(x, y)))
+  expect_equal(tb1$count[1], sum(tb2$both))
+  expect_equal(tb1$count[2], sum(tb2$just_x))
+  expect_equal(tb1$count[3], sum(tb2$just_y))
+})
