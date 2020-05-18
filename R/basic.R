@@ -22,7 +22,7 @@ mode_stat <- function(x, multiple = TRUE, na.rm = TRUE) {
   }
   ux <- unique(x)
   freq <- tabulate(match(x, ux))
-  mode_loc <- if(return_multiple) which(freq == max(freq)) else which.max(freq)
+  mode_loc <- if(multiple) which(freq == max(freq)) else which.max(freq)
   ux[mode_loc]
 }
 
