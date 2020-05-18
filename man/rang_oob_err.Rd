@@ -9,7 +9,7 @@ rang_oob_err(rf, data, start = 5L, by = 5L, plot = TRUE)
 \arguments{
 \item{rf}{A ranger random forest object.}
 
-\item{data}{A data frame used to fit \code{rf}.}
+\item{data}{A data frame used to fit \code{rf}. Must contain target variable.}
 
 \item{start, by}{Error rates are evaluated for number of trees from \code{start} to maximum number
 of trees in steps of \code{by}.}

@@ -16,11 +16,11 @@ rang_mtry(
 )
 }
 \arguments{
-\item{data}{A data frame.}
+\item{data}{A data frame containing both input and target variables.}
 
 \item{fmla}{A formula for the model.}
 
-\item{train}{Optional integer vector giving rows indices to be used in training set. Remaining rows are used for
+\item{train}{Optional integer vector giving row indices to be used in training set. Remaining rows are used for
 validation. If default \code{train = NULL} is used then all data is used for training and there is no validation.}
 
 \item{seed}{Integer. Random number seed used for fitting each model.}

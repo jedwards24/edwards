@@ -32,10 +32,10 @@ rang_roc_cut <- function(rf, actual, plot = TRUE) {
 #' Fits \code{ranger()} models for a given range of values of mtry. Output is a table and graph giving
 #' errors for OOB training data and optional validation data.
 #'
-#' @param data A data frame.
+#' @param data A data frame containing both input and target variables.
 #' @param fmla A formula for the model.
 #' @param mvec Integer vector of values of tuning parameter \code{mtry}.
-#' @param train Optional integer vector giving rows indices to be used in training set. Remaining rows are used for
+#' @param train Optional integer vector giving row indices to be used in training set. Remaining rows are used for
 #'   validation. If default \code{train = NULL} is used then all data is used for training and there is no validation.
 #' @param seed Integer. Random number seed used for fitting each model.
 #' @param importance,num.trees,respect.unordered.factors Optional arguments passed to \code{ranger()}. Defaults are
@@ -117,7 +117,7 @@ oob_errors <- function(oob_mat, n_trees, target) {
 #' from 10 to all trees in steps of 10.
 #'
 #' @param rf A ranger random forest object.
-#' @param data A data frame used to fit \code{rf}.
+#' @param data A data frame used to fit \code{rf}. Must contain target variable.
 #' @param start,by Error rates are evaluated for number of trees from \code{start} to maximum number
 #'   of trees in steps of \code{by}.
 #' @param plot Optional logical. Output a plot or not.
@@ -128,7 +128,7 @@ rang_oob_err <- function(rf, data, start = 5L, by = 5L, plot = TRUE) {
   ntr <- rf$num.trees
   n_trees_vec <- seq(start, ntr, by = by)
   fmla <- as.character(rf$call)[2]
-  target_name <- str_split(fmla, " ~")[[1]][1]
+  target_name <- stringr::str_split(fmla, " ~")[[1]][1]
   target <- data[[target_name]] %>% as.numeric() #use classes in {1,2}
 
   # Convert inbag counts (list) to matrix
@@ -149,9 +149,9 @@ rang_oob_err <- function(rf, data, start = 5L, by = 5L, plot = TRUE) {
                 class_1 = colMeans(errs[target == 1, ], na.rm = T),
                 class_2 = colMeans(errs[target == 2, ], na.rm = T)
   )
-  res_long <- gather(res, key = "pred", value = "error_rate", -num.trees)
+  res_long <- tidyr::gather(res, key = "pred", value = "error_rate", -num.trees)
   if (plot){
-    g <- ggplot2::ggplot(res_long, aes(x = num.trees, y = error_rate, color = pred)) +
+    g <- ggplot2::ggplot(res_long, ggplot2::aes(x = num.trees, y = error_rate, color = pred)) +
       ggplot2::geom_line() +
       ggplot2::ylab("OOB Error Rate")
     print(g)
