@@ -7,17 +7,30 @@
 #' Calls \code{roc_cut()} for a fitted ranger model. See \code{roc_cut()} for details. Requires
 #'  \code{probability = TRUE} to be used when the ranger model was fitted.
 #'
+#' The \code{rf$predictions} is a matrix with columns for each class. The class corresponding to
+#' the predictions in \code{actual} can be named in `class_name`. Default is to select the "maximum"
+#' column name i.e. "TRUE" if classes are TRUE/FALSE and the largest number if numeric.
+#'
 #' @param rf A ranger fitted model.
 #' @param actual A binary class target vector matching \code{rf}.
+#' @param class_name String giving name of the class predicted in \code{actual}.
 #' @param plot Produce a plot. Defaults to \code{TRUE}.
 #'
 #' @export
-rang_roc_cut <- function(rf, actual, plot = TRUE) {
+rang_roc_cut <- function(rf, actual, class_name = NULL, plot = TRUE) {
   if (!is.matrix(rf$predictions)){
     stop("'rf$predictions' is not a matrix. When fitting the ranger model 'rf', you must use `probability = TRUE`.",
          call. = FALSE)
   }
-  roc_cut(rf$predictions[, 1], actual, plot = plot)
+  if (is.null(class_name)){
+    class_name <- max(colnames(rf$predictions))
+    message("Using ", class_name, " as positive class.")
+  }else{
+    if (!(class_name %in% colnames(rf$predictions))){
+      stop("The column '", class_name,  "' does not exist in 'rf$predictions'.", call. = FALSE)
+    }
+  }
+  edwards::roc_cut(rf$predictions[, class_name], actual, plot = plot)
 }
 
 # Fits a series of random forest models using the ranger package with different values of mtry, as given in m_vec.
