@@ -4,7 +4,7 @@
 \alias{latest_file}
 \title{Get file name of most recent file in a directory}
 \usage{
-latest_file(path = ".", root_name = ".*", file_ext = NULL)
+latest_file(path = ".", root_name = ".*", file_ext = NULL, verbose = TRUE)
 }
 \arguments{
 \item{path}{A string path name for the directory to search in.}
@@ -12,6 +12,8 @@ latest_file(path = ".", root_name = ".*", file_ext = NULL)
 \item{root_name}{A string giving the part of the file name before the date.}
 
 \item{file_ext}{An optional string giving a file extension which the returned file name must end in.}
+
+\item{verbose}{Give detail about matches files and other files containing \code{root_name}.}
 }
 \description{
 Looks for files in a directory \code{path} with names beginning \code{"root_name_dd"}, where
@@ -20,5 +22,6 @@ This maximum is decided alphabetically so the numeric part of the file names sho
 similarly across the compared files e.g. a two digit version number or date in yyyy-mm-dd form.
 }
 \details{
-The string \code{root_name} can be a regex pattern.
+The string \code{root_name} can be a regex pattern. Lower and upper case versions of `\code{file_ext}
+will also be matched.
 }
