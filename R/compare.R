@@ -281,8 +281,8 @@ compare_sets <- function(x, y, summary = TRUE) {
                           count = c(length(both), length(just_x), length(just_y)),
                           prop = count / length(union)))
   }
-  tibble::tibble(var = union,
-                 both = var %in% both,
-                 just_x = var %in% just_x,
-                 just_y = var %in% just_y)
+  tibble::tibble(element = union,
+                 both = element %in% both,
+                 just_x = element %in% just_x,
+                 just_y = element %in% just_y)
 }
