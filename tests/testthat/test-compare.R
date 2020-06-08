@@ -32,7 +32,7 @@ test_that("compare_sets() is correct", {
   tb2 <- compare_sets(x, y, FALSE)
   expect_s3_class(tb1, "data.frame")
   expect_equal(nrow(tb1), 3)
-  expect_equal(sort(tb2$var), sort(union(x, y)))
+  expect_equal(sort(tb2$element), sort(union(x, y)))
   expect_equal(tb1$count[1], sum(tb2$both))
   expect_equal(tb1$count[2], sum(tb2$just_x))
   expect_equal(tb1$count[3], sum(tb2$just_y))
