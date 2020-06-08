@@ -17,9 +17,11 @@
 #' @param root_name A string giving the part of the file name before the date.
 #' @param file_ext An optional string giving a file extension which the returned file name must end in.
 #' @param verbose Give detail about matches files and other files containing \code{root_name}.
+#' @param n Integer. Option to return the nth latest file.
 #'
 #' @export
-latest_file <- function(path = ".", root_name=".*", file_ext = NULL, verbose = TRUE) {
+latest_file <- function(path = ".", root_name=".*", file_ext = NULL, verbose = TRUE, n = 1L) {
+  if (!is.numeric(n)) stop("`n` must be numeric.", call. = FALSE)
   if (!dir.exists(path)){
     stop(paste0("Directory ", path, " does not exist."), call. = FALSE)
   }
@@ -39,10 +41,11 @@ latest_file <- function(path = ".", root_name=".*", file_ext = NULL, verbose = T
               paste0(sort(other_matches), sep = "\n"), call. = FALSE)
     }
   }
-  message("Matched file is ", max(files_match))
+  chosen <- edwards::max_n(files_match, n)
+  message("Matched file is ", chosen)
   if (stringr::str_detect(path, "/$")){
-    paste0(path, max(files_match))
+    paste0(path, chosen)
   }else{
-    paste0(path, "/", max(files_match))
+    paste0(path, "/", chosen)
   }
 }

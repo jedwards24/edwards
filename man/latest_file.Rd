@@ -4,7 +4,13 @@
 \alias{latest_file}
 \title{Get file name of most recent file in a directory}
 \usage{
-latest_file(path = ".", root_name = ".*", file_ext = NULL, verbose = TRUE)
+latest_file(
+  path = ".",
+  root_name = ".*",
+  file_ext = NULL,
+  verbose = TRUE,
+  n = 1L
+)
 }
 \arguments{
 \item{path}{A string path name for the directory to search in.}
@@ -14,6 +20,8 @@ latest_file(path = ".", root_name = ".*", file_ext = NULL, verbose = TRUE)
 \item{file_ext}{An optional string giving a file extension which the returned file name must end in.}
 
 \item{verbose}{Give detail about matches files and other files containing \code{root_name}.}
+
+\item{n}{Integer. Option to return the nth latest file.}
 }
 \description{
 Looks for files in a directory \code{path} with names beginning \code{"root_name_dd"}, where
