@@ -30,17 +30,22 @@ mode_stat <- function(x, multiple = TRUE, na.rm = TRUE) {
 # factor_to_numeric: Convert a numeric factor to a numeric vector.
 #########################################################################################
 #'
-#' Convert a numeric factor to a numeric vector
+#' Convert a factor with numeric or logical levels to a numeric vector
 #'
-#' The obvious \code{as.numeric()} is incorrect.
+#' The obvious \code{as.numeric()} is incorrect. No checks are made on the level contents except to check if levels are
+#' \code{c("TRUE", "FALSE")}, in which case they will be converted to a integer vector (0 for FALSE, 1 for TRUE).
 #'
-#' From  https://stackoverflow.com/questions/3418128/how-to-convert-a-factor-to-integer-numeric-without-loss-of-information
+#' Numeric part is from https://stackoverflow.com/questions/3418128/how-to-convert-a-factor-to-integer-numeric-without-loss-of-information
 #'
-#' @param x A numeric factor.
+#' @param x A factor.
 #'
 #' @export
 factor_to_numeric <- function(x) {
-    as.numeric(levels(x))[x]
+  if (!is.factor(x)) stop("`x` must be a factor.", call. = FALSE)
+  if (all(levels(x) %in% c("TRUE", "FALSE"))){
+    return(as.integer(as.logical(x)))
+  }
+  as.numeric(levels(x))[x]
 }
 
 #########################################################################################
