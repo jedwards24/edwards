@@ -88,3 +88,38 @@ prinf <- function(x) {
   }
   invisible(x)
 }
+
+#########################################################################################
+# max_n: nth largest element in a vector
+#########################################################################################
+#'
+#' nth largest element in a vector
+#'
+#' @param x A vector.
+#' @param n Numeric vector giving the ranks of elements to be returned.
+#'
+#' @export
+max_n <- function(x, n = 2L){
+  if (!is.numeric(n)) stop('`n` must be numeric.', call. = FALSE)
+  len <- length(x)
+  if ((max(n) > len) | (min(n) <= 0L)) stop('All elements of `n` must be between 1 and `length(x)`.', call. = FALSE)
+  sort(x, partial = len - n + 1)[len - n + 1]
+}
+
+#########################################################################################
+# min_n: nth smallest element in a vector
+#########################################################################################
+#'
+#' nth smallest element in a vector
+#'
+#' @param x A vector.
+#' @param n Numeric vector giving the ranks of elements to be returned.
+#'
+#' @export
+min_n <- function(x, n = 2L){
+  if (!is.numeric(n)) stop('`n` must be numeric.', call. = FALSE)
+  len <- length(x)
+  if ((max(n) > len) | (min(n) <= 0L)) stop('All elements of `n` must be between 1 and `length(x)`.', call. = FALSE)
+  sort(x, partial = n)[n]
+}
+
