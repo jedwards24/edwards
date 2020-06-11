@@ -15,11 +15,12 @@ match_parent <- function(level_names, parent_names) {
   nn <- length(level_names)
   parent <- character(nn)
   for (i in 1 : nn){
-    matches <- str_detect(level_names[i], paste0("^", parent_names)) %>% parent_names[.]
-    if(length(matches) == 0 | any(is.na(matches))){
+    matches <- stringr::str_detect(level_names[i], paste0("^", parent_names))
+    if(!any(matches) | any(is.na(matches))){
       parent[i] <- level_names[i]
     }else{
-      parent[i] <- matches[which.max(str_length(matches))] #choose longest to avoid substring matching
+      matches <- parent_names[matches]
+      parent[i] <- matches[which.max(stringr::str_length(matches))] #choose longest to avoid substring matching
     }
   }
   parent
@@ -46,13 +47,13 @@ glmnet_to_table <- function(fit, var_names = NULL, s="lambda.1se", min_coef=1E-1
   ce <- coef(fit, s=s)
   coef_mat <- as.matrix(ce)
   level_names <- rownames(ce)
-  tbl <- tibble(name = rownames(coef_mat), coef = coef_mat[, 1])
+  tbl <- tibble::tibble(name = rownames(coef_mat), coef = coef_mat[, 1])
   if (!is.null(var_names)){
-    tbl <- mutate(tbl, parent = match_parent(level_names, var_names)) %>%
-      mutate(is_parent = (name == parent))
+    tbl <- dplyr::mutate(tbl, parent = match_parent(level_names, var_names)) %>%
+      dplyr::mutate(is_parent = (name == parent))
   }
-  filter(tbl, abs(coef) >= min_coef) %>%
-    arrange(desc(coef))
+  dplyr::filter(tbl, abs(coef) >= min_coef) %>%
+    dplyr::arrange(desc(coef))
 }
 
 # This handles models with interactions, splitting the interacting variables to get the parent of each.
@@ -71,18 +72,19 @@ glmnet_to_table2 <- function(fit, var_names = NULL, s="lambda.1se", min_coef=1E-
   ce <- coef(fit, s=s)
   coef_mat <- as.matrix(ce)
   level_names <- rownames(ce)
-  tbl <- tibble(name = rownames(coef_mat), coef = coef_mat[, 1])
+  tbl <- tibble::tibble(name = rownames(coef_mat), coef = coef_mat[, 1])
   if (!is.null(var_names)){
-    n_vars <- max(str_count(tbl$name, ":")) + 1
-    tbl <- separate(tbl, name, nms, sep = ":", remove = F, fill = "right")
+    n_vars <- max(stringr::str_count(tbl$name, ":")) + 1
+    nms <- paste0("name", 1 : n_vars)
+    tbl <- tidyr::separate(tbl, name, nms, sep = ":", remove = F, fill = "right")
     for (i in 1 : n_vars){
       nm <- paste0("parent", i)
       new_nm <- paste0("name", i)
-      tbl <- mutate(tbl, !!sym(nm) :=  match_parent(!!sym(new_nm), names(dt)))
+      tbl <- dplyr::mutate(tbl, !!sym(nm) :=  match_parent(!!sym(new_nm), names(dt)))
     }
-    tbl <- mutate(tbl, is_parent = (name == parent1)) %>%
-      select(name, coef, contains("parent"))
+    tbl <- dplyr::mutate(tbl, is_parent = (name == parent1)) %>%
+      dplyr::select(name, coef, contains("parent"))
   }
-  filter(tbl, abs(coef) >= min_coef) %>%
-    arrange(desc(coef))
+  dplyr::filter(tbl, abs(coef) >= min_coef) %>%
+    dplyr::arrange(desc(coef))
 }
