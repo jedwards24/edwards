@@ -23,7 +23,7 @@ Note that repeated occurences of \code{pattern} in a single string are only coun
 }
 \examples{
 x <- data.frame(a = c("an", "banana", "candy"), b = c("on", "bon", "bonbon"), d = 1:3)
-count_string(x, "an", all = T)
+count_string(x, "an", all = TRUE)
 count_string(x, "an")
 count_string(x, "b")
 count_string(x, "1") # not matched to integers

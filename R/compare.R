@@ -133,7 +133,7 @@ find_similar <- function(df1, df2 = NULL){
   counts1 <- counts1[names(counts1) %in% names(counts2)]
   counts2 <- counts2[names(counts2) %in% names(counts1)]
   sz <- sum(counts1 * counts2)
-  res <- tibble(var1 = NA_character_,
+  res <- tibble::tibble(var1 = NA_character_,
                 var2 = NA_character_,
                 class = NA_character_,
                 match = NA_integer_,
@@ -148,10 +148,10 @@ find_similar <- function(df1, df2 = NULL){
   nvar <- length(nm1)
   k <- 1
   for (i in 1 : nvar){
-    x <- pull(df1, nm1[i])
+    x <- dplyr::pull(df1, nm1[i])
     indsj <- which(classes1[i] == classes2)
     for (j in indsj){
-      y <- pull(df2, nm2[j])
+      y <- dplyr::pull(df2, nm2[j])
       res[k, 1] <- nm1[i]
       res[k, 2] <- nm2[j]
       res[k, 3] <- classes1[i]
@@ -164,10 +164,9 @@ find_similar <- function(df1, df2 = NULL){
     }
   }
   res %>%
-    mutate(diff = nrow(df1) - match - both_na - na_1 - na_2) %>%
-    mutate(prop_match_nz = (match - match_zero) / (nrow(df1) - match_zero - both_na - na_1 - na_2))
+    dplyr::mutate(diff = nrow(df1) - match - both_na - na_1 - na_2) %>%
+    dplyr::mutate(prop_match_nz = (match - match_zero) / (nrow(df1) - match_zero - both_na - na_1 - na_2))
 }
-
 
 #########################################################################################
 # find_similar_single: Counts pairwise matches between columns in a data frame.
@@ -197,10 +196,10 @@ find_similar_single <- function(df){
   nvar <- length(nm)
   k <- 1
   for (i in 1 : (nvar - 1)){
-    x <- pull(df, nm[i])
+    x <- dplyr::pull(df, nm[i])
     indsj <- which(classes[i] == classes) %>% .[. > i]
     for (j in indsj){
-      y <- pull(df, nm[j])
+      y <- dplyr::pull(df, nm[j])
       res[k, 1] <- nm[i]
       res[k, 2] <- nm[j]
       res[k, 3] <- classes[i]
@@ -213,8 +212,8 @@ find_similar_single <- function(df){
     }
   }
   res %>%
-    mutate(diff = nrow(df) - match - both_na - na_1 - na_2) %>%
-    mutate(prop_match_nz = (match - match_zero) / (nrow(df) - match_zero - both_na - na_1 - na_2))
+    dplyr::mutate(diff = nrow(df) - match - both_na - na_1 - na_2) %>%
+    dplyr::mutate(prop_match_nz = (match - match_zero) / (nrow(df) - match_zero - both_na - na_1 - na_2))
 }
 
 #########################################################################################

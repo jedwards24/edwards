@@ -9,7 +9,7 @@ kbl_ctable(ct, digits = 3)
 \arguments{
 \item{ct}{A two way table object.}
 
-\item{digits=3}{Sets the number of digits (passed to \code{my_kable()}).}
+\item{digits}{Sets the number of digits (passed to \code{my_kable()}).}
 }
 \description{
 \code{edwards::my_kable()} with a two way contingency table input.

@@ -26,4 +26,5 @@ df <- tibble::tibble(col1 = c("a", ".", ".", "a"),
 strs <- c(".", "-", "n/a", "na", "")
 count_matches2(df, strs, all = TRUE)
 count_matches2(df, strs)
+
 }

@@ -7,6 +7,8 @@
 bin_integer_fct(ff, cuts)
 }
 \arguments{
+\item{ff}{Factor vector to be binned.}
+
 \item{cuts}{A numeric vector giving bin cuts. Don't add \code{-Inf} or \code{Inf} end cuts as these are handled automatically.}
 }
 \description{

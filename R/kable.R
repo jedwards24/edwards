@@ -9,7 +9,7 @@
 #' The number of digits is set using the argument \code{digits} (defaults to 3).
 #'
 #' @param df A data frame.
-#' @param digits=3 Sets the number of digits (via the \code{kable()} \code{digits} argument).
+#' @param digits Sets the number of digits (via the \code{kable()} \code{digits} argument).
 #'
 #' @export
 my_kable <- function(df, digits = 3){
@@ -28,7 +28,7 @@ my_kable <- function(df, digits = 3){
 #' \code{edwards::my_kable()} with a two way contingency table input.
 #'
 #' @param ct A two way table object.
-#' @param digits=3 Sets the number of digits (passed to \code{my_kable()}).
+#' @param digits Sets the number of digits (passed to \code{my_kable()}).
 #'
 #' @export
 kbl_ctable <- function(ct, digits = 3) {
@@ -59,8 +59,8 @@ kbl_ctable <- function(ct, digits = 3) {
 #'
 #' @param df A data frame.
 #' @param index Which part of the split table to return.
-#' @param n_tb=2 The number of parts to split the table into.
-#' @param digits=3 Sets the number of digits (via the  \code{kable()}  \code{digits} argument).
+#' @param n_tb The number of parts to split the table into.
+#' @param digits Sets the number of digits (via the  \code{kable()}  \code{digits} argument).
 #'
 #' @export
 split_kable <- function(df, index, n_tb = 2, digits = 3) {
@@ -71,6 +71,6 @@ split_kable <- function(df, index, n_tb = 2, digits = 3) {
     rem <- nn - start + 1
     end <- start + ceiling(rem / (n_tb - i + 1)) - 1
   }
-  tb <- slice(df, start : end)
+  tb <- dplyr::slice(df, start : end)
   return(my_kable(tb, digits = digits))
 }

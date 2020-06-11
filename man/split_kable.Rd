@@ -11,9 +11,9 @@ split_kable(df, index, n_tb = 2, digits = 3)
 
 \item{index}{Which part of the split table to return.}
 
-\item{n_tb=2}{The number of parts to split the table into.}
+\item{n_tb}{The number of parts to split the table into.}
 
-\item{digits=3}{Sets the number of digits (via the  \code{kable()}  \code{digits} argument).}
+\item{digits}{Sets the number of digits (via the  \code{kable()}  \code{digits} argument).}
 }
 \description{
 Splits a table into a  \code{n_tb} parts of similar sizing using standard styling in  \code{my_kable()}. This is

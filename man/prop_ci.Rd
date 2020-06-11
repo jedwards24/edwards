@@ -33,13 +33,13 @@ overlaps the mean response of all observations.}
 predictior. The default setting \code{NULL} retains ordering if predictor is numeric or ordered factor
 and orders by number of observations otherwise.}
 
+\item{conf_level}{Numeric in (0,1). Confidence level used for confidence intervals.}
+
 \item{prop_lim}{Optional x axis limits passed to \code{ggplot()} e.g. \code{c(0,1)}.}
 
 \item{pos_class}{Optional. Specify value in target to associate with class 1.}
 
 \item{plot}{Optional logical. Output a plot or not.}
-
-\item{conf.level}{Numeric in (0,1). Confidence level used for confidence intervals.}
 }
 \description{
 For a data frame input, one variable is a binary target (\code{target_name}) and another is selected to

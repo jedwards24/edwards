@@ -16,9 +16,9 @@ convert_date <- function(x) {
   }
   if (all(is.na(x))) {
     message("Converted to a date (vector is all NA).")
-    return(as_date(x))
+    return(lubridate::as_date(x))
   }
-  xstr <- x[which.max(str_length(x))]
+  xstr <- x[which.max(stringr::str_length(x))]
   if (stringr::str_detect(xstr, ":")) {
     xsplit <- stringr::str_split_fixed(xstr, ":", 2)[, , drop = T]
     if (any(stringr::str_detect(xsplit[2], "[1-9]"))) {

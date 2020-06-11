@@ -15,6 +15,18 @@ plot_missing2(
 )
 }
 \arguments{
+\item{data}{Input data.}
+
+\item{group}{Missing profile band taking a list of group name and group upper bounds.}
+
+\item{geom_label_args}{A list of other arguments to \code{geom_label()}.}
+
+\item{title}{Plot title.}
+
+\item{ggtheme}{\code{ggplot2} themes.}
+
+\item{theme_config}{A list of configurations to be passed to \code{theme()}.}
+
 \item{show_all}{Logical. If \code{FALSE} (default) then do not show variables with no NAs.}
 }
 \description{

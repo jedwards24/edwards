@@ -10,7 +10,7 @@
 #' @export
 object_size_all <- function(){
   names <- ls(envir = .GlobalEnv)
-  mb <- vapply(names, function(x) object.size(get(x, envir = .GlobalEnv)) / 10^6, numeric(1))
+  mb <- vapply(names, function(x) stats::object.size(get(x, envir = .GlobalEnv)) / 10^6, numeric(1))
   mb <- sort(mb, decreasing = TRUE)
   tibble::tibble(object = names(mb), Mb = mb)
 }

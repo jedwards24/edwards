@@ -9,7 +9,7 @@ my_kable(df, digits = 3)
 \arguments{
 \item{df}{A data frame.}
 
-\item{digits=3}{Sets the number of digits (via the \code{kable()} \code{digits} argument).}
+\item{digits}{Sets the number of digits (via the \code{kable()} \code{digits} argument).}
 }
 \description{
 To save typing. Returns a table for R Markdown with \code{kableExtra::kable_styling}

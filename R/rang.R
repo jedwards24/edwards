@@ -47,7 +47,7 @@ rang_roc_cut <- function(rf, actual, class_name = NULL, plot = TRUE) {
 #'
 #' @param data A data frame containing both input and target variables.
 #' @param fmla A formula for the model.
-#' @param mvec Integer vector of values of tuning parameter \code{mtry}.
+#' @param m_vec Integer vector of values of tuning parameter \code{mtry}.
 #' @param train Optional integer vector giving row indices to be used in training set. Remaining rows are used for
 #'   validation. If default \code{train = NULL} is used then all data is used for training and there is no validation.
 #' @param seed Integer. Random number seed used for fitting each model.
@@ -59,8 +59,8 @@ rang_mtry <- function(data, fmla, m_vec, train = NULL, seed = 1, importance = "i
                       respect.unordered.factors = T) {
   if (is.null(train)) train <- 1 : nrow(data)
   target_name <- fmla[[2]]
-  valid <- pull(data, !!target_name)[-train]
-  target <- pull(data, !!target_name)[train]
+  valid <- dplyr::pull(data, !!target_name)[-train]
+  target <- dplyr::pull(data, !!target_name)[train]
   nn <- length(m_vec)
   oob_err <- double(nn)
   valid_err <- double(nn)
@@ -69,7 +69,7 @@ rang_mtry <- function(data, fmla, m_vec, train = NULL, seed = 1, importance = "i
   for(i in 1 : nn) {
     mtry <- m_vec[i]
     set.seed(seed)
-    time[i] <- system.time(rf <- ranger(fmla, data = data[train, ],
+    time[i] <- system.time(rf <- ranger::ranger(fmla, data = data[train, ],
                                         importance = importance, num.trees = num.trees, mtry = mtry,
                                         respect.unordered.factors = respect.unordered.factors))[3]
     oob_err[i] <- rf$prediction.error
@@ -84,9 +84,9 @@ rang_mtry <- function(data, fmla, m_vec, train = NULL, seed = 1, importance = "i
     cat(mtry," ")
   }
   cat("\n")
-  res <- tibble(mtry = m_vec, valid_err, oob_err, time) %>%
-    {if (length(valid) == 0) select(., -valid_err) else .}
-  reslong <- gather(res, key = "metric", value = "error", -time, -mtry)
+  res <- tibble::tibble(mtry = m_vec, valid_err, oob_err, time) %>%
+    {if (length(valid) == 0) dplyr::select(., -valid_err) else .}
+  reslong <- tidyr::gather(res, key = "metric", value = "error", -time, -mtry)
   g <- ggplot(reslong, aes(x = mtry, y = error, colour = metric)) +
     geom_line() +
     geom_point()

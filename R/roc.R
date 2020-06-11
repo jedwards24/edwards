@@ -10,10 +10,10 @@
 #'
 #' Adapted from https://www.r-bloggers.com/a-small-introduction-to-the-rocr-package/.
 #'
-#' @param pred_vec A vector of prediction probabilities.
+#' @param pred A vector of prediction probabilities.
 #' @param actual A vector of outcome classes corresponding to \code{pred}.
 #' @param plot Logical indicating whether to plot a ROC curve together with distance from the optimal corner.
-#'
+#' @import ggplot2
 #' @export
 roc_cut <- function(pred, actual, plot = T) {
   roc_pred <- ROCR::prediction(pred, actual)
@@ -45,14 +45,6 @@ roc_cut <- function(pred, actual, plot = T) {
     auc = unlist(ROCR::performance(roc_pred, measure = "auc")@y.values))
 }
 
-###################
-# Plots ROC curves for both training and test data (in ggplot).
-# Inputs: pred - vector of prediction probabilities,
-#         target - vector of dependent variables outcomes corresponding to pred.
-#         train - indices of the target data set
-#         test (optional) - indices of test data set (otherwise complement of train).
-# A ggplot with both curves is returned. AUC values for each are printed.
-###################
 #########################################################################################
 # roc_plot: Plots ROC curves for training and test data.
 #########################################################################################

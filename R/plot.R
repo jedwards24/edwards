@@ -35,6 +35,12 @@ plot_nas <- function(df, show_all = F, sort = T) {
 #'
 #' For details and main arguments see \code{DataExplorer::plot_missing}.
 #'
+#' @param data Input data.
+#' @param group Missing profile band taking a list of group name and group upper bounds.
+#' @param geom_label_args A list of other arguments to \code{geom_label()}.
+#' @param title Plot title.
+#' @param ggtheme \code{ggplot2} themes.
+#' @param theme_config A list of configurations to be passed to \code{theme()}.
 #' @param show_all Logical. If \code{FALSE} (default) then do not show variables with no NAs.
 #'
 #' @export
@@ -43,7 +49,7 @@ plot_missing2 <- function (data, group = list(Low = 0.05, OK = 0.4, High = 1),
                            theme_config = list(legend.position = c("bottom")), show_all = F) {
   pct_missing <- Band <- NULL
   missing_value <- DataExplorer::profile_missing(data)
-  if(!show_all){missing_value = filter(missing_value, num_missing > 0)}
+  if(!show_all){missing_value <- dplyr::filter(missing_value, num_missing > 0)}
   missing_value <- data.table::data.table(missing_value)
   group <- group[sort.list(unlist(group))]
   invisible(lapply(seq_along(group), function(i) {

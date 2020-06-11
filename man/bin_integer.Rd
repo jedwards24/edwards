@@ -2,12 +2,14 @@
 % Please edit documentation in R/factor.R
 \name{bin_integer}
 \alias{bin_integer}
-\title{Convert integer into binned factor with integer cuts and appropriately named levels}
+\title{Convert integer vector into binned factor with integer cuts and appropriately named levels}
 \usage{
 bin_integer(x, cuts, na_level = NULL, na_at_end = FALSE)
 }
 \arguments{
-\item{cuts}{A numeric vector giving bin cuts. Don't add \code{-Inf} or \code{Inf} end cuts as these are handled automatically.}
+\item{x}{Integer vector to be binned.}
+
+\item{cuts}{An integer vector giving bin cuts. Don't add \code{-Inf} or \code{Inf} end cuts as these are handled automatically.}
 
 \item{na_level}{A name for the explicit NA level (if any). If left as the default NULL then no explicit NA
 level will be formed.}

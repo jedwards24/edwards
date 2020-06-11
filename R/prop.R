@@ -23,24 +23,25 @@
 #' @param order_n Logical. Whether to force plot and table to order by number of observations of the
 #'   predictior. The default setting \code{NULL} retains ordering if predictor is numeric or ordered factor
 #'   and orders by number of observations otherwise.
-#' @param conf.level Numeric in (0,1). Confidence level used for confidence intervals.
+#' @param conf_level Numeric in (0,1). Confidence level used for confidence intervals.
 #' @param prop_lim Optional x axis limits passed to \code{ggplot()} e.g. \code{c(0,1)}.
 #' @param pos_class Optional. Specify value in target to associate with class 1.
 #' @param plot Optional logical. Output a plot or not.
 #'
+#' @import ggplot2
 #' @export
 prop_ci <- function(dt, target_name, var_name, min_n = 1, show_all = TRUE, order_n = NULL,
                      conf_level = 0.95, prop_lim = NULL, pos_class = NULL, plot = TRUE) {
   if (!is.data.frame(dt)) stop("`dt` must be a data frame.", call. = FALSE)
-  y_label <- names(select(dt, {{var_name}})) #for plot
+  y_label <- names(dplyr::select(dt, {{var_name}})) #for plot
   dt <- rename(dt,
                target = {{target_name}},
                var = {{var_name}})
   if (any(is.na(dt$target))){
-    dt <- filter(dt, !is.na(target))
+    dt <- dplyr::filter(dt, !is.na(target))
     message("There are NA values in target variable. These rows will be excluded from any calculations.")
   }
-  targ_vec <- pull(dt, target)
+  targ_vec <- dplyr::pull(dt, target)
   # target vector checks
   if (length(unique(targ_vec)) > 2L){
     stop("Target variable must be binary.", call. = FALSE)
@@ -59,9 +60,9 @@ prop_ci <- function(dt, target_name, var_name, min_n = 1, show_all = TRUE, order
   if(is.factor(targ_vec)){
     targ_vec <- as.integer(levels(targ_vec))[targ_vec]
   }
-  dt <- mutate(dt, target = targ_vec)
+  dt <- dplyr::mutate(dt, target = targ_vec)
   if (is.factor(dt$var) && !("(Missing)" %in% dt$var)){
-    dt <- mutate(dt, var = fct_explicit_na(var))
+    dt <- dplyr::mutate(dt, var = forcats::fct_explicit_na(var))
   }
   if (is.null(order_n)){
     order_n <- if (is.numeric(dt$var) || is.ordered(dt$var)) FALSE else TRUE
@@ -70,25 +71,25 @@ prop_ci <- function(dt, target_name, var_name, min_n = 1, show_all = TRUE, order
   mean_all <- mean(targ_vec)
 
   dt_summ <- dt %>%
-    group_by(var) %>%
-    summarise(n = n(),
+    dplyr::group_by(var) %>%
+    dplyr::summarise(n = dplyr::n(),
               n_pos = sum(target),
               prop = mean(target)) %>%
-    rename(value = var) %>%
-    arrange(desc(n)) %>%
-    mutate(lo = binom::binom.wilson(prop * n, n, conf.level = conf_level)[['lower']],
+    dplyr::rename(value = var) %>%
+    dplyr::arrange(desc(n)) %>%
+    dplyr::mutate(lo = binom::binom.wilson(prop * n, n, conf.level = conf_level)[['lower']],
            hi = binom::binom.wilson(prop * n, n, conf.level = conf_level)[['upper']],
-           sig = case_when(
+           sig = dplyr::case_when(
              lo > mean_all ~ 3,
              hi < mean_all ~ 1,
              T ~ 2),
            sig = factor(sig, levels = c(1, 2, 3), labels = c("lo", "none", "hi"))
     ) %>%
-    filter(n >= min_n) %>%
+    dplyr::filter(n >= min_n) %>%
     purrr::when(!show_all ~ filter(., sig != "none"), ~.) %>%
     purrr::when(order_n ~ arrange(., desc(n)), ~arrange(., value))
   if (order_n){
-    dt_plot <- mutate(dt_summ, value = reorder(value, n))
+    dt_plot <- dplyr::mutate(dt_summ, value = reorder(value, n))
   }else{
     dt_plot <- dt_summ
   }

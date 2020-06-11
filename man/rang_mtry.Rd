@@ -20,6 +20,8 @@ rang_mtry(
 
 \item{fmla}{A formula for the model.}
 
+\item{m_vec}{Integer vector of values of tuning parameter \code{mtry}.}
+
 \item{train}{Optional integer vector giving row indices to be used in training set. Remaining rows are used for
 validation. If default \code{train = NULL} is used then all data is used for training and there is no validation.}
 
@@ -27,8 +29,6 @@ validation. If default \code{train = NULL} is used then all data is used for tra
 
 \item{importance, num.trees, respect.unordered.factors}{Optional arguments passed to \code{ranger()}. Defaults are
 \code{"impurity"}, \code{500} and \code{TRUE} respectively.}
-
-\item{mvec}{Integer vector of values of tuning parameter \code{mtry}.}
 }
 \description{
 Fits \code{ranger()} models for a given range of values of mtry. Output is a table and graph giving

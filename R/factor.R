@@ -2,13 +2,14 @@
 # bin_integer: Converts numeric into binned factor with appropriately named levels.
 #########################################################################################
 #'
-#' Convert integer into binned factor with integer cuts and appropriately named levels
+#' Convert integer vector into binned factor with integer cuts and appropriately named levels
 #'
 #' Takes a numeric input vector, groups into bins based on the argument \code{cuts}, and
 #' outputs an ordered factor with appropriate names. Any NAs in the input are optionally grouped
 #' into an explicit NA level with name \code{na_level}
 #'
-#' @param cuts A numeric vector giving bin cuts. Don't add \code{-Inf} or \code{Inf} end cuts as these are handled automatically.
+#' @param x Integer vector to be binned.
+#' @param cuts An integer vector giving bin cuts. Don't add \code{-Inf} or \code{Inf} end cuts as these are handled automatically.
 #' @param na_level A name for the explicit NA level (if any). If left as the default NULL then no explicit NA
 #'   level will be formed.
 #' @param na_at_end Logical indicating whether to put any explicit NA level at the end of the levels. The
@@ -40,7 +41,8 @@ bin_integer <- function(x, cuts, na_level = NULL, na_at_end = FALSE){
 
 #' Depreciated. Use \code{bin_integer()} instead.
 #'
-#' @export
+#' @inherit bin_integer
+#'
 bin_numeric <- function(x, cuts, na_level = NULL, na_at_end = FALSE){
   warning("`bin_numeric()` has been depreciated. Use `bin_integer()` instead.", call. = FALSE)
   bin_integer(x = x, cuts = cuts, na_level = na_level, na_at_end = na_at_end)
@@ -58,6 +60,7 @@ bin_numeric <- function(x, cuts, na_level = NULL, na_at_end = FALSE){
 #'
 #' FACTOR ORDERING HAS NOT BEEN CHECKED.
 #'
+#' @param ff Factor vector to be binned.
 #' @param cuts A numeric vector giving bin cuts. Don't add \code{-Inf} or \code{Inf} end cuts as these are handled automatically.
 #'
 #' @export
@@ -65,7 +68,7 @@ bin_integer_fct <- function(ff, cuts){
   if (!is.factor(ff)) {
     ff <- as.factor(ff)
   }
-  chr_level <- str_subset(levels(ff), "^\\D*$")
+  chr_level <- stringr::str_subset(levels(ff), "^\\D*$")
   if(length(chr_level) != 1){
     mes <- "There must be exactly one level which is not a number."
     mes <- if(length(chr_level) == 0){
@@ -76,7 +79,7 @@ bin_integer_fct <- function(ff, cuts){
     stop(mes, call. = FALSE)
   }
   chr_ind <- which(levels(ff) == chr_level)
-  if(any(str_detect(levels(ff)[-chr_ind], "\\."))) {
+  if(any(stringr::str_detect(levels(ff)[-chr_ind], "\\."))) {
     stop("All numeric levels must be integers.")
   }
 

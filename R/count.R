@@ -105,7 +105,7 @@ count_nas2 <- function(df, all = FALSE, sort = TRUE) {
       class = vapply(df, function(x) class(x)[1], character(1))
     ) %>%
       dplyr::filter((nas > 0) | all) %>%
-      `if`(sort, arrange(., desc(nas)), .)
+      `if`(sort, dplyr::arrange(., dplyr::desc(nas)), .)
   }
 }
 
@@ -126,7 +126,7 @@ count_nas2 <- function(df, all = FALSE, sort = TRUE) {
 #' @param all By default variables with no matches are omitted from the output. Set all=T to show all.
 #' @examples
 #' x <- data.frame(a = c("an", "banana", "candy"), b = c("on", "bon", "bonbon"), d = 1:3)
-#' count_string(x, "an", all = T)
+#' count_string(x, "an", all = TRUE)
 #' count_string(x, "an")
 #' count_string(x, "b")
 #' count_string(x, "1") # not matched to integers
@@ -218,6 +218,7 @@ count_matches <- function(df, value, all = FALSE){
 #' strs <- c(".", "-", "n/a", "na", "")
 #' count_matches2(df, strs, all = TRUE)
 #' count_matches2(df, strs)
+#'
 #' @export
 count_matches2 <- function(df, strings, all = FALSE) {
   if (!is.list(df)) {
@@ -235,7 +236,6 @@ count_matches2 <- function(df, strings, all = FALSE) {
   if (all){
     return(tb)
   }
-
   sum_rows <- rowSums(tb[, -1])
   sum_cols <- c(1, colSums(tb[, -1]))
   tb <- tb[sum_rows > 0, sum_cols > 0]
