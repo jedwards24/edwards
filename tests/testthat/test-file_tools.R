@@ -1,8 +1,8 @@
 test_that("latest_file() works", {
   dir <- "../testdata/file_tools"
-  expect_warning(lat1 <- latest_file(dir, "test"))
-  expect_warning(lat2 <- latest_file(dir, "test", "rds"))
-  expect_warning(lat3 <- latest_file(dir, ".*test"))
+  expect_warning(lat1 <- latest_file(dir, "test", verbose = TRUE))
+  expect_warning(lat2 <- latest_file(dir, "test", file_ext = "rds", verbose = TRUE))
+  expect_warning(lat3 <- latest_file(dir, ".*test", verbose = TRUE))
 
   expect_identical(lat1, "../testdata/file_tools/test_99.RDATA")
   expect_identical(lat2, "../testdata/file_tools/test_201.RDS")

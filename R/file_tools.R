@@ -16,11 +16,11 @@
 #' @param path A string path name for the directory to search in.
 #' @param root_name A string giving the part of the file name before the date.
 #' @param file_ext An optional string giving a file extension which the returned file name must end in.
-#' @param verbose Give detail about matches files and other files containing \code{root_name}.
+#' @param verbose If \code{TRUE} will give detail about all matched files and other files containing \code{root_name}.
 #' @param n Integer. Option to return the nth latest file.
 #'
 #' @export
-latest_file <- function(path = ".", root_name=".*", file_ext = NULL, verbose = TRUE, n = 1L) {
+latest_file <- function(path = ".", root_name=".*", file_ext = NULL, verbose = FALSE, n = 1L) {
   if (!is.numeric(n)) stop("`n` must be numeric.", call. = FALSE)
   if (!dir.exists(path)){
     stop(paste0("Directory ", path, " does not exist."), call. = FALSE)

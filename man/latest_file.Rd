@@ -8,7 +8,7 @@ latest_file(
   path = ".",
   root_name = ".*",
   file_ext = NULL,
-  verbose = TRUE,
+  verbose = FALSE,
   n = 1L
 )
 }
@@ -19,7 +19,7 @@ latest_file(
 
 \item{file_ext}{An optional string giving a file extension which the returned file name must end in.}
 
-\item{verbose}{Give detail about matches files and other files containing \code{root_name}.}
+\item{verbose}{If \code{TRUE} will give detail about all matched files and other files containing \code{root_name}.}
 
 \item{n}{Integer. Option to return the nth latest file.}
 }
