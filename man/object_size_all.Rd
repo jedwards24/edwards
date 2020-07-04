@@ -2,7 +2,7 @@
 % Please edit documentation in R/memory.R
 \name{object_size_all}
 \alias{object_size_all}
-\title{Get sizes of all objects in global environment}
+\title{Get sizes, in Mb, of all objects in global environment}
 \usage{
 object_size_all()
 }
@@ -10,5 +10,5 @@ object_size_all()
 A tibble with two columns: object name and size in Mb.
 }
 \description{
-Returns table of sizes of all objects in the global environment in Mb, in decreasing order of size.
+Returns table of sizes of all objects in the global environment in Mb (1024^2 B), in decreasing order of size.
 }
