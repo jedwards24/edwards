@@ -2,9 +2,7 @@
 % Please edit documentation in R/compare.R
 \name{is_one2one}
 \alias{is_one2one}
-\title{Check data frame columns for one-to-one relationship. Returns \code{TRUE} if all chosen columns
-are one-to-one and \code{FALSE} otherwise. A message gives the first column found with a many-to
-relationship with another column.}
+\title{Check data frame columns for one-to-one relationship.}
 \usage{
 is_one2one(df, ...)
 }
@@ -14,7 +12,6 @@ is_one2one(df, ...)
 \item{...}{Two or more columns to be compared either by name (quoted or unquoted) or integer positions.}
 }
 \description{
-Check data frame columns for one-to-one relationship. Returns \code{TRUE} if all chosen columns
-are one-to-one and \code{FALSE} otherwise. A message gives the first column found with a many-to
-relationship with another column.
+Returns \code{TRUE} if all chosen columns are one-to-one and \code{FALSE} otherwise.
+A message gives the first column found with a many-to relationship with another column.
 }

@@ -220,9 +220,10 @@ find_similar_single <- function(df){
 # is_one2one: Check if specified columns in a dataframe have one-to-one relationship.
 #########################################################################################
 #'
-#' Check data frame columns for one-to-one relationship. Returns \code{TRUE} if all chosen columns
-#' are one-to-one and \code{FALSE} otherwise. A message gives the first column found with a many-to
-#' relationship with another column.
+#' Check data frame columns for one-to-one relationship.
+#'
+#' Returns \code{TRUE} if all chosen columns are one-to-one and \code{FALSE} otherwise.
+#' A message gives the first column found with a many-to relationship with another column.
 #'
 #' @param df A data frame.
 #' @param ... Two or more columns to be compared either by name (quoted or unquoted) or integer positions.
