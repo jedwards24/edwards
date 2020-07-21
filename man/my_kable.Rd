@@ -11,7 +11,7 @@ my_kable(df, digits = 3, ...)
 
 \item{digits}{Sets the number of digits (via the \code{kable()} \code{digits} argument).}
 
-\item{...}{Other arguments passed to \code{knitr::kable()}.}
+\item{...}{Optional arguments passed to \code{knitr::kable()}.}
 }
 \description{
 Shorthand to apply both \code{knitr::kable()} and \code{kableExtra::kable_styling()} to a table

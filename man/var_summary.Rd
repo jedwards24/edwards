@@ -10,6 +10,7 @@ var_summary(df)
 \item{df}{A data frame.}
 }
 \description{
-Returns a tibble with the names, class, number of NAs, and number of unique values for
-each variable in the data. If there are \code{NA} values then they are included as a unique value.
+Returns a tibble with the names, class, number of unique values, and the number and proportion of
+\code{NA}s for each variable in the data. If there are \code{NA} values then they are included as
+a unique value.
 }

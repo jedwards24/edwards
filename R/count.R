@@ -252,8 +252,9 @@ count_matches2 <- function(df, strings, all = FALSE) {
 #'
 #' Simple summary of the variables in a data frame
 #'
-#' Returns a tibble with the names, class, number of NAs, and number of unique values for
-#' each variable in the data. If there are \code{NA} values then they are included as a unique value.
+#' Returns a tibble with the names, class, number of unique values, and the number and proportion of
+#' \code{NA}s for each variable in the data. If there are \code{NA} values then they are included as
+#' a unique value.
 #'
 #' @param df A data frame.
 #'
@@ -268,8 +269,9 @@ var_summary <- function(df) {
   tibble::tibble(var = names(df),
                  index = seq_along(df),
                  class = vapply(df, function(x) class(x)[1], character(1)),
+                 unique = vapply(df, function(x) length(unique(x)), integer(1)),
                  missing = vapply(df, function(x) sum(is.na(x)), integer(1)),
-                 unique = vapply(df, function(x) length(unique(x)), integer(1))
+                 prop_missing = missing / nrow(df)
   )
 }
 
