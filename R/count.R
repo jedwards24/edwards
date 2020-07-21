@@ -348,3 +348,23 @@ count_over <- function(df, ..., sort = TRUE, n = 10L) {
 count_n <- function(df, ...) {
   dplyr::count(dplyr::count(df, ...), n, name = "freq")
 }
+
+#########################################################################################
+# count2: dplyr::count() with proportion column and default sort = T
+#########################################################################################
+#'
+#' \code{dplyr::count()} with proportion column and default \code{sort = T}.
+#'
+#' Adds a column "prop" which gives the proportion of total rows in that group.
+#'
+#' @param df A data frame.
+#' @param ... Arguments passed to count including variables to group by.
+#'
+#' @examples
+#' count2(mtcars, gear)
+#'
+#' @export
+count2 <- function(df, ...) {
+  dplyr::count(df, ..., sort = TRUE) %>%
+    dplyr::mutate(prop = n / sum(n))
+}
