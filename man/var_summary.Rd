@@ -10,7 +10,7 @@ var_summary(df)
 \item{df}{A data frame.}
 }
 \description{
-Returns a tibble with the names, class, number of unique values, and the number and proportion of
+Returns a tibble with the names, class, number of unique values, and the number and percent of
 \code{NA}s for each variable in the data. If there are \code{NA} values then they are included as
 a unique value.
 }

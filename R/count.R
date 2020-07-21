@@ -73,7 +73,7 @@ count_levels <- function(df, all = FALSE) {
 # count_nas2: counts NAs in a data frame by column. Returns a tbl.
 #########################################################################################
 #'
-#' Count NAs in a data frame by column
+#' Count NAs in a data frame by column (depreciated)
 #'
 #' @description
 #' Unlike \code{count_nas()} this returns the results in a tibble with columns giving:
@@ -91,6 +91,7 @@ count_levels <- function(df, all = FALSE) {
 #'
 #' @export
 count_nas2 <- function(df, all = FALSE, sort = TRUE) {
+  warning("`count_nas2() is depreciated. Use `var_summary().", call. = FALSE)
   if (!is.data.frame(df)) {
     stop("Argument \"df\" must be a data frame.", call. = FALSE)
   }
@@ -252,7 +253,7 @@ count_matches2 <- function(df, strings, all = FALSE) {
 #'
 #' Simple summary of the variables in a data frame
 #'
-#' Returns a tibble with the names, class, number of unique values, and the number and proportion of
+#' Returns a tibble with the names, class, number of unique values, and the number and percent of
 #' \code{NA}s for each variable in the data. If there are \code{NA} values then they are included as
 #' a unique value.
 #'
@@ -271,7 +272,7 @@ var_summary <- function(df) {
                  class = vapply(df, function(x) class(x)[1], character(1)),
                  unique = vapply(df, function(x) length(unique(x)), integer(1)),
                  missing = vapply(df, function(x) sum(is.na(x)), integer(1)),
-                 prop_missing = missing / nrow(df)
+                 pct_miss = 100 * missing / nrow(df)
   )
 }
 
