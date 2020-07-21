@@ -217,40 +217,6 @@ find_similar_single <- function(df){
 }
 
 #########################################################################################
-# is_one2one: Check if specified columns in a dataframe have one-to-one relationship.
-#########################################################################################
-#'
-#' Check data frame columns for one-to-one relationship.
-#'
-#' Returns \code{TRUE} if all chosen columns are one-to-one and \code{FALSE} otherwise.
-#' A message gives the first column found with a many-to relationship with another column.
-#'
-#' @param df A data frame.
-#' @param ... Two or more columns to be compared either by name (quoted or unquoted) or integer positions.
-#'
-#' @export
-is_one2one <- function(df, ...) {
-  if (!is.data.frame(df)) {
-    stop("`df` must be a data frame.", call. = FALSE)
-  }
-  counts_all <- dplyr::select(df, ...) %>%
-    dplyr::group_by_all() %>%
-    dplyr::tally() %>%
-    dplyr::ungroup()
-  for (col in 1 : (ncol(counts_all) - 1)){
-    max_count <- dplyr::group_by_at(counts_all, {{col}}) %>%
-      dplyr::tally() %>%
-      dplyr::pull(n) %>%
-      max()
-    if (max_count > 1){
-      message("Column ", names(counts_all)[col], " has a many-to relationship.")
-      return(FALSE)
-    }
-  }
-  TRUE
-}
-
-#########################################################################################
 # compare_sets(): Compare two sets for overlap and differences.
 #########################################################################################
 #'
