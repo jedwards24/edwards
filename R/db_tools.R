@@ -59,10 +59,10 @@ fd_cols <- function(df, ...) {
   if (any(is.na(df))) warning("`df` contains missing values.", call. = FALSE)
   group_cols <- names(dplyr::select(df, ...))
   counts <- df %>%
-    dplyr::group_by(!!!syms(group_cols)) %>%
+    dplyr::group_by(!!!rlang::syms(group_cols)) %>%
     dplyr::summarise_all(dplyr::n_distinct) %>%
     dplyr::ungroup() %>%
-    dplyr::select(-dplyr::all_of(group_cols))
+    dplyr::select(-tidyselect::all_of(group_cols))
   max_counts <- purrr::map_int(counts, max)
   c(group_cols, names(max_counts[max_counts == 1]))
 }
