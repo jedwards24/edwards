@@ -8,6 +8,7 @@ test_that("fd_cols() works", {
   expect_identical(fd_cols(df_test, A), c("A"))
   expect_identical(fd_cols(df_test, c("A", "B")), c("A", "B", "C"))
   expect_identical(fd_cols(df_test, 1:2), c("A", "B", "C"))
-  df_test[6, 4] <- NA_integer_
-  expect_warning(fd_cols(df_test, "A"), "contains missing values")
+  df_test[6, 3] <- NA_integer_
+  expect_warning(val <- fd_cols(df_test, A, B), "contains missing values")
+  expect_identical(val, c("A", "B"))
 })

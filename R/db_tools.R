@@ -46,7 +46,9 @@ is_one2one <- function(df, ...) {
 #'
 #' Any \code{NA}s are treated as a distinct value and a warning is given.
 #'
-#' This is far from optimised and can be slow with large data frames.
+#' This is far from optimised and can be slow with large data frames. The run time is approximately of order
+#' (number of columns not in the determinant set) x (number of unique rows (groups) in the determinant set).
+#' I found that 10,000 groups takes about 0.5 seconds per column.
 #'
 #' @param df A data frame.
 #' @param ... Columns in determinant set. Given by either by name (quoted or unquoted) or integer positions.
@@ -58,12 +60,12 @@ fd_cols <- function(df, ...) {
   }
   if (any(is.na(df))) warning("`df` contains missing values.", call. = FALSE)
   group_cols <- names(dplyr::select(df, ...))
-  counts <- df %>%
+  same <- df %>%
     dplyr::group_by(!!!rlang::syms(group_cols)) %>%
-    dplyr::summarise_all(dplyr::n_distinct) %>%
+    dplyr::summarise_all(function(x)  isTRUE(all(x==x[1]) | all(is.na(x)))) %>%
     dplyr::ungroup() %>%
     dplyr::select(-tidyselect::all_of(group_cols))
-  max_counts <- purrr::map_int(counts, max)
-  c(group_cols, names(max_counts[max_counts == 1]))
+  all_same <- purrr::map_int(same, all)
+  c(group_cols, names(all_same[all_same == TRUE]))
 }
 

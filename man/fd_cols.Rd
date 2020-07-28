@@ -19,5 +19,7 @@ combination in the determinant set of columns.
 \details{
 Any \code{NA}s are treated as a distinct value and a warning is given.
 
-This is far from optimised and can be slow with large data frames.
+This is far from optimised and can be slow with large data frames. The run time is approximately of order
+(number of columns not in the determinant set) x (number of unique rows (groups) in the determinant set).
+I found that 10,000 groups takes about 0.5 seconds per column.
 }
