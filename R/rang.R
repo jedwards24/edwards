@@ -111,7 +111,7 @@ rang_mtry <- function(data, fmla, m_vec, train = NULL, seed = 1, importance = "i
 #'
 #' @keywords internal
 oob_errors <- function(oob_mat, n_trees, target) {
-  oob_mat2 <- oob_mat[, 1:n_trees, drop = F]
+  oob_mat2 <- oob_mat[, 1:n_trees, drop = FALSE]
   err_mat <- sweep(oob_mat2, 1, target, FUN = `!=`)
   err_vec <- rowMeans(err_mat, na.rm = TRUE)
   splits <- err_vec == 0.5
@@ -126,10 +126,11 @@ oob_errors <- function(oob_mat, n_trees, target) {
 #'
 #' Out-of-bag error rates by number of trees for a ranger random forest
 #'
-#' Returns a table of out-of-bag error rates for a ranger randomw forest using number of trees
-#' from 10 to all trees in steps of 10.
+#' Returns a table of out-of-bag error rates for a ranger random forest using number of trees
+#' from 5 to all trees in steps of 5. The supplied ranger object must have been created with
+#'  \code{keep.inbag = TRUE} argument.
 #'
-#' @param rf A ranger random forest object.
+#' @param rf A ranger random forest object, created with \code{keep.inbag = TRUE}.
 #' @param data A data frame used to fit \code{rf}. Must contain target variable.
 #' @param start,by Error rates are evaluated for number of trees from \code{start} to maximum number
 #'   of trees in steps of \code{by}.
@@ -137,6 +138,9 @@ oob_errors <- function(oob_mat, n_trees, target) {
 #'
 #' @export
 rang_oob_err <- function(rf, data, start = 5L, by = 5L, plot = TRUE) {
+  if (!("inbag.counts" %in% names(rf))){
+    stop("`inbag.counts` not found in `rf`. Must use `keep.inbag = T` when fitting `rf`.", call. = FALSE)
+  }
   nn <- nrow(data)
   ntr <- rf$num.trees
   n_trees_vec <- seq(start, ntr, by = by)
@@ -155,7 +159,7 @@ rang_oob_err <- function(rf, data, start = 5L, by = 5L, plot = TRUE) {
   len_ntv <- length(n_trees_vec)
   errs <- matrix(0L, nrow = nn, ncol = len_ntv)
   for (i in 1: len_ntv){
-    errs[, i] <- oob_errors(oob_mat, n_trees = n_trees_vec[i], target = target)
+    errs[, i] <- edwards::oob_errors(oob_mat, n_trees = n_trees_vec[i], target = target)
   }
   res <- tibble::tibble(num.trees = n_trees_vec,
                 total = colMeans(errs, na.rm = TRUE),

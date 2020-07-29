@@ -5,12 +5,14 @@ dt <- ggplot2::diamonds %>%
   dplyr::mutate(top = ifelse(cut == "Ideal", 1, 0) %>% factor(levels = c(1, 0))) %>%
   sample_n(100)
 
-dt2 <- dplyr::mutate(dt, top = (cut == "Ideal") %>% factor(levels = c(F, T))) %>%
+dt2 <- dplyr::mutate(dt, top = (cut == "Ideal") %>% factor(levels = c(FALSE, TRUE))) %>%
   select(-cut)
 dt <- select(dt, -cut)
 
 test_that("rang_oob_error() works", {
-  rf <- ranger::ranger(top ~ . , dt, seed = 20, keep.inbag = T, num.trees = 200)
+  rf <- ranger::ranger(top ~ . , dt, seed = 20, keep.inbag = TRUE, num.trees = 200)
+  rf2 <- ranger::ranger(top ~ . , dt, seed = 20, keep.inbag = FALSE, num.trees = 20)
+  expect_error(rang_oob_err(rf2, dt, plot = FALSE), "Must use `keep.inbag = T`")
   expect_known_hash(rang_oob_err(rf, dt, plot = FALSE), hash = "5cb256f2ca")
 })
 

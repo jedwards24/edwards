@@ -7,7 +7,7 @@
 rang_oob_err(rf, data, start = 5L, by = 5L, plot = TRUE)
 }
 \arguments{
-\item{rf}{A ranger random forest object.}
+\item{rf}{A ranger random forest object, created with \code{keep.inbag = TRUE}.}
 
 \item{data}{A data frame used to fit \code{rf}. Must contain target variable.}
 
@@ -17,6 +17,7 @@ of trees in steps of \code{by}.}
 \item{plot}{Optional logical. Output a plot or not.}
 }
 \description{
-Returns a table of out-of-bag error rates for a ranger randomw forest using number of trees
-from 10 to all trees in steps of 10.
+Returns a table of out-of-bag error rates for a ranger random forest using number of trees
+from 5 to all trees in steps of 5. The supplied ranger object must have been created with
+ \code{keep.inbag = TRUE} argument.
 }
