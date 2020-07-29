@@ -2,7 +2,7 @@
 % Please edit documentation in R/rang.R
 \name{rang_mtry}
 \alias{rang_mtry}
-\title{Tune ranger models for mtry}
+\title{Tune ranger models for \code{mtry}}
 \usage{
 rang_mtry(
   data,
@@ -12,7 +12,7 @@ rang_mtry(
   seed = 1,
   importance = "impurity",
   num.trees = 500,
-  respect.unordered.factors = T
+  respect.unordered.factors = TRUE
 )
 }
 \arguments{
@@ -31,6 +31,6 @@ validation. If default \code{train = NULL} is used then all data is used for tra
 \code{"impurity"}, \code{500} and \code{TRUE} respectively.}
 }
 \description{
-Fits \code{ranger()} models for a given range of values of mtry. Output is a table and graph giving
+Fits \code{ranger()} models for a given range of values of \code{mtry}. Output is a table and graph giving
 errors for OOB training data and optional validation data.
 }

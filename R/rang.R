@@ -40,9 +40,9 @@ rang_roc_cut <- function(rf, actual, class_name = NULL, plot = TRUE) {
 # rang_mtry: Tune ranger models for mtry.
 #########################################################################################
 #'
-#' Tune ranger models for mtry
+#' Tune ranger models for \code{mtry}
 #'
-#' Fits \code{ranger()} models for a given range of values of mtry. Output is a table and graph giving
+#' Fits \code{ranger()} models for a given range of values of \code{mtry}. Output is a table and graph giving
 #' errors for OOB training data and optional validation data.
 #'
 #' @param data A data frame containing both input and target variables.
@@ -56,7 +56,14 @@ rang_roc_cut <- function(rf, actual, class_name = NULL, plot = TRUE) {
 #'
 #' @export
 rang_mtry <- function(data, fmla, m_vec, train = NULL, seed = 1, importance = "impurity", num.trees = 500,
-                      respect.unordered.factors = T) {
+                      respect.unordered.factors = TRUE) {
+  if (!is.atomic(m_vec) | !is.numeric(m_vec) | length(m_vec) == 0) stop("`m_vec` must be a non-empty numeric vector.",
+                                                                        call. = FALSE)
+  n_inputs <- length(attributes(terms(fmla, data = data))$term.labels)
+  if (max(m_vec) > n_inputs) stop("`mtry` cannot be larger than the number of input variables.\n The max `m_vec` is ",
+                                  max(m_vec),
+                                  ", but there are ",
+                                  n_inputs, " input variables in the model.")
   if (is.null(train)) train <- 1 : nrow(data)
   target_name <- fmla[[2]]
   valid <- dplyr::pull(data, !!target_name)[-train]
