@@ -19,5 +19,5 @@ distance from the point (FPR = 0, TPR = 1). Also returns sensitivity and speciti
 of the ROC curve, and optionally plots the curve together with the distance measure.
 }
 \details{
-Adapted from https://www.r-bloggers.com/a-small-introduction-to-the-rocr-package/.
+Adapted from \url{https://www.r-bloggers.com/a-small-introduction-to-the-rocr-package/}.
 }

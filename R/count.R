@@ -99,14 +99,14 @@ count_nas2 <- function(df, all = FALSE, sort = TRUE) {
   if (max(nas) == 0) {
     message("There are no NAs in the data")
   } else{
-    tibble::tibble(
+    tb <- tibble::tibble(
       variable = names(df),
       nas = nas,
       prop = nas / nrow(df),
       class = vapply(df, function(x) class(x)[1], character(1))
     ) %>%
-      dplyr::filter((nas > 0) | all) %>%
-      `if`(sort, dplyr::arrange(., dplyr::desc(nas)), .)
+      dplyr::filter((nas > 0) | all)
+    if (sort) dplyr::arrange(tb, dplyr::desc(nas))
   }
 }
 
@@ -231,8 +231,8 @@ count_matches2 <- function(df, strings, all = FALSE) {
   tb <- lapply(strings,
                FUN = edwards::count_matches,
                df = df,
-               all = TRUE) %>%
-    dplyr::bind_cols(col_names = names(df), .)
+               all = TRUE)
+  tb <- dplyr::bind_cols(col_names = names(df), tb)
   names(tb) <- c("col_names", strings)
   if (all){
     return(tb)

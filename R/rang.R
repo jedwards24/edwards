@@ -91,8 +91,8 @@ rang_mtry <- function(data, fmla, m_vec, train = NULL, seed = 1, importance = "i
     cat(mtry," ")
   }
   cat("\n")
-  res <- tibble::tibble(mtry = m_vec, valid_err, oob_err, time) %>%
-    {if (length(valid) == 0) dplyr::select(., -valid_err) else .}
+  res <- tibble::tibble(mtry = m_vec, valid_err, oob_err, time)
+  if (length(valid) == 0) res <- dplyr::select(res, -valid_err)
   reslong <- tidyr::gather(res, key = "metric", value = "error", -time, -mtry)
   g <- ggplot(reslong, aes(x = mtry, y = error, colour = metric)) +
     geom_line() +
@@ -161,12 +161,12 @@ rang_oob_err <- function(rf, data, start = 5L, by = 5L, plot = TRUE) {
     inbag_mat[, i] <- rf$inbag.counts[[i]]
   }
   oob_mat <- dplyr::if_else(inbag_mat > 0, NA_real_, predict(rf, data, predict.all = T)$predictions) %>%
-    matrix(., nrow = nrow(inbag_mat))
+    matrix(nrow = nrow(inbag_mat))
 
   len_ntv <- length(n_trees_vec)
   errs <- matrix(0L, nrow = nn, ncol = len_ntv)
   for (i in 1: len_ntv){
-    errs[, i] <- edwards::oob_errors(oob_mat, n_trees = n_trees_vec[i], target = target)
+    errs[, i] <- oob_errors(oob_mat, n_trees = n_trees_vec[i], target = target)
   }
   res <- tibble::tibble(num.trees = n_trees_vec,
                 total = colMeans(errs, na.rm = TRUE),

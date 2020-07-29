@@ -8,7 +8,7 @@
 #' distance from the point (FPR = 0, TPR = 1). Also returns sensitivity and specitivity for this cutoff, the AUC
 #' of the ROC curve, and optionally plots the curve together with the distance measure.
 #'
-#' Adapted from https://www.r-bloggers.com/a-small-introduction-to-the-rocr-package/.
+#' Adapted from \url{https://www.r-bloggers.com/a-small-introduction-to-the-rocr-package/}.
 #'
 #' @param pred A vector of prediction probabilities.
 #' @param actual A vector of outcome classes corresponding to \code{pred}.
