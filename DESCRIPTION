@@ -28,4 +28,6 @@ Imports:
     purrr,
     ranger,
     binom,
-    ROCR
+    ROCR,
+    rlang,
+    tidyselect
