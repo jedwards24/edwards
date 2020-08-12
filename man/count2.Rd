@@ -2,19 +2,22 @@
 % Please edit documentation in R/count.R
 \name{count2}
 \alias{count2}
-\title{\code{dplyr::count()} with proportion column and default \code{sort = T}.}
+\title{\code{dplyr::count()} with proportion column and default \code{sort = TRUE}.}
 \usage{
-count2(df, ...)
+count2(df, ..., sort = TRUE)
 }
 \arguments{
 \item{df}{A data frame.}
 
 \item{...}{Arguments passed to count including variables to group by.}
+
+\item{sort}{Passed to \code{count}, but defaults to \code{TRUE}.}
 }
 \description{
 Adds a column "prop" which gives the proportion of total rows in that group.
 }
 \examples{
-count2(mtcars, gear)
+count2(mtcars, cyl)
+count2(mtcars, cyl, sort = FALSE)
 
 }

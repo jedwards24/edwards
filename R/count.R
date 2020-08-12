@@ -356,18 +356,20 @@ count_n <- function(df, ...) {
 # count2: dplyr::count() with proportion column and default sort = T
 #########################################################################################
 #'
-#' \code{dplyr::count()} with proportion column and default \code{sort = T}.
+#' \code{dplyr::count()} with proportion column and default \code{sort = TRUE}.
 #'
 #' Adds a column "prop" which gives the proportion of total rows in that group.
 #'
 #' @param df A data frame.
 #' @param ... Arguments passed to count including variables to group by.
+#' @param sort Passed to \code{count}, but defaults to \code{TRUE}.
 #'
 #' @examples
-#' count2(mtcars, gear)
+#' count2(mtcars, cyl)
+#' count2(mtcars, cyl, sort = FALSE)
 #'
 #' @export
-count2 <- function(df, ...) {
-  dplyr::count(df, ..., sort = TRUE) %>%
+count2 <- function(df, ..., sort = TRUE) {
+  dplyr::count(df, sort = sort, ...) %>%
     dplyr::mutate(prop = n / sum(n))
 }
