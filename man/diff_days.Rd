@@ -4,15 +4,28 @@
 \alias{diff_days}
 \title{Difference in days of two dates as a numeric}
 \usage{
-diff_days(date1, date2)
+diff_days(date1, date2, keep_times = FALSE)
 }
 \arguments{
-\item{date1}{A date or datetime.}
+\item{date1, date2}{A date or datetime.}
 
-\item{date2}{A date or datetime.}
+\item{keep_times}{Logical. If \code{FALSE} any times will be dropped before difference is calculated.}
 }
 \description{
-Finds \code{difftime(date1, date2)} using \code{units = "days"}, then converts to a numeric. If either
-input is a datetime then only the date part is used (the datetime is first coerced to a date using
-\code{lubridate::as_date()}).
+Finds \code{difftime(date1, date2)} (i.e. \code{date1 - date2}) using \code{units = "days"}, then converts
+to a numeric.
+}
+\details{
+By default, only the date part of any datetime inputs are used (the datetime is
+first coerced to a date using \code{lubridate::as_date()}). If \code{keep_times = TRUE} and both
+\code{date1} and \code{date2} are datetimes then the times will be used. See examples.
+}
+\examples{
+d1 <- lubridate::ymd_hms("2020-02-01 08:00:00")
+d2 <- ymd_hms("2020-01-01 00:00:00")
+d3 <- ymd("2020-01-01")
+diff_days(d1, d2, keep_times = FALSE)
+diff_days(d1, d2, keep_times = TRUE)
+diff_days(d1, d3, keep_times = TRUE) # time in d1 not used since d3 is a date
+
 }

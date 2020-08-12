@@ -69,14 +69,34 @@ is_simple_datetime <- function(x) {
 #'
 #' Difference in days of two dates as a numeric
 #'
-#' Finds \code{difftime(date1, date2)} using \code{units = "days"}, then converts to a numeric. If either
-#' input is a datetime then only the date part is used (the datetime is first coerced to a date using
-#' \code{lubridate::as_date()}).
+#' Finds \code{difftime(date1, date2)} (i.e. \code{date1 - date2}) using \code{units = "days"}, then converts
+#' to a numeric.
 #'
-#' @param date1 A date or datetime.
-#' @param date2 A date or datetime.
+#' By default, only the date part of any datetime inputs are used (the datetime is
+#' first coerced to a date using \code{lubridate::as_date()}). If \code{keep_times = TRUE} and both
+#' \code{date1} and \code{date2} are datetimes then the times will be used. See examples.
+#'
+#' @param date1,date2 A date or datetime.
+#' @param keep_times Logical. If \code{FALSE} any times will be dropped before difference is calculated.
+#' @examples
+#' d1 <- lubridate::ymd_hms("2020-02-01 08:00:00")
+#' d2 <- ymd_hms("2020-01-01 00:00:00")
+#' d3 <- ymd("2020-01-01")
+#' diff_days(d1, d2, keep_times = FALSE)
+#' diff_days(d1, d2, keep_times = TRUE)
+#' diff_days(d1, d3, keep_times = TRUE) # time in d1 not used since d3 is a date
 #'
 #' @export
-diff_days <- function(date1, date2) {
+diff_days <- function(date1, date2, keep_times = FALSE) {
+  if (!lubridate::is.POSIXt(date1) & !lubridate::is.Date(date1)){
+    stop("`date1` must be a date or datetime.", call. = FALSE)
+  }
+  if (!lubridate::is.POSIXt(date2) & !lubridate::is.Date(date2)){
+    stop("`date2` must be a date or datetime.", call. = FALSE)
+  }
+  if (lubridate::is.POSIXt(date1) & lubridate::is.POSIXt(date2) & keep_times){
+    return(as.numeric(difftime(date1, date2, units = "days")))
+  }
   as.numeric(difftime(lubridate::as_date(date1), lubridate::as_date(date2), units = "days"))
 }
+
