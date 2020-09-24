@@ -14,6 +14,11 @@
 #' if a factor and the first observation otherwise. Giving the value of corresponding to 1 in the argument
 #' \code{pos_class} will override this.
 #'
+#' Use the \code{plot} and \code{return_plot} arguments to control output. By default (designed to be
+#'  used interactively) returns a table and prints a plot.  If \code{return_plot = TRUE} then just the
+#'  plot is returned. If  \code{return_plot = FALSE} and
+#'  \code{plot = FALSE} then the table is returned and no plot is generated. The default
+#'
 #' @param dt A data frame.
 #' @param target_name Column to use as target variable. Column name (quoted or unquoted) or position.
 #' @param var_name Column to use as predictor variable. Column name (quoted or unquoted) or position.
@@ -27,11 +32,14 @@
 #' @param prop_lim Optional x axis limits passed to \code{ggplot()} e.g. \code{c(0,1)}.
 #' @param pos_class Optional. Specify value in target to associate with class 1.
 #' @param plot Optional logical. Output a plot or not.
+#' @param return_plot Optional logical. If \code{TRUE} the plot is returned instead of the table (this overrides
+#'   \code{plot} argument).
 #'
 #' @import ggplot2
 #' @export
 prop_ci <- function(dt, target_name, var_name, min_n = 1, show_all = TRUE, order_n = NULL,
-                     conf_level = 0.95, prop_lim = NULL, pos_class = NULL, plot = TRUE) {
+                     conf_level = 0.95, prop_lim = NULL, pos_class = NULL, plot = TRUE,
+                    return_plot = FALSE) {
   if (!is.data.frame(dt)) stop("`dt` must be a data frame.", call. = FALSE)
   y_label <- names(dplyr::select(dt, {{var_name}})) #for plot
   dt <- rename(dt,
@@ -93,9 +101,9 @@ prop_ci <- function(dt, target_name, var_name, min_n = 1, show_all = TRUE, order
   }else{
     dt_plot <- dt_summ
   }
-  if (plot){
+  if (plot || return_plot){
     cols <- c("#F8766D", "#00BA38", "#619CFF")
-    g <- dt_plot %>%
+    gg <- dt_plot %>%
       ggplot(aes(x = value, y = prop, color = sig)) +
       geom_point() +
       geom_errorbar(aes(ymin = lo, ymax = hi)) +
@@ -106,7 +114,7 @@ prop_ci <- function(dt, target_name, var_name, min_n = 1, show_all = TRUE, order
       theme(legend.position = "none") +
       scale_colour_manual(values = c("lo" = cols[1], "none" = cols[3], "hi" = cols[2])) +
       {if(all(!is.null(prop_lim))) ylim(prop_lim[1], prop_lim[2])}
-    print(g)
+    if (!return_plot) print(gg)
   }
-  dt_summ
+  if (return_plot) gg else dt_summ
 }

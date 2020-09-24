@@ -13,6 +13,7 @@ ref <- prop_ci(tb, "outcome", "group", plot = FALSE)
 
 test_that("prop_ci works", {
   expect_s3_class(ref, "data.frame")
+  expect_s3_class(prop_ci(tb, "outcome", "group", return_plot = TRUE), "ggplot")
   expect_identical(nrow(ref), n_vals)
   expect_true(all(ref$prop >= 0 & ref$prop <= 1))
   expect_true(all(ref$lo <= ref$prop))

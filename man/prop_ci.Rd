@@ -14,7 +14,8 @@ prop_ci(
   conf_level = 0.95,
   prop_lim = NULL,
   pos_class = NULL,
-  plot = TRUE
+  plot = TRUE,
+  return_plot = FALSE
 )
 }
 \arguments{
@@ -40,6 +41,9 @@ and orders by number of observations otherwise.}
 \item{pos_class}{Optional. Specify value in target to associate with class 1.}
 
 \item{plot}{Optional logical. Output a plot or not.}
+
+\item{return_plot}{Optional logical. If \code{TRUE} the plot is returned instead of the table (this overrides
+\code{plot} argument).}
 }
 \description{
 For a data frame input, one variable is a binary target (\code{target_name}) and another is selected to
@@ -52,4 +56,9 @@ The target variable must be binary. Top compute confidence intervals this is con
 If it is not obvious which value corresponds to 1 and which to 0 then it will be based on level order
 if a factor and the first observation otherwise. Giving the value of corresponding to 1 in the argument
 \code{pos_class} will override this.
+
+Use the \code{plot} and \code{return_plot} arguments to control output. By default (designed to be
+ used interactively) returns a table and prints a plot.  If \code{return_plot = TRUE} then just the
+ plot is returned. If  \code{return_plot = FALSE} and
+ \code{plot = FALSE} then the table is returned and no plot is generated. The default
 }
