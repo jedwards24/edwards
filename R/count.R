@@ -310,14 +310,13 @@ count_at <- function(df, cols = NULL, sort = TRUE, n = 10) {
 # count_over: Performs dplyr::count for a range of variables in a data frame.
 #########################################################################################
 #'
-#' Perform  \code{dplyr::count} for a range of variables in a data frame
+#' Perform  \code{count2()} for a range of variables in a data frame
 #'
-#' Prints output from \code{dplyr::count()} for each variable index given by argument \code{cols} (an integer vector).
+#' Prints output from \code{count2()} for multiple columns in \code{df}.
 #'
 #' @param df A data frame.
 #' @param ... Columns to count over. Accepts tidyselect inputs. If omitted then count is applied to every column.
 #' @param sort Logical passed to \code{count()} to say whether results are sorted by descending number of observation.
-#'   Unlike in \code{count()}, this defaults to \code{TRUE}.
 #' @param n Integer passed to \code{print()} which gives the maximum number of rows printed in each count summary.
 #'
 #' @export
@@ -328,7 +327,7 @@ count_over <- function(df, ..., sort = TRUE, n = 10L) {
   cols <- names(dplyr::select(df, ...))
   if (length(cols) == 0) cols <- names(df)
   for(name in cols){
-    print(dplyr::count(df, !!as.name(name), sort = sort), n = n)
+    print(count2(df, !!as.name(name), sort = sort), n = n)
   }
   invisible(df)
 }
