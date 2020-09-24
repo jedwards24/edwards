@@ -4,7 +4,7 @@
 \alias{compare_vecs}
 \title{Pairwise element comparison of two vectors}
 \usage{
-compare_vecs(x, y, names = NULL, simple = F, tol = 1e-06)
+compare_vecs(x, y, names = NULL, simple = F, tol = 1e-06, na.rm = FALSE)
 }
 \arguments{
 \item{x, y}{The two vectors to be compared. Both vectors must be atomic and of the same length.}
@@ -15,6 +15,9 @@ table. Otherwise, "x" and "y" are used.}
 \item{simple}{Logical. If TRUE then only checks for pairwise differences, not ordering.}
 
 \item{tol}{When comparing numeric vectors, equality and inequality comparisons use this tolerance.}
+
+\item{na.rm}{If \code{TRUE}, will ignore indices where either vector is \code{NA}. The main reason to use
+this is if you want to see the proportion of non-missing entries that match/differ.}
 }
 \description{
 Returns a table summarising the ordering of corresponding elements of the two supplied vectors. Inputs can be

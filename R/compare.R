@@ -13,7 +13,7 @@
 #' @param tol When comparing numeric vectors, equality and inequality comparisons use this tolerance.
 #'
 #' @export
-compare_vars <- function(df, ..., simple = F, tol = 1E-6) {
+compare_vars <- function(df, ..., simple = F, tol = 1E-6, na.rm = FALSE) {
   if (!is.data.frame(df)) {
     stop("`df` must be a data frame.", call. = FALSE)
   }
@@ -25,7 +25,7 @@ compare_vars <- function(df, ..., simple = F, tol = 1E-6) {
   vec2 <- df[, 2, drop=T]
   name1 <- names(df)[1]
   name2 <- names(df)[2]
-  compare_vecs(vec1, vec2, names = c(name1, name2), simple = simple, tol = tol)
+  compare_vecs(vec1, vec2, names = c(name1, name2), simple = simple, tol = tol, na.rm = na.rm)
 }
 
 #########################################################################################
@@ -43,9 +43,11 @@ compare_vars <- function(df, ..., simple = F, tol = 1E-6) {
 #'   table. Otherwise, "x" and "y" are used.
 #' @param simple Logical. If TRUE then only checks for pairwise differences, not ordering.
 #' @param tol When comparing numeric vectors, equality and inequality comparisons use this tolerance.
+#' @param na.rm If \code{TRUE}, will ignore indices where either vector is \code{NA}. The main reason to use
+#'   this is if you want to see the proportion of non-missing entries that match/differ.
 #'
 #' @export
-compare_vecs <- function(x, y, names = NULL, simple = F, tol = 1E-6){
+compare_vecs <- function(x, y, names = NULL, simple = F, tol = 1E-6, na.rm = FALSE){
   if (!(is.atomic(x) & is.atomic(y))){
     stop("Both vectors must be atomic.", call. = FALSE)
   }
@@ -67,6 +69,11 @@ compare_vecs <- function(x, y, names = NULL, simple = F, tol = 1E-6){
   if (class(x)[1] != class(y)[1]){
     warning("Vectors have different classes: ", class(x)[1], " and ", class(y)[1], ".", call. = FALSE)
   }
+  if (na.rm){
+    either_na <- is.na(x) | is.na(y)
+    x <- x[!either_na]
+    y <- y[!either_na]
+  }
   both_num <- is.numeric(x) && is.numeric(y)
   both_na <- is.na(x) & is.na(y)
   if (both_num){
@@ -85,22 +92,21 @@ compare_vecs <- function(x, y, names = NULL, simple = F, tol = 1E-6){
                           prop = count / length(x)
     ))
   }
-  tibble::tibble(comparison = c(paste(name1, "==", name2),
-                                paste(name1, ">", name2),
-                                paste(name1, "<", name2),
-                                "Both NA",
-                                paste(name1, "NA only"),
-                                paste(name2, "NA only")
-  ),
-  count = c(equal,
-            hi,
-            lo,
-            sum(both_na),
-            sum(!both_na & is.na(x)),
-            sum(!both_na & is.na(y))
-  ),
-  prop = count / length(x)
-  )
+  tbl <- tibble::tibble(comparison = c(paste(name1, "==", name2),
+                                       paste(name1, ">", name2),
+                                       paste(name1, "<", name2),
+                                       "Both NA",
+                                       paste(name1, "NA only"),
+                                       paste(name2, "NA only")),
+                        count = c(equal,
+                                  hi,
+                                  lo,
+                                  sum(both_na),
+                                  sum(!both_na & is.na(x)),
+                                  sum(!both_na & is.na(y))),
+                        prop = count / length(x))
+  if (!na.rm) return(tbl)
+  tbl[1:3, ]
 }
 
 #########################################################################################

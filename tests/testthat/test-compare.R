@@ -13,6 +13,10 @@ test_that("compare_vecs() is correct", {
   ct2 <- compare_vecs(x, y, tol = 1E-5)$count
   expect_equal(ct1, c(1, 1, 1, 0, 0, 0))
   expect_equal(ct2, c(2, 1, 0, 0, 0, 0))
+  x <- c(1, 2, NA, NA)
+  y <- c(1, 1, 1, NA)
+  expect_equal(compare_vecs(x, y, na.rm = FALSE)$prop[1], 0.25)
+  expect_equal(compare_vecs(x, y, na.rm = TRUE)$prop[1], 0.5)
   #expect_is(compare_vecs(1:10, 1:10), "data.frame")
 })
 
