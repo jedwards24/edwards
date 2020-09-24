@@ -9,6 +9,7 @@ latest_file(
   root_name = ".*",
   file_ext = NULL,
   verbose = FALSE,
+  silent = FALSE,
   n = 1L
 )
 }
@@ -20,6 +21,8 @@ latest_file(
 \item{file_ext}{An optional string giving a file extension which the returned file name must end in.}
 
 \item{verbose}{If \code{TRUE} will give detail about all matched files and other files containing \code{root_name}.}
+
+\item{silent}{If \code{TRUE} will suppress all messages.}
 
 \item{n}{Integer. Option to return the nth latest file.}
 }
