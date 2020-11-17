@@ -4,7 +4,13 @@
 \alias{glmnet_to_table}
 \title{Summarise coefficients from glmnet in a table}
 \usage{
-glmnet_to_table(fit, var_names = NULL, s = "lambda.1se", min_coef = 1e-10)
+glmnet_to_table(
+  fit,
+  var_names = NULL,
+  s = "lambda.1se",
+  min_coef = 1e-10,
+  none_name = "(none)"
+)
 }
 \arguments{
 \item{fit}{A fitted glmnet model.}
@@ -14,10 +20,17 @@ glmnet_to_table(fit, var_names = NULL, s = "lambda.1se", min_coef = 1e-10)
 \item{s}{The regularisation parameter determines which model is used from \code{fit} (as used in glmnet).}
 
 \item{min_coef}{Coefficients with smaller absolute value than this are excluded from the table.}
+
+\item{none_name}{String to use when there is no level or interaction in a model name.}
 }
 \description{
 Returns a tibble of coefficients for glmnet model \code{fit} with parameter \code{s}. Only
 coefficients with absolute value greater than \code{min_coef} are included. If \code{var_names} is
-supplied then a column of "parents" for each coefficient will be added. The parent is the data column
-from which the variable or factor level is taken (first match in the case of interactions).
+supplied then a columns of feature names and level names for each coefficient will be added (first
+match in the case of interactions). If there is no level involved then the level column will have
+the entry \code{none_name}. If there are any interactions in the model then the interacting feature is
+added in a column.
+}
+\details{
+This is still in development. Doesn't handle more than a single interaction.
 }

@@ -18,3 +18,6 @@ glmnet_to_table2(fit, var_names = NULL, s = "lambda.1se", min_coef = 1e-10)
 \description{
 Experimental variant of \code{glmnet_to_table()} which splits by interaction when finding parents.
 }
+\details{
+This is still in development. Doesn't handle more than a single interaction.
+}
