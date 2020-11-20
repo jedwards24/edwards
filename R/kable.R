@@ -4,21 +4,27 @@
 #'
 #' Version of \code{kable()} with specific default kableExtra styling
 #'
-#' Shorthand to apply both \code{knitr::kable()} and \code{kableExtra::kable_styling()} to a table
-#' with styling options \code{bootstrap_options = c("striped", "condensed")} and \code{full_width = F}.
-#' The number of digits defaults to 3 but can changed..
+#' Shorthand to apply both \code{knitr::kable()} and \code{kableExtra::kable_styling()} to a table,
+#' using styling options \code{bootstrap_options = c("striped", "condensed")} and \code{full_width = F}.
+#' The default number of digits is set to 3 but can be changed.
+#'
+#' Only one argument (\code{position}) from \code{kableExtra::kable_styling()} can be changed here.
 #'
 #' @param df A data frame.
 #' @param digits Sets the number of digits (via the \code{kable()} \code{digits} argument).
+#' @param position Passed to \code{kableExtra::kable_styling()}.
 #' @param ... Optional arguments passed to \code{knitr::kable()}.
 #'
 #' @export
-my_kable <- function(df, digits = 3, ...){
+my_kable <- function(df, digits = 3, position = "center", ...){
   if (!is.data.frame(df)) {
     stop("`df` must be a data frame.", call. = FALSE)
   }
   tb <- knitr::kable(df, digits = digits, ...)
-  tb <- kableExtra::kable_styling(tb, bootstrap_options = c("striped", "condensed"), full_width = F)
+  tb <- kableExtra::kable_styling(tb,
+                                  bootstrap_options = c("striped", "condensed"),
+                                  full_width = F,
+                                  position = position)
   return(tb)
 }
 

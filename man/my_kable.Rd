@@ -4,17 +4,22 @@
 \alias{my_kable}
 \title{Version of \code{kable()} with specific default kableExtra styling}
 \usage{
-my_kable(df, digits = 3, ...)
+my_kable(df, digits = 3, position = "center", ...)
 }
 \arguments{
 \item{df}{A data frame.}
 
 \item{digits}{Sets the number of digits (via the \code{kable()} \code{digits} argument).}
 
+\item{position}{Passed to \code{kableExtra::kable_styling()}.}
+
 \item{...}{Optional arguments passed to \code{knitr::kable()}.}
 }
 \description{
-Shorthand to apply both \code{knitr::kable()} and \code{kableExtra::kable_styling()} to a table
-with styling options \code{bootstrap_options = c("striped", "condensed")} and \code{full_width = F}.
-The number of digits defaults to 3 but can changed..
+Shorthand to apply both \code{knitr::kable()} and \code{kableExtra::kable_styling()} to a table,
+using styling options \code{bootstrap_options = c("striped", "condensed")} and \code{full_width = F}.
+The default number of digits is set to 3 but can be changed.
+}
+\details{
+Only one argument (\code{position}) from \code{kableExtra::kable_styling()} can be changed here.
 }
