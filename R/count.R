@@ -360,15 +360,35 @@ count_n <- function(df, ...) {
 #' Adds a column "prop" which gives the proportion of total rows in that group.
 #'
 #' @param df A data frame.
-#' @param ... Arguments passed to count including variables to group by.
+#' @param ... Variables to group by. Passed to \code{count()}.
 #' @param sort Passed to \code{count}, but defaults to \code{TRUE}.
+#' @param wt,name Optional, passed to \code{count}.
 #'
 #' @examples
 #' count2(mtcars, cyl)
 #' count2(mtcars, cyl, sort = FALSE)
 #'
 #' @export
-count2 <- function(df, ..., sort = TRUE) {
-  dplyr::count(df, sort = sort, ...) %>%
-    dplyr::mutate(prop = n / sum(n))
+count2 <- function(df, ..., sort = TRUE, wt = NULL, name = NULL) {
+  x <- dplyr::count(df, ..., wt = {{wt}}, sort = sort, name = name)
+  if (!is.null(name)){
+    count_name <- name
+  }else{
+    count_name <- dplyr::group_by(df, ...) %>%
+      dplyr::group_vars() %>%
+      n_name()
+  }
+  dplyr::mutate(x, prop = !!sym(count_name) / sum(!!sym(count_name)))
 }
+
+#' Copy of `dplyr:::n_name()`
+#' Used in `count2()`
+#' @noRd
+n_name <- function (x) {
+  name <- "n"
+  while (name %in% x) {
+    name <- paste0("n", name)
+  }
+  name
+}
+

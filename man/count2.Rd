@@ -4,14 +4,16 @@
 \alias{count2}
 \title{\code{dplyr::count()} with proportion column and default \code{sort = TRUE}.}
 \usage{
-count2(df, ..., sort = TRUE)
+count2(df, ..., sort = TRUE, wt = NULL, name = NULL)
 }
 \arguments{
 \item{df}{A data frame.}
 
-\item{...}{Arguments passed to count including variables to group by.}
+\item{...}{Variables to group by. Passed to \code{count()}.}
 
 \item{sort}{Passed to \code{count}, but defaults to \code{TRUE}.}
+
+\item{wt, name}{Optional, passed to \code{count}.}
 }
 \description{
 Adds a column "prop" which gives the proportion of total rows in that group.

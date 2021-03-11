@@ -57,3 +57,24 @@ test_that("var_summary works", {
   expect_type(var_summary(df), "list")
   expect_error(var_summary(list(1)), "must be a data frame")
 })
+
+
+test_that("count2 is correct", {
+  tb <- tibble::tibble(x = c(1, 3, 2, 3), y = 1:4)
+  tb2 <- dplyr::mutate(tb, n = 3)
+  x1 <- count2(tb, x)
+  x2 <- count2(tb, x, wt = y)
+  x3 <- count2(tb, x, name = "nn")
+  x4 <- count2(tb2, x, n)
+  x5 <- dplyr::select(count2(tb, x, sort = FALSE), -prop)
+
+  y1 <- dplyr::count(tb, x, sort = TRUE) %>% dplyr::mutate(prop = n / sum(n))
+  y2 <- dplyr::count(tb, x, wt = y, sort = TRUE) %>% dplyr::mutate(prop = n / sum(n))
+  y3 <- dplyr::count(tb, x, name = "nn", sort = TRUE) %>% dplyr::mutate(prop = nn / sum(nn))
+  y4 <- dplyr::count(tb2, x, n, sort = TRUE) %>% dplyr::mutate(prop = nn / sum(nn))
+  expect_identical(x1, y1)
+  expect_identical(x2, y2)
+  expect_identical(x3, y3)
+  expect_identical(x4, y4)
+  expect_identical(x5, dplyr::count(tb, x))
+})
