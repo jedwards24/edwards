@@ -3,11 +3,11 @@ context("rang_ functions")
 set.seed(21)
 dt <- ggplot2::diamonds %>%
   dplyr::mutate(top = ifelse(cut == "Ideal", 1, 0) %>% factor(levels = c(1, 0))) %>%
-  sample_n(100)
+  dplyr::sample_n(100)
 
 dt2 <- dplyr::mutate(dt, top = (cut == "Ideal") %>% factor(levels = c(FALSE, TRUE))) %>%
-  select(-cut)
-dt <- select(dt, -cut)
+  dplyr::select(-cut)
+dt <- dplyr::select(dt, -cut)
 
 test_that("rang_oob_error() works", {
   rf <- ranger::ranger(top ~ . , dt, seed = 20, keep.inbag = TRUE, num.trees = 200)

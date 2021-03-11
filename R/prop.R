@@ -42,7 +42,7 @@ prop_ci <- function(dt, target_name, var_name, min_n = 1, show_all = TRUE, order
                     return_plot = FALSE) {
   if (!is.data.frame(dt)) stop("`dt` must be a data frame.", call. = FALSE)
   y_label <- names(dplyr::select(dt, {{var_name}})) #for plot
-  dt <- rename(dt,
+  dt <- dplyr::rename(dt,
                target = {{target_name}},
                var = {{var_name}})
   if (any(is.na(dt$target))){
@@ -95,7 +95,7 @@ prop_ci <- function(dt, target_name, var_name, min_n = 1, show_all = TRUE, order
     ) %>%
     dplyr::filter(n >= min_n) %>%
     purrr::when(!show_all ~ filter(., sig != "none"), ~.) %>%
-    purrr::when(order_n ~ arrange(., desc(n)), ~arrange(., value))
+    purrr::when(order_n ~ dplyr::arrange(., dplyr::desc(n)), ~dplyr::arrange(., value))
   if (order_n){
     dt_plot <- dplyr::mutate(dt_summ, value = reorder(value, n))
   }else{

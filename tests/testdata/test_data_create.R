@@ -35,7 +35,7 @@ glmnet_to_table(fit3, names(dt))
 glmnet_to_table(fit3, names(dt), s = "lambda.min")
 
 if (F){
-  saveRDS(fit, "tests/testdata/glmnet/fit_simple.RDS")
-  saveRDS(fit3, "tests/testdata/glmnet/fit_complex.RDS")
+  saveRDS(fit, "tests/testdata/glmnet/fit_simple.RDS", version = 2)
+  saveRDS(fit3, "tests/testdata/glmnet/fit_complex.RDS", version = 2)
 }
 object_size_all()
