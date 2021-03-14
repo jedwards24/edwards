@@ -11,6 +11,8 @@
 #' @param ... The two columns to be compared either by name (quoted or unquoted) or integer positions.
 #' @param simple Logical. If TRUE then only checks for pairwise differences, not ordering.
 #' @param tol When comparing numeric vectors, equality and inequality comparisons use this tolerance.
+#' @param na.rm If \code{TRUE}, will ignore rows where either element is \code{NA}. The main reason to use
+#'   this is if you want to see the proportion of non-missing entries that match/differ.
 #'
 #' @export
 compare_vars <- function(df, ..., simple = F, tol = 1E-6, na.rm = FALSE) {

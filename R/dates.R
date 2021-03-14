@@ -80,8 +80,8 @@ is_simple_datetime <- function(x) {
 #' @param keep_times Logical. If \code{FALSE} any times will be dropped before difference is calculated.
 #' @examples
 #' d1 <- lubridate::ymd_hms("2020-02-01 08:00:00")
-#' d2 <- ymd_hms("2020-01-01 00:00:00")
-#' d3 <- ymd("2020-01-01")
+#' d2 <- lubridate::ymd_hms("2020-01-01 00:00:00")
+#' d3 <- lubridate::ymd("2020-01-01")
 #' diff_days(d1, d2, keep_times = FALSE)
 #' diff_days(d1, d2, keep_times = TRUE)
 #' diff_days(d1, d3, keep_times = TRUE) # time in d1 not used since d3 is a date

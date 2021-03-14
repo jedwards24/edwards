@@ -14,6 +14,9 @@ compare_vars(df, ..., simple = F, tol = 1e-06, na.rm = FALSE)
 \item{simple}{Logical. If TRUE then only checks for pairwise differences, not ordering.}
 
 \item{tol}{When comparing numeric vectors, equality and inequality comparisons use this tolerance.}
+
+\item{na.rm}{If \code{TRUE}, will ignore rows where either element is \code{NA}. The main reason to use
+this is if you want to see the proportion of non-missing entries that match/differ.}
 }
 \description{
 Returns a table summarising the ordering of corresponding elements of two columns in a data frame. Columns

@@ -1,2 +1,7 @@
 ^.*\.Rproj$
 ^\.Rproj\.user$
+^dev_code\.R$
+^dev_test_code\.R$
+^workflow_code\.R$
+^code_misc$
+^funcs$
