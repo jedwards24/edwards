@@ -14,5 +14,5 @@ The obvious \code{as.numeric()} is incorrect. No checks are made on the level co
 \code{c("TRUE", "FALSE")}, in which case they will be converted to a integer vector (0 for FALSE, 1 for TRUE).
 }
 \details{
-Numeric part is from https://stackoverflow.com/questions/3418128/how-to-convert-a-factor-to-integer-numeric-without-loss-of-information
+Numeric part is from \url{https://stackoverflow.com/questions/3418128/how-to-convert-a-factor-to-integer-numeric-without-loss-of-information}.
 }

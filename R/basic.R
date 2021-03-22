@@ -6,7 +6,7 @@
 #'
 #' Returns the statistical mode of an atomic vector (can be numeric, character or factor).
 #'
-#' From https://stackoverflow.com/questions/2547402/is-there-a-built-in-function-for-finding-the-mode.
+#' From <https://stackoverflow.com/questions/2547402/is-there-a-built-in-function-for-finding-the-mode>.
 #'
 #' @param x An atomic vector.
 #' @param multiple Logical. If TRUE returns a vector of modes, or just the first otherwise.
@@ -35,7 +35,7 @@ mode_stat <- function(x, multiple = TRUE, na.rm = TRUE) {
 #' The obvious `as.numeric()` is incorrect. No checks are made on the level contents except to check if levels are
 #' `c("TRUE", "FALSE")`, in which case they will be converted to a integer vector (0 for FALSE, 1 for TRUE).
 #'
-#' Numeric part is from https://stackoverflow.com/questions/3418128/how-to-convert-a-factor-to-integer-numeric-without-loss-of-information
+#' Numeric part is from <https://stackoverflow.com/questions/3418128/how-to-convert-a-factor-to-integer-numeric-without-loss-of-information>.
 #'
 #' @param x A factor.
 #'

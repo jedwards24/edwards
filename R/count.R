@@ -31,7 +31,7 @@ count_nas <- function(df, all = FALSE) {
 #' Count the number of unique values in a data frame by column
 #'
 #' Returns a vector of the number of unique values of each variable in a data frame. Any NA entries are included as
-#'   a unique value.
+#' a unique value.
 #'
 #' @param df A data frame.
 #'
@@ -232,7 +232,7 @@ count_matches2 <- function(df, strings, all = FALSE) {
                FUN = edwards::count_matches,
                df = df,
                all = TRUE)
-  tb <- dplyr::bind_cols(col_names = names(df), tb)
+  suppressMessages(tb <- dplyr::bind_cols(col_names = names(df), tb)) # avoid renaming message
   names(tb) <- c("col_names", strings)
   if (all){
     return(tb)

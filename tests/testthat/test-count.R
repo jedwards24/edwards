@@ -1,5 +1,3 @@
-context("Counting functions")
-
 x <- data.frame(a = c("an", "banana", "candy"), b = c("on", "bon", "bonbon"), c = 1:3)
 y <- tibble::tibble(a = c("a", ".", ".", "a"), b = c("-", "-", "b", "b"), c = c("n/a", "na", "f", ""))
 strs <- c(".", "-", "n/a", "na", "")

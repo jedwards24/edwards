@@ -1,5 +1,3 @@
-context("rang_ functions")
-
 set.seed(21)
 dt <- ggplot2::diamonds %>%
   dplyr::mutate(top = ifelse(cut == "Ideal", 1, 0) %>% factor(levels = c(1, 0))) %>%

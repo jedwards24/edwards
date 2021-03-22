@@ -1,5 +1,3 @@
-context("Prop functions")
-
 tb <- tibble::tibble(group = c(rep("a", 25), rep("b", 15), rep("c", 10)),
              outcome = c(rep(0L, 20), rep(1L, 15), rep(0L, 10), rep(1L, 5))) %>%
   dplyr::mutate(groupf = factor(group)) %>%

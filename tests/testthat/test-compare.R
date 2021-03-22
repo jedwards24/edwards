@@ -1,5 +1,3 @@
-context("Comparison functions")
-
 test_that("compare_vecs() is correct", {
   #x1 <- lubridate::dmy(c("10-03-17", "20-01-16"))
   #expect_error(compare_vecs(x1, c("a", "b")))

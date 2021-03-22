@@ -17,5 +17,5 @@ mode_stat(x, multiple = TRUE, na.rm = TRUE)
 Returns the statistical mode of an atomic vector (can be numeric, character or factor).
 }
 \details{
-From https://stackoverflow.com/questions/2547402/is-there-a-built-in-function-for-finding-the-mode.
+From \url{https://stackoverflow.com/questions/2547402/is-there-a-built-in-function-for-finding-the-mode}.
 }
