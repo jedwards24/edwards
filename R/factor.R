@@ -39,15 +39,6 @@ bin_integer <- function(x, cuts, na_level = NULL, na_at_end = FALSE){
   forcats::fct_relevel(na_level)
 }
 
-#' Depreciated. Use `bin_integer()` instead.
-#'
-#' @inherit bin_integer
-#'
-bin_numeric <- function(x, cuts, na_level = NULL, na_at_end = FALSE){
-  warning("`bin_numeric()` has been depreciated. Use `bin_integer()` instead.", call. = FALSE)
-  bin_integer(x = x, cuts = cuts, na_level = na_level, na_at_end = na_at_end)
-}
-
 #########################################################################################
 # bin_integer_fct: Bins integer levels in a factor.
 #########################################################################################
