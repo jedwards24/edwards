@@ -1,0 +1,110 @@
+---
+title: "one2one benchmark"
+output: html_document
+---
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(message = FALSE, warning = FALSE)
+library(tidyverse)
+library(microbenchmark)
+library(edwards)
+```
+
+Benchmarking for different implementations of the one2one() function. 
+
+I started with [this thread](https://stackoverflow.com/questions/52399474/check-if-variables-are-in-a-one-to-one-mapping). There were several alternatives suggested and I've benchmarked those here, together with a dplyr implementation of my own.
+
+```{r data, echo = FALSE}
+# Create some test sets: dt is one-to-one, df is not 
+n = 1E6 #num of rows
+x <- sample(1:26, n, replace = T)
+y <- letters[x]
+y2 <- letters[sample(1:26, n, replace = T)]
+dt <- tibble(x, y)
+df <- tibble(x, y = y2)
+```
+
+The first function uses `table()` then checks that each row and column only has one non-zero entry. In the thread the function just checks columns, but rows must be checked too.
+
+```{r func1}
+one2one1 <- function(df) {
+  tt <- table(df)
+  test1 <- isTRUE(all.equal(colSums(tt), apply(tt, 2,  max)))
+  test2 <- isTRUE(all.equal(rowSums(tt), apply(tt, 1,  max)))
+  test1 && test2
+}
+```
+
+The next function uses `duplicated()`.
+
+```{r func2}
+one2one2 <- function(df) {
+  all(duplicated(df)|duplicated(df, fromLast = TRUE))
+}
+```
+
+The next two are my dplyr-based attempts. The first compares the `count()` with both columns grouped and the count with single groupings. The second checks the grouped counts for repeated occurences of entries from either column.
+
+```{r func3}
+one2one3 <- function(df) {
+  count_all <- group_by_all(df) %>% 
+    tally() %>% 
+    ungroup()
+  count_1 <- group_by_at(df, 1) %>% tally()
+  count_2 <- group_by_at(df, 2) %>% tally()
+  test1 <- identical(select(count_all, c(1, 3)), count_1)
+  test2 <- identical(select(count_all, c(2, 3)), count_2)
+  test1 && test2
+}
+
+one2one4 <- function(df, ...) {
+  counts_all <- select(df, ...)%>%
+    group_by_all() %>%
+    tally() %>%
+    ungroup()
+  for (col in 1 : (ncol(counts_all) - 1)){
+    max_count <- group_by_at(counts_all, {{col}}) %>%
+      tally() %>%
+      pull(n) %>%
+      max()
+    if (max_count > 1){
+      return(FALSE)
+    }
+  }
+  TRUE
+}
+```
+
+All functions give correct output:
+```{r checks}
+all(one2one1(dt), one2one2(dt), one2one3(dt), one2one4(dt))
+any(one2one1(df), one2one2(df), one2one3(df), one2one4(dt))
+```
+
+Here are the benchmarks for both true and false tests:
+
+```{r bench}
+microbenchmark(f1 = one2one1(dt),
+               f2 = one2one2(dt),
+               f3 = one2one3(dt),
+               f4 = one2one4(dt, x, y),
+               times = 10)
+
+microbenchmark(f1 = one2one1(df),
+               f2 = one2one2(df),
+               f3 = one2one3(df),
+               f4 = one2one4(df, x, y),
+               times = 10)
+```
+
+Here's a look at times for some components of the functions, first the false dataset, then the true dataset.
+```{r bench2}
+microbenchmark(f1 = table(df),
+               f2 = tally(group_by_all(df)),
+               f3 = tally(group_by_at(df, 1)),
+               times = 10)
+
+microbenchmark(f1 = table(dt),
+               f2 = tally(group_by_all(dt)),
+               f3 = tally(group_by_at(dt, 1)),
+               times = 10)
+```

@@ -1,0 +1,46 @@
+# TODO
+
+## General
+
++ Add devtools to my .rprofile as recommended in R packages.
++ Add namespace when calling edwards functions?
++ Checks on all inputs.
++ add importFrom :=
+  - can't find how to import '.' so have removed it from code instead.
++ Add markdown formatting to docs?
+
+## Existing functions
+
++ Possible name change: find_similar() --> similar_cols() or compare_???
++ ??var_summary() - add na_string arg to include in missing count
++ glmnet tools (not working correctly). Add tests.
+
+## New functions
+
+These may already be in dev_code().
+
++ pdp functions (already written but not in package)
++ key function
++ benchmarking over arguments
++ ??Add count_sheets() - see func google doc. Used in treat....Prob won't do this unless I use it anywhere else
++ calibration plot for binary responses - split preds into deciles and get mean response for each. Plot & table.
++ simplify_datetime()
++ variable checking functions:
+    + check all dates for simple datetimes and 1899/1900 dates.
+    + possible dates as characters
+    + count prop integers in numeric cols.
+    + single value or single & NA.
+    + Binary value columns.
++ Non-missing head function.
++ Convert Excel dates from char or numeric: as.Date(as.numeric(vec), origin = "1899-12-30")
+
+## Package check issues
+
++ '::' or ':::' imports not declared from: 'rlang' 'tidyselect'
+  - this could be `contains()` and enquo() etc.
++ Missing or unexported object: 'edwards::oob_errors'.
+  - this is an internal function and is not exported. I have removed the edwards:: but not sure what is correct.
++ - update... `:::` is used to access internal functions. But when I put it in I got:
+      "There are ::: calls to the package's namespace in its code. A package almost never needs to use ::: for its own        objects"
++ bindings for df cols. Need to use .data$ for these
++ add namespace to some dplyr funcs: n(), na.omit(), bind_cols()
