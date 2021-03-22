@@ -11,7 +11,7 @@
 #' @param ... The two columns to be compared either by name (quoted or unquoted) or integer positions.
 #' @param simple Logical. If TRUE then only checks for pairwise differences, not ordering.
 #' @param tol When comparing numeric vectors, equality and inequality comparisons use this tolerance.
-#' @param na.rm If \code{TRUE}, will ignore rows where either element is \code{NA}. The main reason to use
+#' @param na.rm If `TRUE`, will ignore rows where either element is `NA`. The main reason to use
 #'   this is if you want to see the proportion of non-missing entries that match/differ.
 #'
 #' @export
@@ -45,7 +45,7 @@ compare_vars <- function(df, ..., simple = F, tol = 1E-6, na.rm = FALSE) {
 #'   table. Otherwise, "x" and "y" are used.
 #' @param simple Logical. If TRUE then only checks for pairwise differences, not ordering.
 #' @param tol When comparing numeric vectors, equality and inequality comparisons use this tolerance.
-#' @param na.rm If \code{TRUE}, will ignore indices where either vector is \code{NA}. The main reason to use
+#' @param na.rm If `TRUE`, will ignore indices where either vector is `NA`. The main reason to use
 #'   this is if you want to see the proportion of non-missing entries that match/differ.
 #'
 #' @export
@@ -122,13 +122,13 @@ compare_vecs <- function(x, y, names = NULL, simple = F, tol = 1E-6, na.rm = FAL
 #' if the rows of the two data frames correspond to each other in some way i.e. they are sorted appropriately.
 #'
 #' The returned table summarises results with a row for each pair of columns with matching classes. There are
-#' counts for: matches, both zero, one or both is \code{NA}, and differences. The proportion of non-zero matches
+#' counts for: matches, both zero, one or both is `NA`, and differences. The proportion of non-zero matches
 #' is also given. This is the number of non-zero matches divided by the number of element pairs that don't
-#' contain an \code{NA} and are not both zero. Excluding matches which are both zeroes makes it easier to see
+#' contain an `NA` and are not both zero. Excluding matches which are both zeroes makes it easier to see
 #' genuinely similar columns in data that contains lots of zeroes or missing values.
 #'
-#' @param df1,df2 Two data frames with matching number of rows. If the argument \code{df2} is missing
-#' then only columns within \code{df1} will be compared.
+#' @param df1,df2 Two data frames with matching number of rows. If the argument `df2` is missing
+#' then only columns within `df1` will be compared.
 #'
 #' @export
 find_similar <- function(df1, df2 = NULL){
@@ -182,8 +182,8 @@ find_similar <- function(df1, df2 = NULL){
 #'
 #' Count pairwise matches between columns in a single data frame
 #'
-#' Is called from \code{find_similar()} when the second data frame argument is omitted.
-#' See \code{find_similar()} documentation for details.
+#' Is called from `find_similar()` when the second data frame argument is omitted.
+#' See `find_similar()` documentation for details.
 #'
 #' @keywords internal
 find_similar_single <- function(df){
@@ -233,9 +233,9 @@ find_similar_single <- function(df){
 #' Compares two vectors and returns information on their overlap and differences, ignoring
 #' ordering and duplicated elements.
 #'
-#' A tibble is returned with contents dependent on the argument \code{summmary}. If \code{TRUE},
-#' counts of elements in both sets and only one set is given. If \code{FALSE}, the returned tibble
-#' will have a row for each element in the union of \code{x} and \code{y}, together with which set(s)
+#' A tibble is returned with contents dependent on the argument `summmary`. If `TRUE`,
+#' counts of elements in both sets and only one set is given. If `FALSE`, the returned tibble
+#' will have a row for each element in the union of `x` and `y`, together with which set(s)
 #' it belongs to.
 #'
 #' @param x,y Vectors to compare.

@@ -4,9 +4,9 @@
 #'
 #' Match model level names to parent variable names
 #'
-#' Helper for \code{glmnet_to_table()}. Each level starts with a parent plus maybe more text. Returns
-#' vector of parents corresponding to \code{level_names}. Parent is matching parent of greatest length.
-#' If no match is found or level is \code{NA} then the parent is the level name.
+#' Helper for `glmnet_to_table()`. Each level starts with a parent plus maybe more text. Returns
+#' vector of parents corresponding to `level_names`. Parent is matching parent of greatest length.
+#' If no match is found or level is `NA` then the parent is the level name.
 #'
 #' @param level_names Character vector to find parents for.
 #' @param parent_names Character vector of candidate parents.
@@ -32,13 +32,13 @@ match_parent <- function(level_names, parent_names) {
 #'
 #' Extract a factor level name from a model.matrix level names
 #'
-#' Helper for \code{glmnet_to_table()}. The model.matrix names are in \code{name_vec} and the
-#' corresponding entries in \code{feature_vec} is the name of the first feature. A vector of levels
+#' Helper for `glmnet_to_table()`. The model.matrix names are in `name_vec` and the
+#' corresponding entries in `feature_vec` is the name of the first feature. A vector of levels
 #' corresponding to the level associated with the feature is returned. If the is no level then the entry is
 #' "(none)".
 #'
 #' @param name_vec Character vector of model.matrix names.
-#' @param feature_vec Character vector of feature names corresponding to \code{name_vec}.
+#' @param feature_vec Character vector of feature names corresponding to `name_vec`.
 #'
 extract_level <- function(name_vec, feature_vec) {
   levels <- stringr::str_remove_all(name_vec, stringr::fixed(feature_vec)) %>%
@@ -52,18 +52,18 @@ extract_level <- function(name_vec, feature_vec) {
 #'
 #' Summarise coefficients from glmnet in a table
 #'
-#' Returns a tibble of coefficients for glmnet model \code{fit} with parameter \code{s}. Only
-#' coefficients with absolute value greater than \code{min_coef} are included. If \code{var_names} is
+#' Returns a tibble of coefficients for glmnet model `fit` with parameter `s`. Only
+#' coefficients with absolute value greater than `min_coef` are included. If `var_names` is
 #' supplied then a columns of feature names and level names for each coefficient will be added (first
 #' match in the case of interactions). If there is no level involved then the level column will have
-#' the entry \code{none_name}. If there are any interactions in the model then the interacting feature is
+#' the entry `none_name`. If there are any interactions in the model then the interacting feature is
 #' added in a column.
 #'
 #' This is still in development. Doesn't handle more than a single interaction.
 #'
 #' @param fit A fitted glmnet model.
-#' @param var_names (optional) A character vector of column names for data used in \code{fit}.
-#' @param s The regularisation parameter determines which model is used from \code{fit} (as used in glmnet).
+#' @param var_names (optional) A character vector of column names for data used in `fit`.
+#' @param s The regularisation parameter determines which model is used from `fit` (as used in glmnet).
 #' @param min_coef Coefficients with smaller absolute value than this are excluded from the table.
 #' @param none_name String to use when there is no level or interaction in a model name.
 #'
@@ -95,7 +95,7 @@ glmnet_to_table <- function(fit, var_names = NULL, s="lambda.1se", min_coef=1E-1
 #'
 #' Summarise coefficients from glmnet in a table
 #'
-#' Experimental variant of \code{glmnet_to_table()} which splits by interaction when finding parents.
+#' Experimental variant of `glmnet_to_table()` which splits by interaction when finding parents.
 #'
 #' @inherit glmnet_to_table
 glmnet_to_table2 <- function(fit, var_names = NULL, s="lambda.1se", min_coef=1E-10) {

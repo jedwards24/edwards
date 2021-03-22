@@ -4,16 +4,16 @@
 #'
 #' Convert integer vector into binned factor with integer cuts and appropriately named levels
 #'
-#' Takes a numeric input vector, groups into bins based on the argument \code{cuts}, and
+#' Takes a numeric input vector, groups into bins based on the argument `cuts`, and
 #' outputs an ordered factor with appropriate names. Any NAs in the input are optionally grouped
-#' into an explicit NA level with name \code{na_level}
+#' into an explicit NA level with name `na_level`
 #'
 #' @param x Integer vector to be binned.
-#' @param cuts An integer vector giving bin cuts. Don't add \code{-Inf} or \code{Inf} end cuts as these are handled automatically.
+#' @param cuts An integer vector giving bin cuts. Don't add `-Inf` or `Inf` end cuts as these are handled automatically.
 #' @param na_level A name for the explicit NA level (if any). If left as the default NULL then no explicit NA
 #'   level will be formed.
 #' @param na_at_end Logical indicating whether to put any explicit NA level at the end of the levels. The
-#'   default \code{na_at_end = FALSE} will put the level at the start.
+#'   default `na_at_end = FALSE` will put the level at the start.
 #'
 #' @export
 bin_integer <- function(x, cuts, na_level = NULL, na_at_end = FALSE){
@@ -39,7 +39,7 @@ bin_integer <- function(x, cuts, na_level = NULL, na_at_end = FALSE){
   forcats::fct_relevel(na_level)
 }
 
-#' Depreciated. Use \code{bin_integer()} instead.
+#' Depreciated. Use `bin_integer()` instead.
 #'
 #' @inherit bin_integer
 #'
@@ -56,12 +56,12 @@ bin_numeric <- function(x, cuts, na_level = NULL, na_at_end = FALSE){
 #'
 #' Input is a vector with levels that, all except one, are naturally integers e.g. "60". The other level is a
 #' string e.g. "missing".  An ordered factor is returned with the "integer" levels grouped into bins
-#' based on the argument \code{cuts} with appropriate names.
+#' based on the argument `cuts` with appropriate names.
 #'
 #' FACTOR ORDERING HAS NOT BEEN CHECKED.
 #'
 #' @param ff Factor vector to be binned.
-#' @param cuts A numeric vector giving bin cuts. Don't add \code{-Inf} or \code{Inf} end cuts as these are handled automatically.
+#' @param cuts A numeric vector giving bin cuts. Don't add `-Inf` or `Inf` end cuts as these are handled automatically.
 #'
 #' @export
 bin_integer_fct <- function(ff, cuts){

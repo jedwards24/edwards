@@ -33,6 +33,6 @@ This maximum is decided alphabetically so the numeric part of the file names sho
 similarly across the compared files e.g. a two digit version number or date in yyyy-mm-dd form.
 }
 \details{
-The string \code{root_name} can be a regex pattern. Lower and upper case versions of `\code{file_ext}
+The string \code{root_name} can be a regex pattern. Lower and upper case versions of \code{file_ext}
 will also be matched.
 }

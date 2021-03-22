@@ -58,7 +58,7 @@ if a factor and the first observation otherwise. Giving the value of correspondi
 \code{pos_class} will override this.
 
 Use the \code{plot} and \code{return_plot} arguments to control output. By default (designed to be
- used interactively) returns a table and prints a plot.  If \code{return_plot = TRUE} then just the
- plot is returned. If  \code{return_plot = FALSE} and
- \code{plot = FALSE} then the table is returned and no plot is generated. The default
+used interactively) returns a table and prints a plot.  If \code{return_plot = TRUE} then just the
+plot is returned. If  \code{return_plot = FALSE} and
+\code{plot = FALSE} then the table is returned and no plot is generated. The default
 }

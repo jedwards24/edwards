@@ -8,10 +8,10 @@
 #' distance from the point (FPR = 0, TPR = 1). Also returns sensitivity and specitivity for this cutoff, the AUC
 #' of the ROC curve, and optionally plots the curve together with the distance measure.
 #'
-#' Adapted from \url{https://www.r-bloggers.com/a-small-introduction-to-the-rocr-package/}.
+#' Adapted from <https://www.r-bloggers.com/a-small-introduction-to-the-rocr-package/>.
 #'
 #' @param pred A vector of prediction probabilities.
-#' @param actual A vector of outcome classes corresponding to \code{pred}.
+#' @param actual A vector of outcome classes corresponding to `pred`.
 #' @param plot Logical indicating whether to plot a ROC curve together with distance from the optimal corner.
 #' @import ggplot2
 #' @export
@@ -52,14 +52,14 @@ roc_cut <- function(pred, actual, plot = T) {
 #' Plots ROC curves for training and test data.
 #'
 #' Returns a ggplot of a ROC curve from prediction and target vectors. These are partitioned by the argument
-#' \code{train} into two separate curves so that differences between train and test data can be seen. AUC for each
+#' `train` into two separate curves so that differences between train and test data can be seen. AUC for each
 #' is printed. Functions from ROCR are used.
 #'
 #' @param pred A vector of prediction probabilities.
-#' @param target A vector of outcome classes corresponding to \code{pred}.
+#' @param target A vector of outcome classes corresponding to `pred`.
 #' @param train A vector of indices indicating which predictions are "training" data.
-#' @param test Optional vector of indices indicating which predictions are "test" data. Defaults to \code{NULL}, in
-#'   which case \code{test} will be set to the data not in \code{train}.
+#' @param test Optional vector of indices indicating which predictions are "test" data. Defaults to `NULL`, in
+#'   which case `test` will be set to the data not in `train`.
 #'
 #' @export
 roc_plot <- function(pred, target, train, test = NULL) {

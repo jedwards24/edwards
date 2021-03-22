@@ -4,36 +4,36 @@
 #'
 #' Confidence intervals for binary target variable by values of a discrete predictor
 #'
-#' For a data frame input, one variable is a binary target (\code{target_name}) and another is selected to
-#' be a predictor variable (\code{var_name}). Mean response and a confidence interval is calculated for the
+#' For a data frame input, one variable is a binary target (`target_name`) and another is selected to
+#' be a predictor variable (`var_name`). Mean response and a confidence interval is calculated for the
 #' target variable for each level or value of the predictor. The results are plotted and returned as a
 #' table. The function most appropriate for factor predictors but will work with other variable types also.
 #'
 #' The target variable must be binary. Top compute confidence intervals this is converted to 0 and 1 values.
 #' If it is not obvious which value corresponds to 1 and which to 0 then it will be based on level order
 #' if a factor and the first observation otherwise. Giving the value of corresponding to 1 in the argument
-#' \code{pos_class} will override this.
+#' `pos_class` will override this.
 #'
-#' Use the \code{plot} and \code{return_plot} arguments to control output. By default (designed to be
-#'  used interactively) returns a table and prints a plot.  If \code{return_plot = TRUE} then just the
-#'  plot is returned. If  \code{return_plot = FALSE} and
-#'  \code{plot = FALSE} then the table is returned and no plot is generated. The default
+#' Use the `plot` and `return_plot` arguments to control output. By default (designed to be
+#'  used interactively) returns a table and prints a plot.  If `return_plot = TRUE` then just the
+#'  plot is returned. If  `return_plot = FALSE` and
+#'  `plot = FALSE` then the table is returned and no plot is generated. The default
 #'
 #' @param dt A data frame.
 #' @param target_name Column to use as target variable. Column name (quoted or unquoted) or position.
 #' @param var_name Column to use as predictor variable. Column name (quoted or unquoted) or position.
-#' @param min_n Integer >= 1. Predictor levels with less than \code{min_n} observations are not displayed.
-#' @param show_all Logical. Defaults to \code{TRUE}. If \code{FALSE} will not show levels whose confidence interval
+#' @param min_n Integer >= 1. Predictor levels with less than `min_n` observations are not displayed.
+#' @param show_all Logical. Defaults to `TRUE`. If `FALSE` will not show levels whose confidence interval
 #'   overlaps the mean response of all observations.
 #' @param order_n Logical. Whether to force plot and table to order by number of observations of the
-#'   predictior. The default setting \code{NULL} retains ordering if predictor is numeric or ordered factor
+#'   predictior. The default setting `NULL` retains ordering if predictor is numeric or ordered factor
 #'   and orders by number of observations otherwise.
 #' @param conf_level Numeric in (0,1). Confidence level used for confidence intervals.
-#' @param prop_lim Optional x axis limits passed to \code{ggplot()} e.g. \code{c(0,1)}.
+#' @param prop_lim Optional x axis limits passed to `ggplot()` e.g. `c(0,1)`.
 #' @param pos_class Optional. Specify value in target to associate with class 1.
 #' @param plot Optional logical. Output a plot or not.
-#' @param return_plot Optional logical. If \code{TRUE} the plot is returned instead of the table (this overrides
-#'   \code{plot} argument).
+#' @param return_plot Optional logical. If `TRUE` the plot is returned instead of the table (this overrides
+#'   `plot` argument).
 #'
 #' @import ggplot2
 #' @export

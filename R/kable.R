@@ -2,18 +2,18 @@
 # my_kable: Version of kable with standard styling to save typing.
 #########################################################################################
 #'
-#' Version of \code{kable()} with specific default kableExtra styling
+#' Version of `kable()` with specific default kableExtra styling
 #'
-#' Shorthand to apply both \code{knitr::kable()} and \code{kableExtra::kable_styling()} to a table,
-#' using styling options \code{bootstrap_options = c("striped", "condensed")} and \code{full_width = F}.
+#' Shorthand to apply both `knitr::kable()` and `kableExtra::kable_styling()` to a table,
+#' using styling options `bootstrap_options = c("striped", "condensed")` and `full_width = F`.
 #' The default number of digits is set to 3 but can be changed.
 #'
-#' Only one argument (\code{position}) from \code{kableExtra::kable_styling()} can be changed here.
+#' Only one argument (`position`) from `kableExtra::kable_styling()` can be changed here.
 #'
 #' @param df A data frame.
-#' @param digits Sets the number of digits (via the \code{kable()} \code{digits} argument).
-#' @param position Passed to \code{kableExtra::kable_styling()}.
-#' @param ... Optional arguments passed to \code{knitr::kable()}.
+#' @param digits Sets the number of digits (via the `kable()` `digits` argument).
+#' @param position Passed to `kableExtra::kable_styling()`.
+#' @param ... Optional arguments passed to `knitr::kable()`.
 #'
 #' @export
 my_kable <- function(df, digits = 3, position = "center", ...){
@@ -32,10 +32,10 @@ my_kable <- function(df, digits = 3, position = "center", ...){
 # kbl_ctable: edwards::my_kable() with a 2-d contingency table input
 #########################################################################################
 #'
-#' \code{edwards::my_kable()} with a two way contingency table input.
+#' `edwards::my_kable()` with a two way contingency table input.
 #'
 #' @param ct A two way table object.
-#' @param digits Sets the number of digits (passed to \code{my_kable()}).
+#' @param digits Sets the number of digits (passed to `my_kable()`).
 #'
 #' @export
 kbl_ctable <- function(ct, digits = 3) {
@@ -57,17 +57,17 @@ kbl_ctable <- function(ct, digits = 3) {
 #'
 #' Split a table in into parts of balanced size
 #'
-#' Splits a table into a  \code{n_tb} parts of similar sizing using standard styling in  \code{my_kable()}. This is
+#' Splits a table into a  `n_tb` parts of similar sizing using standard styling in  `my_kable()`. This is
 #'   used when I want to split a long thin table across multiple columns to reduce a document's size. Returns
-#'   a single table part. Which part given by argument  \code{index}.
+#'   a single table part. Which part given by argument  `index`.
 #'
 #' Printing all table parts in one function call didn't work since I couldn't get
-#'    \code{kable()} to print from within a function.
+#'    `kable()` to print from within a function.
 #'
 #' @param df A data frame.
 #' @param index Which part of the split table to return.
 #' @param n_tb The number of parts to split the table into.
-#' @param digits Sets the number of digits (via the  \code{kable()}  \code{digits} argument).
+#' @param digits Sets the number of digits (via the  `kable()`  `digits` argument).
 #'
 #' @export
 split_kable <- function(df, index, n_tb = 2, digits = 3) {

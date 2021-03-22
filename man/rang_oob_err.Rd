@@ -19,5 +19,5 @@ of trees in steps of \code{by}.}
 \description{
 Returns a table of out-of-bag error rates for a ranger random forest using number of trees
 from 5 to all trees in steps of 5. The supplied ranger object must have been created with
- \code{keep.inbag = TRUE} argument.
+\code{keep.inbag = TRUE} argument.
 }

@@ -4,11 +4,11 @@
 #'
 #' Plot missing values per variable
 #'
-#' Based on \code{DataExplorer::plot_missing} but simpler.
+#' Based on `DataExplorer::plot_missing` but simpler.
 #'
 #' @param df A data frame.
 #' @param show_all Logical. Default FALSE doesn't show variables with no NAs.
-#' @param sort Logical. Sort variables by number of NAs? Defaults to \code{TRUE}.
+#' @param sort Logical. Sort variables by number of NAs? Defaults to `TRUE`.
 #'
 #' @export
 plot_nas <- function(df, show_all = F, sort = T) {
@@ -30,18 +30,18 @@ plot_nas <- function(df, show_all = F, sort = T) {
 #'
 #' Plot missing values per variable
 #'
-#' Adaptation of \code{DataExplorer::plot_missing} but with option to not show variables with no NAs.
+#' Adaptation of `DataExplorer::plot_missing` but with option to not show variables with no NAs.
 #' Also has different default lables for each group.
 #'
-#' For details and main arguments see \code{DataExplorer::plot_missing}.
+#' For details and main arguments see `DataExplorer::plot_missing`.
 #'
 #' @param data Input data.
 #' @param group Missing profile band taking a list of group name and group upper bounds.
-#' @param geom_label_args A list of other arguments to \code{geom_label()}.
+#' @param geom_label_args A list of other arguments to `geom_label()`.
 #' @param title Plot title.
-#' @param ggtheme \code{ggplot2} themes.
-#' @param theme_config A list of configurations to be passed to \code{theme()}.
-#' @param show_all Logical. If \code{FALSE} (default) then do not show variables with no NAs.
+#' @param ggtheme `ggplot2` themes.
+#' @param theme_config A list of configurations to be passed to `theme()`.
+#' @param show_all Logical. If `FALSE` (default) then do not show variables with no NAs.
 #'
 #' @export
 plot_missing2 <- function (data, group = list(Low = 0.05, OK = 0.4, High = 1),

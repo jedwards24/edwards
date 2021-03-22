@@ -4,17 +4,17 @@
 #'
 #' ROC curve optimal cut for a ranger object
 #'
-#' Calls \code{roc_cut()} for a fitted ranger model. See \code{roc_cut()} for details. Requires
-#'  \code{probability = TRUE} to be used when the ranger model was fitted.
+#' Calls `roc_cut()` for a fitted ranger model. See `roc_cut()` for details. Requires
+#'  `probability = TRUE` to be used when the ranger model was fitted.
 #'
-#' The \code{rf$predictions} is a matrix with columns for each class. The class corresponding to
-#' the predictions in \code{actual} can be named in `class_name`. Default is to select the "maximum"
+#' The `rf$predictions` is a matrix with columns for each class. The class corresponding to
+#' the predictions in `actual` can be named in `class_name`. Default is to select the "maximum"
 #' column name i.e. "TRUE" if classes are TRUE/FALSE and the largest number if numeric.
 #'
 #' @param rf A ranger fitted model.
-#' @param actual A binary class target vector matching \code{rf}.
-#' @param class_name String giving name of the class predicted in \code{actual}.
-#' @param plot Produce a plot. Defaults to \code{TRUE}.
+#' @param actual A binary class target vector matching `rf`.
+#' @param class_name String giving name of the class predicted in `actual`.
+#' @param plot Produce a plot. Defaults to `TRUE`.
 #'
 #' @export
 rang_roc_cut <- function(rf, actual, class_name = NULL, plot = TRUE) {
@@ -40,19 +40,19 @@ rang_roc_cut <- function(rf, actual, class_name = NULL, plot = TRUE) {
 # rang_mtry: Tune ranger models for mtry.
 #########################################################################################
 #'
-#' Tune ranger models for \code{mtry}
+#' Tune ranger models for `mtry`
 #'
-#' Fits \code{ranger()} models for a given range of values of \code{mtry}. Output is a table and graph giving
+#' Fits `ranger()` models for a given range of values of `mtry`. Output is a table and graph giving
 #' errors for OOB training data and optional validation data.
 #'
 #' @param data A data frame containing both input and target variables.
 #' @param fmla A formula for the model.
-#' @param m_vec Integer vector of values of tuning parameter \code{mtry}.
+#' @param m_vec Integer vector of values of tuning parameter `mtry`.
 #' @param train Optional integer vector giving row indices to be used in training set. Remaining rows are used for
-#'   validation. If default \code{train = NULL} is used then all data is used for training and there is no validation.
+#'   validation. If default `train = NULL` is used then all data is used for training and there is no validation.
 #' @param seed Integer. Random number seed used for fitting each model.
-#' @param importance,num.trees,respect.unordered.factors Optional arguments passed to \code{ranger()}. Defaults are
-#'   \code{"impurity"}, \code{500} and \code{TRUE} respectively.
+#' @param importance,num.trees,respect.unordered.factors Optional arguments passed to `ranger()`. Defaults are
+#'   `"impurity"`, `500` and `TRUE` respectively.
 #'
 #' @export
 rang_mtry <- function(data, fmla, m_vec, train = NULL, seed = 1, importance = "impurity", num.trees = 500,
@@ -105,15 +105,15 @@ rang_mtry <- function(data, fmla, m_vec, train = NULL, seed = 1, importance = "i
 # oob_errors: Helper for rang_oob_err().
 #########################################################################################
 #'
-#' Helper for \code{rang_oob_err()}
+#' Helper for `rang_oob_err()`
 #'
 #' Returns vector of error indicators chosen by majority vote. Where the vote is split the entry wil be 0.5.
-#' The entry will be \code{NaN} Where there are no out-of-bag predictions for a data point.
+#' The entry will be `NaN` Where there are no out-of-bag predictions for a data point.
 #'
-#' @param oob_mat Matrix of out-of-bag individual tree class predicitions with an \code{NA} where the prediciton
+#' @param oob_mat Matrix of out-of-bag individual tree class predicitions with an `NA` where the prediciton
 #'   was in bag. Rows are observation, columns are trees.
-#' @param n_trees Positive integer. Gives the number of trees to be used in the prediction (columns \code{1:n_trees}
-#'   of \code{oob_mat} will be used).
+#' @param n_trees Positive integer. Gives the number of trees to be used in the prediction (columns `1:n_trees`
+#'   of `oob_mat` will be used).
 #' @param target Vector of true classes (either 1 or 2).
 #'
 #' @keywords internal
@@ -135,12 +135,12 @@ oob_errors <- function(oob_mat, n_trees, target) {
 #'
 #' Returns a table of out-of-bag error rates for a ranger random forest using number of trees
 #' from 5 to all trees in steps of 5. The supplied ranger object must have been created with
-#'  \code{keep.inbag = TRUE} argument.
+#'  `keep.inbag = TRUE` argument.
 #'
-#' @param rf A ranger random forest object, created with \code{keep.inbag = TRUE}.
-#' @param data A data frame used to fit \code{rf}. Must contain target variable.
-#' @param start,by Error rates are evaluated for number of trees from \code{start} to maximum number
-#'   of trees in steps of \code{by}.
+#' @param rf A ranger random forest object, created with `keep.inbag = TRUE`.
+#' @param data A data frame used to fit `rf`. Must contain target variable.
+#' @param start,by Error rates are evaluated for number of trees from `start` to maximum number
+#'   of trees in steps of `by`.
 #' @param plot Optional logical. Output a plot or not.
 #'
 #' @export

@@ -5,7 +5,7 @@
 #'
 #' Check data frame columns for one-to-one relationship.
 #'
-#' Returns \code{TRUE} if all chosen columns are one-to-one and \code{FALSE} otherwise.
+#' Returns `TRUE` if all chosen columns are one-to-one and `FALSE` otherwise.
 #' A message gives the first column found with a many-to relationship with another column.
 #'
 #' @param df A data frame.
@@ -44,7 +44,7 @@ is_one2one <- function(df, ...) {
 #' of columns (the determinant set). This means that each returned column takes a single value for each unique
 #' combination in the determinant set of columns.
 #'
-#' Any \code{NA}s are treated as a distinct value and a warning is given.
+#' Any `NA`s are treated as a distinct value and a warning is given.
 #'
 #' This is far from optimised and can be slow with large data frames. The run time is approximately of order
 #' (number of columns not in the determinant set) x (number of unique rows (groups) in the determinant set).

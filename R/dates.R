@@ -5,7 +5,7 @@
 #' Parse a character vector in a particular format and convert to a date or datetime
 #'
 #' Reads text vectors which are either in dmy or dmy:time format. If all of the times are
-#' zeroes then the output is a date. Fully  \code{NA} vectors are returned as dates.
+#' zeroes then the output is a date. Fully  `NA` vectors are returned as dates.
 #'
 #' @param x A character vector to be converted.
 #'
@@ -38,7 +38,7 @@ convert_date <- function(x) {
 #'
 #' Test if a datetime object has times that are all zero
 #'
-#' Returns \code{TRUE} if the input is a datetime object where the time part of every element is zero.
+#' Returns `TRUE` if the input is a datetime object where the time part of every element is zero.
 #'
 #' @param x An object to test.
 #'
@@ -69,15 +69,15 @@ is_simple_datetime <- function(x) {
 #'
 #' Difference in days of two dates as a numeric
 #'
-#' Finds \code{difftime(date1, date2)} (i.e. \code{date1 - date2}) using \code{units = "days"}, then converts
+#' Finds `difftime(date1, date2)` (i.e. `date1 - date2`) using `units = "days"`, then converts
 #' to a numeric.
 #'
 #' By default, only the date part of any datetime inputs are used (the datetime is
-#' first coerced to a date using \code{lubridate::as_date()}). If \code{keep_times = TRUE} and both
-#' \code{date1} and \code{date2} are datetimes then the times will be used. See examples.
+#' first coerced to a date using `lubridate::as_date()`). If `keep_times = TRUE` and both
+#' `date1` and `date2` are datetimes then the times will be used. See examples.
 #'
 #' @param date1,date2 A date or datetime.
-#' @param keep_times Logical. If \code{FALSE} any times will be dropped before difference is calculated.
+#' @param keep_times Logical. If `FALSE` any times will be dropped before difference is calculated.
 #' @examples
 #' d1 <- lubridate::ymd_hms("2020-02-01 08:00:00")
 #' d2 <- lubridate::ymd_hms("2020-01-01 00:00:00")

@@ -1,10 +1,10 @@
 Package: edwards
 Type: Package
-Title: JE personal package
+Title: James Edwards personal package
 Version: 0.1.0
 Author: James Edwards <jamese1326+gh@gmail.com> 
 Maintainer: James Edwards <jamese1326+gh@gmail.com>
-Description: A collection of miscellaneous data science functions that I have written.
+Description: A collection of miscellaneous data science functions for my own use.
 License: MIT + file LICENSE
 Encoding: UTF-8
 LazyData: true
@@ -31,3 +31,4 @@ Imports:
     ROCR,
     rlang,
     tidyselect
+Roxygen: list(markdown = TRUE)

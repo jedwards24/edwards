@@ -11,5 +11,5 @@ count_unique(df)
 }
 \description{
 Returns a vector of the number of unique values of each variable in a data frame. Any NA entries are included as
-  a unique value.
+a unique value.
 }

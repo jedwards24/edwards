@@ -7,7 +7,7 @@
 #' Returns a vector of the number of NAs of each variable in a data frame.
 #'
 #' @param df A data frame.
-#' @param all By default variables with no NAs are omitted from the output. Set to \code{TRUE} to show all.
+#' @param all By default variables with no NAs are omitted from the output. Set to `TRUE` to show all.
 #'
 #' @export
 count_nas <- function(df, all = FALSE) {
@@ -52,7 +52,7 @@ count_unique <- function(df) {
 #' Returns a vector of the number of levels of each variable in a data frame.
 #'
 #' @param df A data frame.
-#' @param all By default variables with no levels are omitted from the output. Set \code{all=TRUE} to show all.
+#' @param all By default variables with no levels are omitted from the output. Set `all=TRUE` to show all.
 #'
 #' @export
 count_levels <- function(df, all = FALSE) {
@@ -76,7 +76,7 @@ count_levels <- function(df, all = FALSE) {
 #' Count NAs in a data frame by column (depreciated)
 #'
 #' @description
-#' Unlike \code{count_nas()} this returns the results in a tibble with columns giving:
+#' Unlike `count_nas()` this returns the results in a tibble with columns giving:
 #' \itemize{
 #' \item{The number of NAs for each variable in the data.}
 #' \item{The number of NAs as a proportion of rows.}
@@ -85,8 +85,8 @@ count_levels <- function(df, all = FALSE) {
 #'
 #' @param df A data frame.
 #'
-#' @param all By default variables with no NAs are omitted from the output. Set to \code{TRUE} to show all.
-#' @param sort By default the output table is sorted by descending number of NAs. Set to \code{FALSE} to keep
+#' @param all By default variables with no NAs are omitted from the output. Set to `TRUE` to show all.
+#' @param sort By default the output table is sorted by descending number of NAs. Set to `FALSE` to keep
 #'   variable ordering as in the data.
 #'
 #' @export
@@ -117,10 +117,10 @@ count_nas2 <- function(df, all = FALSE, sort = TRUE) {
 #' Count the total number, by column, of entries in a data frame that match a string pattern
 #'
 #' Returns a named integer vector with elements that give the number of entries in the corresponding
-#' column of \code{df} that contain a match to the string pattern \code{pattern}. No coercion is used
+#' column of `df` that contain a match to the string pattern `pattern`. No coercion is used
 #' so only characters or factors are m'atched (see examples).
 #'
-#' Note that repeated occurences of \code{pattern} in a single string are only counted once (see examples).
+#' Note that repeated occurences of `pattern` in a single string are only counted once (see examples).
 #'
 #' @param df A data frame.
 #' @param pattern A string pattern (regular expression).
@@ -157,7 +157,7 @@ count_string <- function(df, pattern, all = FALSE){
 #' Count the total number of exact matches to a value in a data frame by column
 #'
 #' Returns a named integer vector with elements that give the number of entries in the corresponding
-#' column of \code{df} that match to the argument \code{value}. No coercion is used so type must also match.
+#' column of `df` that match to the argument `value`. No coercion is used so type must also match.
 #'
 #' @param df A data frame.
 #' @param value A length one vector.
@@ -203,13 +203,13 @@ count_matches <- function(df, value, all = FALSE){
 #'
 #' Count exact string matches in a data frame by column.
 #'
-#' Similar to \code{count_matches()} but counts matches for multiple strings rather than just one. The
-#' output is a tibble with a row for each column in \code{df}. Unlike \code{count_matches}, non-string
+#' Similar to `count_matches()` but counts matches for multiple strings rather than just one. The
+#' output is a tibble with a row for each column in `df`. Unlike `count_matches`, non-string
 #' matching is not enabled.
 #'
 #' @param df A data frame.
 #' @param strings A character vector.
-#' @param all Logical. If \code{FALSE} (default) then rows/columns with no non-zero entry are not shown.
+#' @param all Logical. If `FALSE` (default) then rows/columns with no non-zero entry are not shown.
 #'
 #' @examples
 #' df <- tibble::tibble(col1 = c("a", ".", ".", "a"),
@@ -254,7 +254,7 @@ count_matches2 <- function(df, strings, all = FALSE) {
 #' Simple summary of the variables in a data frame
 #'
 #' Returns a tibble with the names, class, number of unique values, and the number and percent of
-#' \code{NA}s for each variable in the data. If there are \code{NA} values then they are included as
+#' `NA`s for each variable in the data. If there are `NA` values then they are included as
 #' a unique value.
 #'
 #' @param df A data frame.
@@ -280,15 +280,15 @@ var_summary <- function(df) {
 # count_at: Performs dplyr::count for a range of variables in a data frame.
 #########################################################################################
 #'
-#' Perform  \code{dplyr::count} for a range of variables in a data frame (DEPRECIATED - use \code{count_over()})
+#' Perform  `dplyr::count` for a range of variables in a data frame (DEPRECIATED - use `count_over()`)
 #'
-#' Prints output from \code{dplyr::count()} for each variable index given by argument \code{cols} (an integer vector).
+#' Prints output from `dplyr::count()` for each variable index given by argument `cols` (an integer vector).
 #'
 #' @param df A data frame.
 #' @param cols Vector of integer indices. If missing, all columns are included.
-#' @param sort Logical passed to \code{count()} to say whether results are sorted by descending number of observation.
-#'   Unlike in \code{count()}, this defaults to \code{TRUE}.
-#' @param n Integer passed to \code{print()} which gives the maximum number of rows printed in each count summary.
+#' @param sort Logical passed to `count()` to say whether results are sorted by descending number of observation.
+#'   Unlike in `count()`, this defaults to `TRUE`.
+#' @param n Integer passed to `print()` which gives the maximum number of rows printed in each count summary.
 #'
 #' @export
 count_at <- function(df, cols = NULL, sort = TRUE, n = 10) {
@@ -310,14 +310,14 @@ count_at <- function(df, cols = NULL, sort = TRUE, n = 10) {
 # count_over: Performs dplyr::count for a range of variables in a data frame.
 #########################################################################################
 #'
-#' Perform  \code{count2()} for a range of variables in a data frame
+#' Perform  `count2()` for a range of variables in a data frame
 #'
-#' Prints output from \code{count2()} for multiple columns in \code{df}.
+#' Prints output from `count2()` for multiple columns in `df`.
 #'
 #' @param df A data frame.
 #' @param ... Columns to count over. Accepts tidyselect inputs. If omitted then count is applied to every column.
-#' @param sort Logical passed to \code{count()} to say whether results are sorted by descending number of observation.
-#' @param n Integer passed to \code{print()} which gives the maximum number of rows printed in each count summary.
+#' @param sort Logical passed to `count()` to say whether results are sorted by descending number of observation.
+#' @param n Integer passed to `print()` which gives the maximum number of rows printed in each count summary.
 #'
 #' @export
 count_over <- function(df, ..., sort = TRUE, n = 10L) {
@@ -338,7 +338,7 @@ count_over <- function(df, ..., sort = TRUE, n = 10L) {
 #'
 #' Count group sizes by grouped variables
 #'
-#' Shorthand for \code{count(count(df, ...), n)}.
+#' Shorthand for `count(count(df, ...), n)`.
 #'
 #' @param df A data frame.
 #' @param ... Variables to group by.
@@ -355,14 +355,14 @@ count_n <- function(df, ...) {
 # count2: dplyr::count() with proportion column and default sort = T
 #########################################################################################
 #'
-#' \code{dplyr::count()} with proportion column and default \code{sort = TRUE}.
+#' `dplyr::count()` with proportion column and default `sort = TRUE`.
 #'
 #' Adds a column "prop" which gives the proportion of total rows in that group.
 #'
 #' @param df A data frame.
-#' @param ... Variables to group by. Passed to \code{count()}.
-#' @param sort Passed to \code{count}, but defaults to \code{TRUE}.
-#' @param wt,name Optional, passed to \code{count}.
+#' @param ... Variables to group by. Passed to `count()`.
+#' @param sort Passed to `count`, but defaults to `TRUE`.
+#' @param wt,name Optional, passed to `count`.
 #'
 #' @examples
 #' count2(mtcars, cyl)

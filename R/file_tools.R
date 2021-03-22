@@ -5,19 +5,19 @@
 #'
 #' Get file name of most recent file in a directory
 #'
-#' Looks for files in a directory \code{path} with names beginning \code{"root_name_dd"}, where
+#' Looks for files in a directory `path` with names beginning `"root_name_dd"`, where
 #' dd are digits. Returns the full path of the file with the maximum numeric part of its name.
 #' This maximum is decided alphabetically so the numeric part of the file names should be structured
 #' similarly across the compared files e.g. a two digit version number or date in yyyy-mm-dd form.
 #'
-#' The string \code{root_name} can be a regex pattern. Lower and upper case versions of `\code{file_ext}
+#' The string `root_name` can be a regex pattern. Lower and upper case versions of `file_ext`
 #' will also be matched.
 #'
 #' @param path A string path name for the directory to search in.
 #' @param root_name A string giving the part of the file name before the date.
 #' @param file_ext An optional string giving a file extension which the returned file name must end in.
-#' @param verbose If \code{TRUE} will give detail about all matched files and other files containing \code{root_name}.
-#' @param silent If \code{TRUE} will suppress all messages.
+#' @param verbose If `TRUE` will give detail about all matched files and other files containing `root_name`.
+#' @param silent If `TRUE` will suppress all messages.
 #' @param n Integer. Option to return the nth latest file.
 #'
 #' @export

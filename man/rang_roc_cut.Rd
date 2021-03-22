@@ -17,10 +17,10 @@ rang_roc_cut(rf, actual, class_name = NULL, plot = TRUE)
 }
 \description{
 Calls \code{roc_cut()} for a fitted ranger model. See \code{roc_cut()} for details. Requires
- \code{probability = TRUE} to be used when the ranger model was fitted.
+\code{probability = TRUE} to be used when the ranger model was fitted.
 }
 \details{
 The \code{rf$predictions} is a matrix with columns for each class. The class corresponding to
-the predictions in \code{actual} can be named in `class_name`. Default is to select the "maximum"
+the predictions in \code{actual} can be named in \code{class_name}. Default is to select the "maximum"
 column name i.e. "TRUE" if classes are TRUE/FALSE and the largest number if numeric.
 }

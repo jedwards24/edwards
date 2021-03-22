@@ -32,8 +32,8 @@ mode_stat <- function(x, multiple = TRUE, na.rm = TRUE) {
 #'
 #' Convert a factor with numeric or logical levels to a numeric vector
 #'
-#' The obvious \code{as.numeric()} is incorrect. No checks are made on the level contents except to check if levels are
-#' \code{c("TRUE", "FALSE")}, in which case they will be converted to a integer vector (0 for FALSE, 1 for TRUE).
+#' The obvious `as.numeric()` is incorrect. No checks are made on the level contents except to check if levels are
+#' `c("TRUE", "FALSE")`, in which case they will be converted to a integer vector (0 for FALSE, 1 for TRUE).
 #'
 #' Numeric part is from https://stackoverflow.com/questions/3418128/how-to-convert-a-factor-to-integer-numeric-without-loss-of-information
 #'
@@ -55,8 +55,8 @@ factor_to_numeric <- function(x) {
 #' Vectorised inverse logit function
 #'
 #' Calculate the inverse logit function \eqn{exp(x) / (1 + exp(x))}. Modified from Faraway package.
-#' The original allowed for some elements to be \code{NA} which this does not. I added a check
-#' on \code{x} to avoid \code{NaN}. This occurs when \code{x} is greater than about
+#' The original allowed for some elements to be `NA` which this does not. I added a check
+#' on `x` to avoid `NaN`. This occurs when `x` is greater than about
 #' 750 but, since \eqn{exp(x) / (1 + exp(x)) = 1} for \eqn{x>=20}, I only check for x > 20 and
 #' output 1 for these cases.
 #'
@@ -80,7 +80,7 @@ ilogit <- function (x){
 #'
 #' Print all rows of a tibble
 #'
-#' Shorthand for \code{print_tbl(x, n = Inf)}. Ok, I'm lazy.
+#' Shorthand for `print_tbl(x, n = Inf)`. Ok, I'm lazy.
 #'
 #' @param x A tibble.
 #'
