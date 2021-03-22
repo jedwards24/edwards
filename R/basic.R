@@ -128,3 +128,16 @@ min_n <- function(x, n = 2L){
   sort(x, partial = n)[n]
 }
 
+#########################################################################################
+# %notin%: negation of %in%
+#########################################################################################
+#'
+#' Negation of `%in%`. Binary operator, which returns a logical vector with `TRUE` element where there is
+#'  no match in the left operand and `FALSE` where there is a match.
+#'
+#' @param a,b Vectors passed to `%in%`.
+#'
+#' @usage a \%notin\% b
+#' @rdname notin
+#' @export
+`%notin%` <- function(a, b) ! a %in% b
