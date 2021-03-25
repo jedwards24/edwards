@@ -42,7 +42,7 @@ latest_file <- function(path = ".", root_name=".*", file_ext = NULL, verbose = F
               paste0(sort(other_matches), sep = "\n"), call. = FALSE)
     }
   }
-  chosen <- edwards::max_n(files_match, n)
+  chosen <- max_n(files_match, n)
   if(!silent) message("Matched file is ", chosen)
   if (stringr::str_detect(path, "/$")){
     paste0(path, chosen)

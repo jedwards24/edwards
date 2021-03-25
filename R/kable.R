@@ -48,7 +48,7 @@ kbl_ctable <- function(ct, digits = 3) {
   rnames <- dimnames(ct)[[2]]
   main <- paste0(var1, " / ", var2)
   df <- bind_cols(tibble::tibble(!!as.name(main) := rnames), dfmat)
-  edwards::my_kable(df, digits = digits)
+  my_kable(df, digits = digits)
 }
 
 #########################################################################################

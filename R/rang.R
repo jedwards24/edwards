@@ -30,7 +30,7 @@ rang_roc_cut <- function(rf, actual, class_name = NULL, plot = TRUE) {
       stop("The column '", class_name,  "' does not exist in 'rf$predictions'.", call. = FALSE)
     }
   }
-  edwards::roc_cut(rf$predictions[, class_name], actual, plot = plot)
+  roc_cut(rf$predictions[, class_name], actual, plot = plot)
 }
 
 # Fits a series of random forest models using the ranger package with different values of mtry, as given in m_vec.

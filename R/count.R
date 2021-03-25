@@ -77,9 +77,9 @@ count_levels <- function(df, all = FALSE) {
 #'
 #' Returns a named integer vector with elements that give the number of entries in the corresponding
 #' column of `df` that contain a match to the string pattern `pattern`. No coercion is used
-#' so only characters or factors are m'atched (see examples).
+#' so only characters or factors are matched (see examples).
 #'
-#' Note that repeated occurences of `pattern` in a single string are only counted once (see examples).
+#' Note that repeated occurrences of `pattern` in a single string are only counted once (see examples).
 #'
 #' @param df A data frame.
 #' @param pattern A string pattern (regular expression).
@@ -188,7 +188,7 @@ count_matches2 <- function(df, strings, all = FALSE) {
     stop("Argument \"strings\" must be a character vector.", call. = FALSE)
   }
   tb <- lapply(strings,
-               FUN = edwards::count_matches,
+               FUN = count_matches,
                df = df,
                all = TRUE)
   suppressMessages(tb <- dplyr::bind_cols(col_names = names(df), tb)) # avoid renaming message
