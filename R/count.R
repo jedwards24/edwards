@@ -163,7 +163,7 @@ count_matches <- function(df, value, all = FALSE){
 #' Count exact string matches in a data frame by column.
 #'
 #' Similar to `count_matches()` but counts matches for multiple strings rather than just one. The
-#' output is a tibble with a row for each column in `df`. Unlike `count_matches`, non-string
+#' output is a tibble with a row for each element of `strings`. Unlike `count_matches`, non-string
 #' matching is not enabled.
 #'
 #' @param df A data frame.
@@ -190,14 +190,16 @@ count_matches2 <- function(df, strings, all = FALSE) {
   tb <- lapply(strings,
                FUN = count_matches,
                df = df,
-               all = TRUE)
-  suppressMessages(tb <- dplyr::bind_cols(col_names = names(df), tb)) # avoid renaming message
-  names(tb) <- c("col_names", strings)
+               all = TRUE) %>%
+    dplyr::bind_rows() %>%
+    dplyr::mutate(string = strings) %>%
+    dplyr::select(string, dplyr::everything())
+
   if (all){
     return(tb)
   }
   sum_rows <- rowSums(tb[, -1])
-  sum_cols <- c(1, colSums(tb[, -1]))
+  sum_cols <- c(1L, colSums(tb[, -1]))
   tb <- tb[sum_rows > 0, sum_cols > 0]
   if (sum(sum_rows) == 0){
     message("No matches in the data.")

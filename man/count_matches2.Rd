@@ -15,7 +15,7 @@ count_matches2(df, strings, all = FALSE)
 }
 \description{
 Similar to \code{count_matches()} but counts matches for multiple strings rather than just one. The
-output is a tibble with a row for each column in \code{df}. Unlike \code{count_matches}, non-string
+output is a tibble with a row for each element of \code{strings}. Unlike \code{count_matches}, non-string
 matching is not enabled.
 }
 \examples{
