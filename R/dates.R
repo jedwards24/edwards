@@ -54,7 +54,7 @@ is_simple_datetime <- function(x) {
   if (!lubridate::is.POSIXt(x)){
     return(FALSE)
   }
-  x <- na.omit(x)
+  x <- stats::na.omit(x)
   if(all(lubridate::hour(x) == 0) &
      all(lubridate::minute(x) == 0) &
      all(lubridate::second(x) == 0)){

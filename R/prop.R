@@ -97,7 +97,7 @@ prop_ci <- function(dt, target_name, var_name, min_n = 1, show_all = TRUE, order
     purrr::when(!show_all ~ filter(., sig != "none"), ~.) %>%
     purrr::when(order_n ~ dplyr::arrange(., dplyr::desc(n)), ~dplyr::arrange(., value))
   if (order_n){
-    dt_plot <- dplyr::mutate(dt_summ, value = reorder(value, n))
+    dt_plot <- dplyr::mutate(dt_summ, value = stats::reorder(value, n))
   }else{
     dt_plot <- dt_summ
   }

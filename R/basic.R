@@ -18,7 +18,7 @@ mode_stat <- function(x, multiple = TRUE, na.rm = TRUE) {
     stop("`x` must be atomic.", call. = FALSE)
   }
   if(na.rm){
-    x <- na.omit(x)
+    x <- stats::na.omit(x)
   }
   ux <- unique(x)
   freq <- tabulate(match(x, ux))

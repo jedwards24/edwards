@@ -13,7 +13,7 @@
 #' @export
 plot_nas <- function(df, show_all = F, sort = T) {
   tb <- count_nas2(df, all = show_all, sort = sort)
-  g <- ggplot(tb, aes(x = reorder(variable, nas), y = nas)) +
+  g <- ggplot(tb, aes(x = stats::reorder(variable, nas), y = nas)) +
     geom_col(alpha = 0.5, fill = "blue") +
     coord_flip() +
     geom_label(label = paste0(round(100 *

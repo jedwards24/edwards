@@ -5,9 +5,12 @@
 + Add devtools to my .rprofile as recommended in R packages.
 + Add namespace when calling edwards functions?
 + Checks on all inputs.
+    + `predict` in `rang`. Is adding `ranger::predict.ranger()` correct?
 + add importFrom :=
   - can't find how to import '.' so have removed it from code instead.
 + Add markdown formatting to docs?
++ Check use of `reorder()` in `prop_ci()`.
++ Remove the ggplot2 import.
 
 ## Existing functions
 
