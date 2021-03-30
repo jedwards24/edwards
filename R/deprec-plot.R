@@ -2,7 +2,7 @@
 # plot_nas: Plots missing values per variable.
 #########################################################################################
 #'
-#' Plot missing values per variable
+#' Plot missing values per variable (depreciated)
 #'
 #' Based on `DataExplorer::plot_missing` but simpler.
 #'
@@ -11,7 +11,8 @@
 #' @param sort Logical. Sort variables by number of NAs? Defaults to `TRUE`.
 #'
 #' @export
-plot_nas <- function(df, show_all = F, sort = T) {
+plot_nas <- function(df, show_all = FALSE, sort = TRUE) {
+  warning("`plot_nas() is depreciated.", call. = FALSE)
   tb <- count_nas2(df, all = show_all, sort = sort)
   g <- ggplot(tb, aes(x = stats::reorder(variable, nas), y = nas)) +
     geom_col(alpha = 0.5, fill = "blue") +
@@ -28,10 +29,10 @@ plot_nas <- function(df, show_all = F, sort = T) {
 # plot_missing2: Plots missing values per variable.
 #########################################################################################
 #'
-#' Plot missing values per variable
+#' Plot missing values per variable (depreciated)
 #'
 #' Adaptation of `DataExplorer::plot_missing` but with option to not show variables with no NAs.
-#' Also has different default lables for each group.
+#' Also has different default labels for each group.
 #'
 #' For details and main arguments see `DataExplorer::plot_missing`.
 #'
@@ -47,6 +48,11 @@ plot_nas <- function(df, show_all = F, sort = T) {
 plot_missing2 <- function (data, group = list(Low = 0.05, OK = 0.4, High = 1),
                            geom_label_args = list(), title = NULL, ggtheme = theme_gray(),
                            theme_config = list(legend.position = c("bottom")), show_all = F) {
+  warning("`plot_missing2() is depreciated.", call. = FALSE)
+  if (!requireNamespace("DataExplorer", quietly = TRUE)) {
+    stop("Package \"DataExplorer\" needed for this function to work. Please install it.",
+         call. = FALSE)
+  }
   pct_missing <- Band <- NULL
   missing_value <- DataExplorer::profile_missing(data)
   if(!show_all){missing_value <- dplyr::filter(missing_value, num_missing > 0)}
