@@ -17,7 +17,7 @@ my_kable(df, digits = 3, position = "center", ...)
 }
 \description{
 Shorthand to apply both \code{knitr::kable()} and \code{kableExtra::kable_styling()} to a table,
-using styling options \code{bootstrap_options = c("striped", "condensed")} and \code{full_width = F}.
+using styling options \code{bootstrap_options = c("striped", "condensed")} and \code{full_width = FALSE}.
 The default number of digits is set to 3 but can be changed.
 }
 \details{

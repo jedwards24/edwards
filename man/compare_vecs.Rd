@@ -4,7 +4,7 @@
 \alias{compare_vecs}
 \title{Pairwise element comparison of two vectors}
 \usage{
-compare_vecs(x, y, names = NULL, simple = F, tol = 1e-06, na.rm = FALSE)
+compare_vecs(x, y, names = NULL, simple = FALSE, tol = 1e-06, na.rm = FALSE)
 }
 \arguments{
 \item{x, y}{The two vectors to be compared. Both vectors must be atomic and of the same length.}

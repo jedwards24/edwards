@@ -106,7 +106,7 @@ glmnet_to_table2 <- function(fit, var_names = NULL, s="lambda.1se", min_coef=1E-
   if (!is.null(var_names)){
     n_vars <- max(stringr::str_count(tbl$name, ":")) + 1
     nms <- paste0("name", 1 : n_vars)
-    tbl <- tidyr::separate(tbl, name, nms, sep = ":", remove = F, fill = "right")
+    tbl <- tidyr::separate(tbl, name, nms, sep = ":", remove = FALSE, fill = "right")
     for (i in 1 : n_vars){
       nm <- paste0("parent", i)
       new_nm <- paste0("name", i)

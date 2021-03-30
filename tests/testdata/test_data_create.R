@@ -8,7 +8,7 @@ dt <- ggplot2::diamonds %>%
   dplyr::mutate(top = (cut == "Ideal") %>% factor(levels = c(F, T))) %>%
   dplyr::select(-cut) %>%
   dplyr::sample_n(200) %>%
-  mutate(clarity = factor(clarity, ordered = F)) #changed to test both types of factors
+  mutate(clarity = factor(clarity, ordered = FALSE)) #changed to test both types of factors
 
 # No interactions
 xmat <- model.matrix(top ~ ., dt)[, -1]

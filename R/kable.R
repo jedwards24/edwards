@@ -5,7 +5,7 @@
 #' Version of `kable()` with specific default kableExtra styling
 #'
 #' Shorthand to apply both `knitr::kable()` and `kableExtra::kable_styling()` to a table,
-#' using styling options `bootstrap_options = c("striped", "condensed")` and `full_width = F`.
+#' using styling options `bootstrap_options = c("striped", "condensed")` and `full_width = FALSE`.
 #' The default number of digits is set to 3 but can be changed.
 #'
 #' Only one argument (`position`) from `kableExtra::kable_styling()` can be changed here.
@@ -23,7 +23,7 @@ my_kable <- function(df, digits = 3, position = "center", ...){
   tb <- knitr::kable(df, digits = digits, ...)
   tb <- kableExtra::kable_styling(tb,
                                   bootstrap_options = c("striped", "condensed"),
-                                  full_width = F,
+                                  full_width = FALSE,
                                   position = position)
   return(tb)
 }

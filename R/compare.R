@@ -15,7 +15,7 @@
 #'   this is if you want to see the proportion of non-missing entries that match/differ.
 #'
 #' @export
-compare_vars <- function(df, ..., simple = F, tol = 1E-6, na.rm = FALSE) {
+compare_vars <- function(df, ..., simple = FALSE, tol = 1E-6, na.rm = FALSE) {
   if (!is.data.frame(df)) {
     stop("`df` must be a data frame.", call. = FALSE)
   }
@@ -49,7 +49,7 @@ compare_vars <- function(df, ..., simple = F, tol = 1E-6, na.rm = FALSE) {
 #'   this is if you want to see the proportion of non-missing entries that match/differ.
 #'
 #' @export
-compare_vecs <- function(x, y, names = NULL, simple = F, tol = 1E-6, na.rm = FALSE){
+compare_vecs <- function(x, y, names = NULL, simple = FALSE, tol = 1E-6, na.rm = FALSE){
   if (!(is.atomic(x) & is.atomic(y))){
     stop("Both vectors must be atomic.", call. = FALSE)
   }
