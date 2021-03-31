@@ -2,7 +2,7 @@
 % Please edit documentation in R/deprec-all.R
 \name{count_at}
 \alias{count_at}
-\title{Perform  \code{dplyr::count} for a range of variables in a data frame (DEPRECIATED - use \code{count_over()})}
+\title{Perform  \code{dplyr::count} for a range of variables in a data frame (DEPRECATED - use \code{count_over()})}
 \usage{
 count_at(df, cols = NULL, sort = TRUE, n = 10)
 }

@@ -35,7 +35,7 @@
 #' @param return_plot Optional logical. If `TRUE` the plot is returned instead of the table (this overrides
 #'   `plot` argument).
 #'
-#' @import ggplot2
+#' @importFrom ggplot2 aes
 #' @export
 prop_ci <- function(dt, target_name, var_name, min_n = 1, show_all = TRUE, order_n = NULL,
                      conf_level = 0.95, prop_lim = NULL, pos_class = NULL, plot = TRUE,
@@ -104,15 +104,15 @@ prop_ci <- function(dt, target_name, var_name, min_n = 1, show_all = TRUE, order
   if (plot || return_plot){
     cols <- c("#F8766D", "#00BA38", "#619CFF")
     gg <- dt_plot %>%
-      ggplot(aes(x = value, y = prop, color = sig)) +
-      geom_point() +
-      geom_errorbar(aes(ymin = lo, ymax = hi)) +
-      coord_flip() +
-      geom_hline(yintercept = mean_all, linetype = 2) +
-      ylab("Mean Proportion Target") +
-      xlab(y_label) +
-      theme(legend.position = "none") +
-      scale_colour_manual(values = c("lo" = cols[1], "none" = cols[3], "hi" = cols[2])) +
+      ggplot2::ggplot(aes(x = value, y = prop, color = sig)) +
+      ggplot2::geom_point() +
+      ggplot2::geom_errorbar(aes(ymin = lo, ymax = hi)) +
+      ggplot2::coord_flip() +
+      ggplot2::geom_hline(yintercept = mean_all, linetype = 2) +
+      ggplot2::ylab("Mean Proportion Target") +
+      ggplot2::xlab(y_label) +
+      ggplot2::theme(legend.position = "none") +
+      ggplot2::scale_colour_manual(values = c("lo" = cols[1], "none" = cols[3], "hi" = cols[2])) +
       {if(all(!is.null(prop_lim))) ylim(prop_lim[1], prop_lim[2])}
     if (!return_plot) print(gg)
   }

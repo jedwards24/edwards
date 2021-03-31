@@ -13,7 +13,7 @@
 #' @param pred A vector of prediction probabilities.
 #' @param actual A vector of outcome classes corresponding to `pred`.
 #' @param plot Logical indicating whether to plot a ROC curve together with distance from the optimal corner.
-#' @import ggplot2
+#' @importFrom ggplot2 aes
 #' @export
 roc_cut <- function(pred, actual, plot = T) {
   roc_pred <- ROCR::prediction(pred, actual)
@@ -28,15 +28,14 @@ roc_cut <- function(pred, actual, plot = T) {
   if(plot){
     nn <- length(y)
     roc_dt <- tibble::tibble(x = rep(x, 2), key = c(rep("tpr", nn), rep("d", nn)), val = c(y, d))
-    gg <- ggplot(roc_dt, aes(x = x, y = val)) +
-      geom_line(aes(col = key)) +
-      geom_abline(slope = 1, intercept = 0, linetype = 2) +
-      xlab("False Positive Rate") +
-      ylab("") +
-      scale_color_discrete(name = "",
+    gg <- ggplot2::ggplot(roc_dt, aes(x = x, y = val)) +
+      ggplot2::geom_line(aes(col = key)) +
+      ggplot2::geom_abline(slope = 1, intercept = 0, linetype = 2) +
+      ggplot2::xlab("False Positive Rate") +
+      ggplot2::ylab("") +
+      ggplot2::scale_color_discrete(name = "",
                            breaks=c("tpr", "d"),
-                           labels=c("TPR", "Distance")) +
-      theme_bw()
+                           labels=c("TPR", "Distance"))
     print(gg)
   }
   c(sensitivity = y[[ind]],
@@ -61,6 +60,7 @@ roc_cut <- function(pred, actual, plot = T) {
 #' @param test Optional vector of indices indicating which predictions are "test" data. Defaults to `NULL`, in
 #'   which case `test` will be set to the data not in `train`.
 #'
+#' @importFrom ggplot2 aes
 #' @export
 roc_plot <- function(pred, target, train, test = NULL) {
   if (is.null(test)) {
@@ -87,10 +87,9 @@ roc_plot <- function(pred, target, train, test = NULL) {
                            y = c(perf_train@y.values[[1]], perf_test@y.values[[1]]),
                            set = c(rep("train", n_train), rep("test", n_test))
   )
-  ggplot(roc_dt, aes(x = x, y = y)) +
-    geom_line(aes(col = set)) +
-    geom_abline(slope = 1, intercept = 0, linetype = 2) +
-    xlab("False Positive Rate") +
-    ylab("True Positive Rate") +
-    theme_bw()
+  ggplot2::ggplot(roc_dt, aes(x = x, y = y)) +
+    ggplot2::geom_line(aes(col = set)) +
+    ggplot2::geom_abline(slope = 1, intercept = 0, linetype = 2) +
+    ggplot2::xlab("False Positive Rate") +
+    ggplot2::ylab("True Positive Rate")
 }

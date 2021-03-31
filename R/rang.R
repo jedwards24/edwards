@@ -94,9 +94,9 @@ rang_mtry <- function(data, fmla, m_vec, train = NULL, seed = 1, importance = "i
   res <- tibble::tibble(mtry = m_vec, valid_err, oob_err, time)
   if (length(valid) == 0) res <- dplyr::select(res, -valid_err)
   reslong <- tidyr::gather(res, key = "metric", value = "error", -time, -mtry)
-  g <- ggplot(reslong, aes(x = mtry, y = error, colour = metric)) +
-    geom_line() +
-    geom_point()
+  g <- ggplot2::ggplot(reslong, ggplot2::aes(x = mtry, y = error, colour = metric)) +
+    ggplot2::geom_line() +
+    ggplot2::geom_point()
   print(g)
   res
 }

@@ -3,7 +3,7 @@
 # count_nas2: counts NAs in a data frame by column. Returns a tbl.
 #########################################################################################
 #'
-#' Count NAs in a data frame by column (depreciated)
+#' Count NAs in a data frame by column (deprecated)
 #'
 #' @description
 #' Unlike `count_nas()` this returns the results in a tibble with columns giving:
@@ -21,7 +21,7 @@
 #'
 #' @export
 count_nas2 <- function(df, all = FALSE, sort = TRUE) {
-  warning("`count_nas2() is depreciated. Use `var_summary().", call. = FALSE)
+  warning("`count_nas2() is deprecated. Use `var_summary().", call. = FALSE)
   if (!is.data.frame(df)) {
     stop("Argument \"df\" must be a data frame.", call. = FALSE)
   }
@@ -45,7 +45,7 @@ count_nas2 <- function(df, all = FALSE, sort = TRUE) {
 # count_at: Performs dplyr::count for a range of variables in a data frame.
 #########################################################################################
 #'
-#' Perform  `dplyr::count` for a range of variables in a data frame (DEPRECIATED - use `count_over()`)
+#' Perform  `dplyr::count` for a range of variables in a data frame (DEPRECATED - use `count_over()`)
 #'
 #' Prints output from `dplyr::count()` for each variable index given by argument `cols` (an integer vector).
 #'
@@ -72,11 +72,11 @@ count_at <- function(df, cols = NULL, sort = TRUE, n = 10) {
 }
 
 
-#' Depreciated. Use `bin_integer()` instead.
+#' Deprecated. Use `bin_integer()` instead.
 #'
 #' @inherit bin_integer
 #'
 bin_numeric <- function(x, cuts, na_level = NULL, na_at_end = FALSE){
-  warning("`bin_numeric()` has been depreciated. Use `bin_integer()` instead.", call. = FALSE)
+  warning("`bin_numeric()` has been deprecated. Use `bin_integer()` instead.", call. = FALSE)
   bin_integer(x = x, cuts = cuts, na_level = na_level, na_at_end = na_at_end)
 }

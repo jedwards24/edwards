@@ -309,7 +309,7 @@ count2 <- function(df, ..., sort = TRUE, wt = NULL, name = NULL) {
       dplyr::group_vars() %>%
       n_name()
   }
-  dplyr::mutate(x, prop = !!sym(count_name) / sum(!!sym(count_name)))
+  dplyr::mutate(x, prop = !!rlang::sym(count_name) / sum(!!rlang::sym(count_name)))
 }
 
 #' Copy of `dplyr:::n_name()`

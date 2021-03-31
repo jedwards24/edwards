@@ -110,7 +110,7 @@ glmnet_to_table2 <- function(fit, var_names = NULL, s="lambda.1se", min_coef=1E-
     for (i in 1 : n_vars){
       nm <- paste0("parent", i)
       new_nm <- paste0("name", i)
-      tbl <- dplyr::mutate(tbl, !!sym(nm) :=  match_parent(!!sym(new_nm), names(dt)))
+      tbl <- dplyr::mutate(tbl, !!rlang::sym(nm) :=  match_parent(!!rlang::sym(new_nm), names(dt)))
     }
     tbl <- dplyr::mutate(tbl, is_parent = (name == parent1)) %>%
       dplyr::select(name, coef, contains("parent"))

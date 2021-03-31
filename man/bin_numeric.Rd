@@ -2,7 +2,7 @@
 % Please edit documentation in R/deprec-all.R
 \name{bin_numeric}
 \alias{bin_numeric}
-\title{Depreciated. Use \code{bin_integer()} instead.}
+\title{Deprecated. Use \code{bin_integer()} instead.}
 \usage{
 bin_numeric(x, cuts, na_level = NULL, na_at_end = FALSE)
 }
