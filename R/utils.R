@@ -132,8 +132,10 @@ min_n <- function(x, n = 2L){
 # %notin%: negation of %in%
 #########################################################################################
 #'
-#' Negation of `%in%`. Binary operator, which returns a logical vector with `TRUE` element where there is
-#'  no match in the left operand and `FALSE` where there is a match.
+#' Negation of `%in%`
+#'
+#' Binary operator, which returns a logical vector with `TRUE` element where there is
+#' no match in the left operand and `FALSE` where there is a match.
 #'
 #' @param a,b Vectors passed to `%in%`.
 #'
@@ -141,3 +143,28 @@ min_n <- function(x, n = 2L){
 #' @rdname notin
 #' @export
 `%notin%` <- function(a, b) ! a %in% b
+
+#########################################################################################
+# need: check if a package is installed and stop if not
+#########################################################################################
+#'
+#' Check if a package is installed and stop if not
+#'
+#' If the package is not installed then the function will error and give an appropriate message.
+#'
+#' Designed to be used in scripts or functions where a function from the named package is used with `::`
+#' without attaching the package. It should be used alongside `library()` calls at the top
+#' of scripts where it also serves the purpose of indicating to the user that a package is needed.
+#'
+#' The function uses `requireNamespace()` which will load the package if available but not attach it.
+#' This is what happens when `::` is used.
+#'
+#' @param package a package name as a character string.
+#'
+#' @export
+need <- function(package) {
+  if (!requireNamespace(package, quietly = TRUE)) {
+    stop("Package \"", package, "\" needed for this script/function to work. Please install it.",
+         call. = FALSE)
+  }
+}

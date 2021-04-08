@@ -2,8 +2,7 @@
 % Please edit documentation in R/utils.R
 \name{\%notin\%}
 \alias{\%notin\%}
-\title{Negation of \code{\%in\%}. Binary operator, which returns a logical vector with \code{TRUE} element where there is
-no match in the left operand and \code{FALSE} where there is a match.}
+\title{Negation of \code{\%in\%}}
 \usage{
 a \%notin\% b
 }
@@ -11,6 +10,6 @@ a \%notin\% b
 \item{a, b}{Vectors passed to \code{\%in\%}.}
 }
 \description{
-Negation of \code{\%in\%}. Binary operator, which returns a logical vector with \code{TRUE} element where there is
+Binary operator, which returns a logical vector with \code{TRUE} element where there is
 no match in the left operand and \code{FALSE} where there is a match.
 }

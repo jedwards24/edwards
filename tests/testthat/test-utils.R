@@ -14,3 +14,8 @@ test_that("factor_to_numeric() works", {
   expect_identical(factor_to_numeric(factor(x2)), x2)
   expect_equal(factor_to_numeric(factor(x3)), x3)
 })
+
+test_that("need() works", {
+  expect_error(need("fakePackage"), "Package \"fakePackage\" needed")
+  expect_silent(need("stats")) # Assumes stats package is always installed
+})
