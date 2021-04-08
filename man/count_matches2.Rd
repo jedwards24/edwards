@@ -4,7 +4,7 @@
 \alias{count_matches2}
 \title{Count exact string matches in a data frame by column.}
 \usage{
-count_matches2(df, strings = string_missing(), all = FALSE)
+count_matches2(df, strings = string_missing(), all = FALSE, prop = FALSE)
 }
 \arguments{
 \item{df}{A data frame.}
@@ -12,6 +12,8 @@ count_matches2(df, strings = string_missing(), all = FALSE)
 \item{strings}{A character vector. Defaults to \code{string_missing()}.}
 
 \item{all}{Logical. If \code{FALSE} (default) then rows/columns with no non-zero entry are not shown.}
+
+\item{prop}{Default is to return counts of matches. Set \code{prop=TRUE} to return proportions of the number of rows.}
 }
 \description{
 Similar to \code{count_matches()} but counts matches for multiple strings rather than just one. The

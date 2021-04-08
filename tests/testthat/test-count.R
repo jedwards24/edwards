@@ -23,6 +23,7 @@ test_that("count_matches is correct", {
   expect_identical(count_matches(x, 1L), c(c = 1L))
   expect_identical(length(count_matches(x, 1)), 0L)
   expect_identical(length(count_matches(x, "1")), 0L)
+  expect_true(all(dplyr::between(count_matches(x, "an", all = TRUE, prop = TRUE), 0, 1)))
 })
 
 test_that("count_matches2 works", {

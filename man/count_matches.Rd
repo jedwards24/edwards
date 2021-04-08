@@ -4,14 +4,16 @@
 \alias{count_matches}
 \title{Count the total number of exact matches to a value in a data frame by column}
 \usage{
-count_matches(df, value, all = FALSE)
+count_matches(df, value, all = FALSE, prop = FALSE)
 }
 \arguments{
 \item{df}{A data frame.}
 
 \item{value}{A length one vector.}
 
-\item{all}{By default variables with no matches are omitted from the output. Set all=T to show all.}
+\item{all}{By default variables with no matches are omitted from the output. Set \code{all=T} to show all.}
+
+\item{prop}{Default is to return counts of matches. Set \code{prop=TRUE} to return proportions of the number of rows.}
 }
 \description{
 Returns a named integer vector with elements that give the number of entries in the corresponding

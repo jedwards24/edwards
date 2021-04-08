@@ -120,7 +120,8 @@ count_string <- function(df, pattern, all = FALSE){
 #'
 #' @param df A data frame.
 #' @param value A length one vector.
-#' @param all By default variables with no matches are omitted from the output. Set all=T to show all.
+#' @param all By default variables with no matches are omitted from the output. Set `all=T` to show all.
+#' @param prop Default is to return counts of matches. Set `prop=TRUE` to return proportions of the number of rows.
 #' @examples
 #' x <- data.frame(a = c("an", "banana", "candy"), b = c("on", "bon", "bonbon"), c = 1:3)
 #' count_matches(x, "an", all = TRUE)
@@ -131,7 +132,7 @@ count_string <- function(df, pattern, all = FALSE){
 #'
 #' @export
 #'
-count_matches <- function(df, value, all = FALSE){
+count_matches <- function(df, value, all = FALSE, prop = FALSE){
   if (!is.list(df)) {
     stop("Argument \"df\" must be a list.", call. = FALSE)
   }
@@ -148,6 +149,7 @@ count_matches <- function(df, value, all = FALSE){
   }
   vals <- vapply(df, f, integer(1))
   vals <- vals[vals > 0 | all]
+  if (prop) vals <- vals / nrow(df)
   if(length(vals) == 0){
     message("No matches in the data.")
     invisible(vals)
@@ -169,6 +171,7 @@ count_matches <- function(df, value, all = FALSE){
 #' @param df A data frame.
 #' @param strings A character vector. Defaults to `string_missing()`.
 #' @param all Logical. If `FALSE` (default) then rows/columns with no non-zero entry are not shown.
+#' @param prop Default is to return counts of matches. Set `prop=TRUE` to return proportions of the number of rows.
 #'
 #' @examples
 #' df <- tibble::tibble(col1 = c("a", ".", ".", "a"),
@@ -180,7 +183,7 @@ count_matches <- function(df, value, all = FALSE){
 #' count_matches2(df, strs)
 #'
 #' @export
-count_matches2 <- function(df, strings = string_missing(), all = FALSE) {
+count_matches2 <- function(df, strings = string_missing(), all = FALSE, prop = FALSE) {
   if (!is.list(df)) {
     stop("Argument \"df\" must be a list.", call. = FALSE)
   }
@@ -190,7 +193,8 @@ count_matches2 <- function(df, strings = string_missing(), all = FALSE) {
   tb <- lapply(strings,
                FUN = count_matches,
                df = df,
-               all = TRUE) %>%
+               all = TRUE,
+               prop = prop) %>%
     dplyr::bind_rows() %>%
     dplyr::mutate(string = strings) %>%
     dplyr::select(string, dplyr::everything())
