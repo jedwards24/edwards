@@ -167,7 +167,7 @@ count_matches <- function(df, value, all = FALSE){
 #' matching is not enabled.
 #'
 #' @param df A data frame.
-#' @param strings A character vector.
+#' @param strings A character vector. Defaults to `string_missing()`.
 #' @param all Logical. If `FALSE` (default) then rows/columns with no non-zero entry are not shown.
 #'
 #' @examples
@@ -180,7 +180,7 @@ count_matches <- function(df, value, all = FALSE){
 #' count_matches2(df, strs)
 #'
 #' @export
-count_matches2 <- function(df, strings, all = FALSE) {
+count_matches2 <- function(df, strings = string_missing(), all = FALSE) {
   if (!is.list(df)) {
     stop("Argument \"df\" must be a list.", call. = FALSE)
   }
@@ -323,3 +323,11 @@ n_name <- function (x) {
   name
 }
 
+#' Strings commonly indicating missing values
+#'
+#' @return A character vector `c("", " ", ".", "-", "NA", "na", "n/a", "N/A", "(missing)")`.
+#'
+#' @export
+string_missing <- function(){
+  c("", " ", ".", "-", "NA", "na", "n/a", "N/A", "(missing)")
+}

@@ -4,12 +4,12 @@
 \alias{count_matches2}
 \title{Count exact string matches in a data frame by column.}
 \usage{
-count_matches2(df, strings, all = FALSE)
+count_matches2(df, strings = string_missing(), all = FALSE)
 }
 \arguments{
 \item{df}{A data frame.}
 
-\item{strings}{A character vector.}
+\item{strings}{A character vector. Defaults to \code{string_missing()}.}
 
 \item{all}{Logical. If \code{FALSE} (default) then rows/columns with no non-zero entry are not shown.}
 }
