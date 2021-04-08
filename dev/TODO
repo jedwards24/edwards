@@ -10,7 +10,7 @@
   - can't find how to import '.' so have removed it from code instead.
 + Add markdown formatting to docs?
 + Check use of `reorder()` in `prop_ci()`.
-+ Remove the ggplot2 import.
++ NEWS file and version increment.
 
 ## Existing functions
 
