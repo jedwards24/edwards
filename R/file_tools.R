@@ -50,3 +50,25 @@ latest_file <- function(path = ".", root_name=".*", file_ext = NULL, verbose = F
     paste0(path, "/", chosen)
   }
 }
+
+#' Conditionally save file to RDS.
+#'
+#' Wrapper around `saveRDS()` but checks if file already exists first. If it does
+#' then it will only save if `overwrite = TRUE`. A message is given whether the object is
+#' saved or not.
+#'
+#' @param object Object to save.
+#' @param file The name of the file where object is to be saved.
+#' @param overwrite Will only overwrite existing file if set to `TRUE`.
+#' @param ... Other arguments passed to `saveRDS()`
+#' @return (invisible) The `file` argument.
+#' @export
+save_check <- function(object, file, overwrite = FALSE, ...) {
+  if (overwrite | !file.exists(file)){
+    saveRDS(object, file, ...)
+    cli::cli_alert_success("Saved {file}.")
+  }else{
+    cli::cli_alert_danger("Output not saved. {file} already exists. Set `overwrite = TRUE` to overwrite.")
+  }
+  invisible(file)
+}

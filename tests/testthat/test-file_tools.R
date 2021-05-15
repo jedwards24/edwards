@@ -9,3 +9,8 @@ test_that("latest_file() works", {
   expect_identical(lat3, "../testdata/file_tools/xtest_222.RDS")
   expect_identical(latest_file(dir, "test", n = 2, verbose = FALSE), "../testdata/file_tools/test_201.RDS")
 })
+
+test_that("latest_file() does not overwrite incorrectly", {
+  testthat::expect_message(save_check(1, "../testdata/file_tools/test_20.RDS", version = 2), "Output not saved")
+})
+

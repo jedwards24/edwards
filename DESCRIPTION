@@ -27,5 +27,6 @@ Imports:
     binom,
     ROCR,
     rlang,
-    tidyselect
+    tidyselect,
+    cli
 Roxygen: list(markdown = TRUE)
