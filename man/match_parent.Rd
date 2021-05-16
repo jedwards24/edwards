@@ -16,3 +16,4 @@ Helper for \code{glmnet_to_table()}. Each level starts with a parent plus maybe 
 vector of parents corresponding to \code{level_names}. Parent is matching parent of greatest length.
 If no match is found or level is \code{NA} then the parent is the level name.
 }
+\keyword{internal}

@@ -10,7 +10,7 @@
 #'
 #' @param level_names Character vector to find parents for.
 #' @param parent_names Character vector of candidate parents.
-#'
+#' @keywords internal
 match_parent <- function(level_names, parent_names) {
   nn <- length(level_names)
   parent <- character(nn)
@@ -39,7 +39,7 @@ match_parent <- function(level_names, parent_names) {
 #'
 #' @param name_vec Character vector of model.matrix names.
 #' @param feature_vec Character vector of feature names corresponding to `name_vec`.
-#'
+#' @keywords internal
 extract_level <- function(name_vec, feature_vec) {
   levels <- stringr::str_remove_all(name_vec, stringr::fixed(feature_vec)) %>%
     str_remove_all(":.*")

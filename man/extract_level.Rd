@@ -17,3 +17,4 @@ corresponding entries in \code{feature_vec} is the name of the first feature. A 
 corresponding to the level associated with the feature is returned. If the is no level then the entry is
 "(none)".
 }
+\keyword{internal}
