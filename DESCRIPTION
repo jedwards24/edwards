@@ -28,5 +28,6 @@ Imports:
     ROCR,
     rlang,
     tidyselect,
-    cli
+    cli,
+    fs
 Roxygen: list(markdown = TRUE)
