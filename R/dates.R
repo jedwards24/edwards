@@ -28,7 +28,7 @@ convert_date <- function(x) {
       x <- stringr::str_split_fixed(x, ":", 2)[, 1, drop = T]
     }
   }
-  message("Cnverted to a date.")
+  message("Converted to a date.")
   lubridate::dmy(x)
 }
 

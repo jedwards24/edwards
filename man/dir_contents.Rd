@@ -7,7 +7,7 @@
 \usage{
 dir_contents(dir = ".", ...)
 
-dir_size(path = ".")
+dir_size(dir = ".")
 }
 \arguments{
 \item{dir}{A character vector of one or more directory paths.}

@@ -56,14 +56,15 @@ dt <- ggplot2::diamonds %>%
   dplyr::mutate(top = (cut == "Ideal") %>% factor(levels = c(F, T))) %>%
   dplyr::select(-cut) %>%
   dplyr::sample_n(500) %>%
-  mutate(clarity = factor(clarity, ordered = F)) #changed to test both types of factors
+  dplyr::mutate(clarity = factor(clarity, ordered = F)) #changed to test both types of factors
 dt
 dt$clarity %>% levels
 
 xmat <- model.matrix(top ~ . * table, dt)[, -1]
+colnames(xmat)
+
 set.seed(22)
 fit <- cv.glmnet(x=xmat, y = dt$top, family="binomial", nfolds = 3)
-
 plot(fit)
 colnames(xmat)
 glmnet_to_table(fit, names(dt), s = "lambda.min")
@@ -172,6 +173,19 @@ as.vector(coef(fit, s=s))
 
 glmnet(x=xmat, y = dt$top, family="binomial") %>% plot(label = T)
 
+# glmnet assessments
+set.seed(23)
+test <- ggplot2::diamonds %>%
+  dplyr::mutate(top = (cut == "Ideal") %>% factor(levels = c(F, T))) %>%
+  dplyr::select(-cut) %>%
+  dplyr::sample_n(500) %>%
+  dplyr::mutate(clarity = factor(clarity, ordered = F))
+testx <- model.matrix(top ~ . * table, test)[, -1]
+ass <- assess.glmnet(fit, newx = testx, newy = test$top)
+
+roc <- roc.glmnet(fit, newx = testx, newy = test$top)
+plot(roc)
+confusion(fit, newx = testx, newy = test$top)
 
 #simplify_datetime() --------------
 # Wrapper for following but print which cols are converted.
@@ -213,3 +227,4 @@ library()$results[,1]
 #  https://rpubs.com/Mentors_Ubiqum/list_packages
 # Also:
 search()
+

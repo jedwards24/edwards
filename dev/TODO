@@ -2,13 +2,9 @@
 
 ## General
 
-+ Add devtools to my .rprofile as recommended in R packages.
-+ Add namespace when calling edwards functions?
-+ Checks on all inputs.
-    + `predict` in `rang`. Is adding `ranger::predict.ranger()` correct?
 + add importFrom :=
   - can't find how to import '.' so have removed it from code instead.
-+ Add markdown formatting to docs?
+  - I have seen it added as `globalVariables(".")` in tidyr in the tidyr.R script.
 + Check use of `reorder()` in `prop_ci()`.
 + NEWS file and version increment.
 
@@ -17,6 +13,7 @@
 + Possible name change: find_similar() --> similar_cols() or compare_???
 + ??var_summary() - add na_string arg to include in missing count
 + glmnet tools (not working correctly). Add tests.
++ need() could work with a vector input (multiple names). Error message can give all packages missing.
 
 ## New functions
 
@@ -36,14 +33,8 @@ These may already be in dev_code().
     + Binary value columns.
 + Non-missing head function.
 + Convert Excel dates from char or numeric: as.Date(as.numeric(vec), origin = "1899-12-30")
++ lengths <- function(x) vapply(x, length, integer(1))
 
 ## Package check issues
 
-+ '::' or ':::' imports not declared from: 'rlang' 'tidyselect'
-  - this could be `contains()` and enquo() etc.
-+ Missing or unexported object: 'edwards::oob_errors'.
-  - this is an internal function and is not exported. I have removed the edwards:: but not sure what is correct.
-+ - update... `:::` is used to access internal functions. But when I put it in I got:
-      "There are ::: calls to the package's namespace in its code. A package almost never needs to use ::: for its own        objects"
 + bindings for df cols. Need to use .data$ for these
-+ add namespace to some dplyr funcs: n(), na.omit(), bind_cols()

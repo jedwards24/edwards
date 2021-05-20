@@ -124,6 +124,6 @@ dir_contents <- function(dir = ".", ...) {
 # Total size of a directory, including the contents of sub-directories
 # This is vectorised to fit in with the fs package functions.
 # Note that using file_size() is not faster because it calls dir_info() anyway.
-dir_size <- function(path = ".") {
-  fs::fs_bytes(purrr::map_dbl(path, ~sum(fs::dir_info(., recurse = TRUE)$size)))
+dir_size <- function(dir = ".") {
+  fs::fs_bytes(purrr::map_dbl(dir, ~sum(fs::dir_info(., recurse = TRUE)$size)))
 }
