@@ -2,11 +2,12 @@
 
 ## General
 
-+ add importFrom :=
-  - can't find how to import '.' so have removed it from code instead.
++ I can't find how to import '.' so have removed it from code instead.
   - I have seen it added as `globalVariables(".")` in tidyr in the tidyr.R script.
 + Check use of `reorder()` in `prop_ci()`.
 + NEWS file and version increment.
++ Move model funcs to jemodel. Sort checking when I do this and add NEWS.
+* Add a package script for imports.
 
 ## Existing functions
 
@@ -38,3 +39,4 @@ These may already be in dev_code().
 ## Package check issues
 
 + bindings for df cols. Need to use .data$ for these
++ Testthat 3.0? https://testthat.r-lib.org/articles/third-edition.html
