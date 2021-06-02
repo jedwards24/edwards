@@ -15,6 +15,7 @@
 + ??var_summary() - add na_string arg to include in missing count
 + glmnet tools (not working correctly). Add tests.
 + need() could work with a vector input (multiple names). Error message can give all packages missing.
++ Review `convert_date()`. It uses `dmy()` or `dmy_hms()` as appropriate with a simplifying step. It perhaps is better broken up.
 
 ## New functions
 

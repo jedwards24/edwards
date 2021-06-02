@@ -1,7 +1,7 @@
 Package: edwards
 Type: Package
 Title: James Edwards personal package
-Version: 0.1.1
+Version: 0.2.0
 Author: James Edwards <jamese1326+gh@gmail.com> 
 Maintainer: James Edwards <jamese1326+gh@gmail.com>
 Description: A collection of miscellaneous data science functions for my own use.
@@ -29,5 +29,6 @@ Imports:
     rlang,
     tidyselect,
     cli,
-    fs
+    fs,
+    lifecycle
 Roxygen: list(markdown = TRUE)
