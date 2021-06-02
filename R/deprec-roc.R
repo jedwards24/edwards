@@ -4,6 +4,7 @@
 #'
 #' Optimal cut for ROC curve
 #'
+#' Deprecated in this package - moving to jemodel package.
 #' Calculates the "optimal" cutoff for a classifier from a ROC curve. This is the cutoff that minimises the
 #' distance from the point (FPR = 0, TPR = 1). Also returns sensitivity and specitivity for this cutoff, the AUC
 #' of the ROC curve, and optionally plots the curve together with the distance measure.
@@ -16,6 +17,7 @@
 #' @importFrom ggplot2 aes
 #' @export
 roc_cut <- function(pred, actual, plot = T) {
+  lifecycle::deprecate_warn("0.2.0", "roc_cut()", "jemodel::roc_cut()")
   roc_pred <- ROCR::prediction(pred, actual)
   perf <- ROCR::performance(roc_pred, measure = "tpr", x.measure = "fpr")
   x <- perf@x.values[[1]]
@@ -50,6 +52,7 @@ roc_cut <- function(pred, actual, plot = T) {
 #'
 #' Plots ROC curves for training and test data.
 #'
+#' Deprecated in this package - moving to jemodel package.
 #' Returns a ggplot of a ROC curve from prediction and target vectors. These are partitioned by the argument
 #' `train` into two separate curves so that differences between train and test data can be seen. AUC for each
 #' is printed. Functions from ROCR are used.
@@ -63,6 +66,7 @@ roc_cut <- function(pred, actual, plot = T) {
 #' @importFrom ggplot2 aes
 #' @export
 roc_plot <- function(pred, target, train, test = NULL) {
+  lifecycle::deprecate_warn("0.2.0", "roc_plot()", "jemodel::roc_plot()")
   if (is.null(test)) {
     test <- setdiff(1 : length(target), train)
   }

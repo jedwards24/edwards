@@ -4,6 +4,7 @@
 #'
 #' ROC curve optimal cut for a ranger object
 #'
+#' Deprecated in this package - moving to jemodel package.
 #' Calls `roc_cut()` for a fitted ranger model. See `roc_cut()` for details. Requires
 #'  `probability = TRUE` to be used when the ranger model was fitted.
 #'
@@ -18,6 +19,7 @@
 #'
 #' @export
 rang_roc_cut <- function(rf, actual, class_name = NULL, plot = TRUE) {
+  lifecycle::deprecate_warn("0.2.0", "rang_roc_cut()", "jemodel::rang_roc_cut()")
   if (!is.matrix(rf$predictions)){
     stop("'rf$predictions' is not a matrix. When fitting the ranger model 'rf', you must use `probability = TRUE`.",
          call. = FALSE)
@@ -42,6 +44,7 @@ rang_roc_cut <- function(rf, actual, class_name = NULL, plot = TRUE) {
 #'
 #' Tune ranger models for `mtry`
 #'
+#' Deprecated in this package - moving to jemodel package.
 #' Fits `ranger()` models for a given range of values of `mtry`. Output is a table and graph giving
 #' errors for OOB training data and optional validation data.
 #'
@@ -57,6 +60,7 @@ rang_roc_cut <- function(rf, actual, class_name = NULL, plot = TRUE) {
 #' @export
 rang_mtry <- function(data, fmla, m_vec, train = NULL, seed = 1, importance = "impurity", num.trees = 500,
                       respect.unordered.factors = TRUE) {
+  lifecycle::deprecate_warn("0.2.0", "rang_mtry()", "jemodel::rang_mtry()")
   if (!is.atomic(m_vec) | !is.numeric(m_vec) | length(m_vec) == 0) stop("`m_vec` must be a non-empty numeric vector.",
                                                                         call. = FALSE)
   n_inputs <- length(attributes(terms(fmla, data = data))$term.labels)
@@ -133,6 +137,7 @@ oob_errors <- function(oob_mat, n_trees, target) {
 #'
 #' Out-of-bag error rates by number of trees for a ranger random forest
 #'
+#' Deprecated in this package - moving to jemodel package.
 #' Returns a table of out-of-bag error rates for a ranger random forest using number of trees
 #' from 5 to all trees in steps of 5. The supplied ranger object must have been created with
 #'  `keep.inbag = TRUE` argument.
@@ -145,6 +150,7 @@ oob_errors <- function(oob_mat, n_trees, target) {
 #'
 #' @export
 rang_oob_err <- function(rf, data, start = 5L, by = 5L, plot = TRUE) {
+  lifecycle::deprecate_warn("0.2.0", "rang_oob_err()", "jemodel::rang_oob_err()")
   if (!("inbag.counts" %in% names(rf))){
     stop("`inbag.counts` not found in `rf`. Must use `keep.inbag = T` when fitting `rf`.", call. = FALSE)
   }

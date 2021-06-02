@@ -52,14 +52,13 @@ extract_level <- function(name_vec, feature_vec) {
 #'
 #' Summarise coefficients from glmnet in a table
 #'
+#' Deprecated in this package - moving to jemodel package.
 #' Returns a tibble of coefficients for glmnet model `fit` with parameter `s`. Only
 #' coefficients with absolute value greater than `min_coef` are included. If `var_names` is
 #' supplied then a columns of feature names and level names for each coefficient will be added (first
 #' match in the case of interactions). If there is no level involved then the level column will have
 #' the entry `none_name`. If there are any interactions in the model then the interacting feature is
 #' added in a column.
-#'
-#' This is still in development. Doesn't handle more than a single interaction.
 #'
 #' @param fit A fitted glmnet model.
 #' @param var_names (optional) A character vector of column names for data used in `fit`.
@@ -69,6 +68,7 @@ extract_level <- function(name_vec, feature_vec) {
 #'
 #' @export
 glmnet_to_table <- function(fit, var_names = NULL, s="lambda.1se", min_coef=1E-10, none_name = "(none)") {
+  lifecycle::deprecate_warn("0.2.0", "glmnet_to_table()", "jemodel::glmnet_to_table()")
   ce <- coef(fit, s=s)
   coef_mat <- as.matrix(ce)
   level_names <- rownames(ce)
