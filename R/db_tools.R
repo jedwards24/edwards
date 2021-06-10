@@ -23,7 +23,7 @@ is_one2one <- function(df, ...) {
   for (col in 1 : (ncol(counts_all) - 1)){
     max_count <- dplyr::group_by_at(counts_all, {{col}}) %>%
       dplyr::tally() %>%
-      dplyr::pull(n) %>%
+      dplyr::pull(.data$n) %>%
       max()
     if (max_count > 1){
       message("Column ", names(counts_all)[col], " has a many-to relationship.")

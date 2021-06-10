@@ -91,7 +91,7 @@ compare_vecs <- function(x, y, names = NULL, simple = FALSE, tol = 1E-6, na.rm =
     same = sum(both_na) + equal
     return(tibble::tibble(comparison = c("Match", "Different"),
                           count = c(same, length(x) - same),
-                          prop = count / length(x)
+                          prop = .data$count / length(x)
     ))
   }
   tbl <- tibble::tibble(comparison = c(paste(name1, "==", name2),
@@ -106,7 +106,7 @@ compare_vecs <- function(x, y, names = NULL, simple = FALSE, tol = 1E-6, na.rm =
                                   sum(both_na),
                                   sum(!both_na & is.na(x)),
                                   sum(!both_na & is.na(y))),
-                        prop = count / length(x))
+                        prop = .data$count / length(x))
   if (!na.rm) return(tbl)
   tbl[1:3, ]
 }
@@ -253,10 +253,10 @@ compare_sets <- function(x, y, summary = TRUE) {
   if(summary){
     return(tibble::tibble(set = c("both", "just x", "just y"),
                           count = c(length(both), length(just_x), length(just_y)),
-                          prop = count / length(union)))
+                          prop = .data$count / length(union)))
   }
   tibble::tibble(element = union,
-                 both = element %in% both,
-                 just_x = element %in% just_x,
-                 just_y = element %in% just_y)
+                 both = union %in% both,
+                 just_x = union %in% just_x,
+                 just_y = union %in% just_y)
 }

@@ -46,10 +46,10 @@ prop_ci <- function(dt, target_name, var_name, min_n = 1, show_all = TRUE, order
                target = {{target_name}},
                var = {{var_name}})
   if (any(is.na(dt$target))){
-    dt <- dplyr::filter(dt, !is.na(target))
+    dt <- dplyr::filter(dt, !is.na(.data$target))
     message("There are NA values in target variable. These rows will be excluded from any calculations.")
   }
-  targ_vec <- dplyr::pull(dt, target)
+  targ_vec <- dplyr::pull(dt, .data$target)
   # target vector checks
   if (length(unique(targ_vec)) > 2L){
     stop("Target variable must be binary.", call. = FALSE)
@@ -70,7 +70,7 @@ prop_ci <- function(dt, target_name, var_name, min_n = 1, show_all = TRUE, order
   }
   dt <- dplyr::mutate(dt, target = targ_vec)
   if (is.factor(dt$var) && !("(Missing)" %in% dt$var)){
-    dt <- dplyr::mutate(dt, var = forcats::fct_explicit_na(var))
+    dt <- dplyr::mutate(dt, var = forcats::fct_explicit_na(.data$var))
   }
   if (is.null(order_n)){
     order_n <- if (is.numeric(dt$var) || is.ordered(dt$var)) FALSE else TRUE
@@ -79,41 +79,41 @@ prop_ci <- function(dt, target_name, var_name, min_n = 1, show_all = TRUE, order
   mean_all <- mean(targ_vec)
 
   dt_summ <- dt %>%
-    dplyr::group_by(var) %>%
+    dplyr::group_by(.data$var) %>%
     dplyr::summarise(n = dplyr::n(),
-              n_pos = sum(target),
-              prop = mean(target)) %>%
-    dplyr::rename(value = var) %>%
-    dplyr::arrange(dplyr::desc(n)) %>%
-    dplyr::mutate(lo = binom::binom.wilson(prop * n, n, conf.level = conf_level)[['lower']],
-           hi = binom::binom.wilson(prop * n, n, conf.level = conf_level)[['upper']],
+              n_pos = sum(.data$target),
+              prop = mean(.data$target)) %>%
+    dplyr::rename(value = .data$var) %>%
+    dplyr::arrange(dplyr::desc(.data$n)) %>%
+    dplyr::mutate(lo = binom::binom.wilson(.data$prop * .data$n, .data$n, conf.level = conf_level)[['lower']],
+           hi = binom::binom.wilson(.data$prop * .data$n, .data$n, conf.level = conf_level)[['upper']],
            sig = dplyr::case_when(
-             lo > mean_all ~ 3,
-             hi < mean_all ~ 1,
+             .data$lo > mean_all ~ 3,
+             .data$hi < mean_all ~ 1,
              T ~ 2),
-           sig = factor(sig, levels = c(1, 2, 3), labels = c("lo", "none", "hi"))
+           sig = factor(.data$sig, levels = c(1, 2, 3), labels = c("lo", "none", "hi"))
     ) %>%
-    dplyr::filter(n >= min_n) %>%
-    purrr::when(!show_all ~ filter(., sig != "none"), ~.) %>%
-    purrr::when(order_n ~ dplyr::arrange(., dplyr::desc(n)), ~dplyr::arrange(., value))
+    dplyr::filter(.data$n >= min_n) %>%
+    purrr::when(!show_all ~ filter(., .data$sig != "none"), ~.) %>%
+    purrr::when(order_n ~ dplyr::arrange(., dplyr::desc(.data$n)), ~dplyr::arrange(., .data$value))
   if (order_n){
-    dt_plot <- dplyr::mutate(dt_summ, value = stats::reorder(value, n))
+    dt_plot <- dplyr::mutate(dt_summ, value = stats::reorder(.data$value, .data$n))
   }else{
     dt_plot <- dt_summ
   }
   if (plot || return_plot){
     cols <- c("#F8766D", "#00BA38", "#619CFF")
     gg <- dt_plot %>%
-      ggplot2::ggplot(aes(x = value, y = prop, color = sig)) +
+      ggplot2::ggplot(aes(x = .data$value, y = .data$prop, color = .data$sig)) +
       ggplot2::geom_point() +
-      ggplot2::geom_errorbar(aes(ymin = lo, ymax = hi)) +
+      ggplot2::geom_errorbar(aes(ymin = .data$lo, ymax = .data$hi)) +
       ggplot2::coord_flip() +
       ggplot2::geom_hline(yintercept = mean_all, linetype = 2) +
       ggplot2::ylab("Mean Proportion Target") +
       ggplot2::xlab(y_label) +
       ggplot2::theme(legend.position = "none") +
       ggplot2::scale_colour_manual(values = c("lo" = cols[1], "none" = cols[3], "hi" = cols[2])) +
-      {if(all(!is.null(prop_lim))) ylim(prop_lim[1], prop_lim[2])}
+      {if(all(!is.null(prop_lim))) ggplot2::ylim(prop_lim[1], prop_lim[2])}
     if (!return_plot) print(gg)
   }
   if (return_plot) gg else dt_summ

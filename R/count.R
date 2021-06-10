@@ -197,7 +197,7 @@ count_matches2 <- function(df, strings = string_missing(), all = FALSE, prop = F
                prop = prop) %>%
     dplyr::bind_rows() %>%
     dplyr::mutate(string = strings) %>%
-    dplyr::select(string, dplyr::everything())
+    dplyr::select(.data$string, dplyr::everything())
 
   if (all){
     return(tb)
@@ -283,7 +283,7 @@ count_over <- function(df, ..., sort = TRUE, n = 10L) {
 #'
 #' @export
 count_n <- function(df, ...) {
-  dplyr::count(dplyr::count(df, ...), n, name = "freq")
+  dplyr::count(dplyr::count(df, ...), .data$n, name = "freq")
 }
 
 #########################################################################################

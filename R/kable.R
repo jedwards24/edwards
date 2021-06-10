@@ -47,7 +47,7 @@ kbl_ctable <- function(ct, digits = 3) {
   var2 <- names(dimnames(ct)[2])
   rnames <- dimnames(ct)[[2]]
   main <- paste0(var1, " / ", var2)
-  df <- bind_cols(tibble::tibble(!!as.name(main) := rnames), dfmat)
+  df <- dplyr::bind_cols(tibble::tibble(!!as.name(main) := rnames), dfmat)
   my_kable(df, digits = digits)
 }
 

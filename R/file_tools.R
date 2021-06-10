@@ -87,11 +87,11 @@ save_check <- function(object, file, overwrite = FALSE, ...) {
 #' @export
 dir_files <- function(dir = ".", ...) {
   fs::dir_info(dir, ...) %>%
-    dplyr::filter(type == "file") %>%
-    dplyr::mutate(mod_date = lubridate::as_date(modification_time)) %>%
-    dplyr::mutate(file_name = fs::path_file(path)) %>%
-    dplyr::mutate(ext = fs::path_ext(path)) %>%
-    dplyr::select(file_name, ext, size, mod_date)
+    dplyr::filter(.data$type == "file") %>%
+    dplyr::mutate(mod_date = lubridate::as_date(.data$modification_time)) %>%
+    dplyr::mutate(file_name = fs::path_file(.data$path)) %>%
+    dplyr::mutate(ext = fs::path_ext(.data$path)) %>%
+    dplyr::select(dplyr::all_of(c("file_name", "ext", "size", "mod_date")))
 }
 
 #' Summarise the contents of a directory
@@ -112,11 +112,11 @@ dir_files <- function(dir = ".", ...) {
 #' @export
 dir_contents <- function(dir = ".", ...) {
   fs::dir_info(dir, recurse = TRUE) %>%
-    dplyr::group_by(directory = fs::path_dir(path)) %>%
-    dplyr::summarise(files_size = sum(size),
-                     num_files = sum(type == "file"),
-                     num_dirs = sum(type == "directory")) %>%
-    dplyr::mutate(total_size = dir_size(directory))
+    dplyr::group_by(directory = fs::path_dir(.data$path)) %>%
+    dplyr::summarise(files_size = sum(.data$size),
+                     num_files = sum(.data$type == "file"),
+                     num_dirs = sum(.data$type == "directory")) %>%
+    dplyr::mutate(total_size = dir_size(.data$directory))
 }
 
 #' @export
