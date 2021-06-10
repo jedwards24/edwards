@@ -3,6 +3,7 @@
 #' @importFrom dplyr if_else
 #' @importFrom rlang .data
 #' @importFrom stats coef
+#' @importFrom rlang :=
 "_PACKAGE"
 
 globalVariables(".")
