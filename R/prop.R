@@ -84,7 +84,7 @@ prop_ci <- function(dt, target_name, var_name, min_n = 1, show_all = TRUE, order
               n_pos = sum(target),
               prop = mean(target)) %>%
     dplyr::rename(value = var) %>%
-    dplyr::arrange(desc(n)) %>%
+    dplyr::arrange(dplyr::desc(n)) %>%
     dplyr::mutate(lo = binom::binom.wilson(prop * n, n, conf.level = conf_level)[['lower']],
            hi = binom::binom.wilson(prop * n, n, conf.level = conf_level)[['upper']],
            sig = dplyr::case_when(
