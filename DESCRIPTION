@@ -30,3 +30,4 @@ Imports:
     fs,
     lifecycle
 Roxygen: list(markdown = TRUE)
+Config/testthat/edition: 3

@@ -23,8 +23,8 @@ test_that("is_one2one() is correct", {
                y = c("a", "b", "c", "d", "e"),
                z = c(1 : 4, 2))
   expect_true(is_one2one(d1, x, y))
-  expect_false(is_one2one(d1, 1:3))
-  expect_message(is_one2one(d1, 1:3), "Column z")
+  expect_message(res <- is_one2one(d1, 1:3), "Column z")
+  expect_false(res)
 })
 
 test_that("compare_sets() is correct", {
