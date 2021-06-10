@@ -2,18 +2,11 @@
 
 ## General
 
-+ I can't find how to import '.' so have removed it from code instead.
-  - I have seen it added as `globalVariables(".")` in tidyr in the tidyr.R script.
-+ Check use of `reorder()` in `prop_ci()`.
-+ NEWS file and version increment.
-+ Move model funcs to jemodel. Sort checking when I do this and add NEWS.
-* Add a package script for imports.
-
 ## Existing functions
 
++ Check use of `reorder()` in `prop_ci()`.
 + Possible name change: find_similar() --> similar_cols() or compare_???
 + ??var_summary() - add na_string arg to include in missing count
-+ glmnet tools (not working correctly). Add tests.
 + need() could work with a vector input (multiple names). Error message can give all packages missing.
 + Review `convert_date()`. It uses `dmy()` or `dmy_hms()` as appropriate with a simplifying step. It perhaps is better broken up.
 
@@ -21,7 +14,6 @@
 
 These may already be in dev_code().
 
-+ pdp functions (already written but not in package)
 + key function
 + benchmarking over arguments
 + ??Add count_sheets() - see func google doc. Used in treat....Prob won't do this unless I use it anywhere else
@@ -36,8 +28,3 @@ These may already be in dev_code().
 + Non-missing head function.
 + Convert Excel dates from char or numeric: as.Date(as.numeric(vec), origin = "1899-12-30")
 + lengths <- function(x) vapply(x, length, integer(1))
-
-## Package check issues
-
-+ bindings for df cols. Need to use .data$ for these
-+ Testthat 3.0? https://testthat.r-lib.org/articles/third-edition.html

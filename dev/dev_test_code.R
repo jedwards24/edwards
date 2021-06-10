@@ -1,3 +1,12 @@
+# glmnet test -----------
+library(glmnet)
+x <- model.matrix(mpg~., mtcars)
+gg <- cv.glmnet(x, mtcars$mpg)
+coef(gg)
+edwards::glmnet_to_table(gg, s = "lambda.1se")
+edwards::glmnet_to_table(gg, s = exp(-2))
+
+plot(gg)
 
 # prop_ci test ------------
 
