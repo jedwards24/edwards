@@ -2,7 +2,7 @@
 
 A package of miscellaneous R functions I wrote for personal use. 
 
-Although most functions work well and are stable, I regard these as being in early development phase and breaking changes are to be expected.
+Although most functions work well and are stable, I regard these as being in early development phase and breaking changes are to be expected. They are intended for interactive use.
 
 The functions are a loose collection of mainly data science themed functions. In rough categories:
 
@@ -16,8 +16,6 @@ The functions are a loose collection of mainly data science themed functions. In
 + `diff_days()`: The difference in days between two dates.
 + `latest_file()`: get path of "most recent" file in a folder with a given root name.
 + Some minor helper functions to save a bit of typing: `count_n()` and `prinf()`. 
-
-Most functions are tidyverse-based.
 
 ## Installation
 
