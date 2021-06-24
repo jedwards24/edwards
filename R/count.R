@@ -109,19 +109,25 @@ count_string <- function(df, pattern, all = FALSE){
   }
 }
 
-#########################################################################################
-# count_matches: Counts the total number of exact matches to a value in a data frame by column.
-#########################################################################################
+
+#' Count elements by column in a data frame, which exactly match a value
 #'
-#' Count the total number of exact matches to a value in a data frame by column
+#' @description
+#' Counts the number of entries of each column in a data frame that exactly match the supplied values.
+#' No coercion is used so the type must also match.
 #'
-#' Returns a named integer vector with elements that give the number of entries in the corresponding
-#' column of `df` that match to the argument `value`. No coercion is used so type must also match.
+#' * `count_matches()` count smatches to a single `value` of any type and returns a named integer vector
+#' with elements corresponding to columns of `df`.
+#' * `count_matches2()` counts matches to each element of a character vector `strings`. The
+#'   output is a tibble with a row for each element of `strings` (see examples).
+#'
+#' @returns A named integer vector for `count_matches()`. A tibble for `count_matches2()`.
 #'
 #' @param df A data frame.
 #' @param value A length one vector.
 #' @param all By default variables with no matches are omitted from the output. Set `all=T` to show all.
 #' @param prop Default is to return counts of matches. Set `prop=TRUE` to return proportions of the number of rows.
+#'
 #' @examples
 #' x <- data.frame(a = c("an", "banana", "candy"), b = c("on", "bon", "bonbon"), c = 1:3)
 #' count_matches(x, "an", all = TRUE)
@@ -131,7 +137,6 @@ count_string <- function(df, pattern, all = FALSE){
 #' count_matches(x, "1") # type must match
 #'
 #' @export
-#'
 count_matches <- function(df, value, all = FALSE, prop = FALSE){
   if (!is.list(df)) {
     stop("Argument \"df\" must be a list.", call. = FALSE)
@@ -158,30 +163,17 @@ count_matches <- function(df, value, all = FALSE, prop = FALSE){
   }
 }
 
-#########################################################################################
-# count_matches2: Count exact string matches in a data frame by column.
-#########################################################################################
-#'
-#' Count exact string matches in a data frame by column.
-#'
-#' Similar to `count_matches()` but counts matches for multiple strings rather than just one. The
-#' output is a tibble with a row for each element of `strings`. Unlike `count_matches`, non-string
-#' matching is not enabled.
-#'
-#' @param df A data frame.
 #' @param strings A character vector. Defaults to `string_missing()`.
-#' @param all Logical. If `FALSE` (default) then rows/columns with no non-zero entry are not shown.
-#' @param prop Default is to return counts of matches. Set `prop=TRUE` to return proportions of the number of rows.
-#'
 #' @examples
-#' df <- tibble::tibble(col1 = c("a", ".", ".", "a"),
-#'                      col2 = c("-", "-", "b", "b"),
-#'                      col3 = rep("z", 4),
-#'                      col4 = c("n/a", "f", "f", ""))
+#' df <- data.frame(col1 = c("a", ".", ".", "a"),
+#'                  col2 = c("-", "-", "b", "b"),
+#'                  col3 = rep("z", 4),
+#'                  col4 = c("n/a", "f", "f", ""))
 #' strs <- c(".", "-", "n/a", "na", "")
 #' count_matches2(df, strs, all = TRUE)
 #' count_matches2(df, strs)
 #'
+#' @rdname count_matches
 #' @export
 count_matches2 <- function(df, strings = string_missing(), all = FALSE, prop = FALSE) {
   if (!is.list(df)) {

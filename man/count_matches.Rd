@@ -2,9 +2,12 @@
 % Please edit documentation in R/count.R
 \name{count_matches}
 \alias{count_matches}
-\title{Count the total number of exact matches to a value in a data frame by column}
+\alias{count_matches2}
+\title{Count elements by column in a data frame, which exactly match a value}
 \usage{
 count_matches(df, value, all = FALSE, prop = FALSE)
+
+count_matches2(df, strings = string_missing(), all = FALSE, prop = FALSE)
 }
 \arguments{
 \item{df}{A data frame.}
@@ -14,10 +17,21 @@ count_matches(df, value, all = FALSE, prop = FALSE)
 \item{all}{By default variables with no matches are omitted from the output. Set \code{all=T} to show all.}
 
 \item{prop}{Default is to return counts of matches. Set \code{prop=TRUE} to return proportions of the number of rows.}
+
+\item{strings}{A character vector. Defaults to \code{string_missing()}.}
+}
+\value{
+A named integer vector for \code{count_matches()}. A tibble for \code{count_matches2()}.
 }
 \description{
-Returns a named integer vector with elements that give the number of entries in the corresponding
-column of \code{df} that match to the argument \code{value}. No coercion is used so type must also match.
+Counts the number of entries of each column in a data frame that exactly match the supplied values.
+No coercion is used so the type must also match.
+\itemize{
+\item \code{count_matches()} count smatches to a single \code{value} of any type and returns a named integer vector
+with elements corresponding to columns of \code{df}.
+\item \code{count_matches2()} counts matches to each element of a character vector \code{strings}. The
+output is a tibble with a row for each element of \code{strings} (see examples).
+}
 }
 \examples{
 x <- data.frame(a = c("an", "banana", "candy"), b = c("on", "bon", "bonbon"), c = 1:3)
@@ -26,5 +40,13 @@ count_matches(x, "an")
 count_matches(x, 1L)
 count_matches(x, 1) # type must match
 count_matches(x, "1") # type must match
+
+df <- data.frame(col1 = c("a", ".", ".", "a"),
+                 col2 = c("-", "-", "b", "b"),
+                 col3 = rep("z", 4),
+                 col4 = c("n/a", "f", "f", ""))
+strs <- c(".", "-", "n/a", "na", "")
+count_matches2(df, strs, all = TRUE)
+count_matches2(df, strs)
 
 }
