@@ -4,6 +4,10 @@
 
 Removed all deprecated modelling functions (ones starting `rang_`, `glmnet_`, or `roc_`). Use are all available in the jemodel package. A simplified version of `glmnet_to_table()` has been kept in the package because I have used this most often out of these functions. 
 
+## Remove Deprecated Functions (Breaking Change)
+
+Removed previously deprecated functions: `count_at()`, `count_nas2()`, and `bin_numeric()`. They are replaced respectively by `count_over()`, `var_summary()`, and `bin_integer()`.
+
 ## CMD Check and Tests
 
 * Handle NSE variables so that R CMD check passes.
