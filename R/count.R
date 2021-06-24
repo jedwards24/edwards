@@ -109,7 +109,6 @@ count_string <- function(df, pattern, all = FALSE){
   }
 }
 
-
 #' Count elements by column in a data frame, which exactly match a value
 #'
 #' @description

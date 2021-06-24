@@ -14,7 +14,6 @@
 glmnet_to_table <- function(fit, ..., min_coef=1E-10) {
   ce <- coef(fit, ...)
   coef_mat <- as.matrix(ce)
-  level_names <- rownames(ce)
   tibble::tibble(name = rownames(coef_mat), coef = coef_mat[, 1]) %>%
     dplyr::filter(abs(coef) >= min_coef) %>%
     dplyr::arrange(dplyr::desc(coef))
