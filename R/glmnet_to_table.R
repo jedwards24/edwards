@@ -7,12 +7,12 @@
 #' compatibility. Longer term it may be removed from this package.
 #'
 #' @param fit A fitted glmnet model.
-#' @param s The regularisation parameter determines which model is used from `fit` (as used in glmnet).
 #' @param min_coef Coefficients with smaller absolute value than this are excluded from the table.
+#' @param ... Arguments passed to `coef()`. For `glmnet`, most commonly used will be `s` (see `predict.cv.glmnet()`).
 #'
 #' @export
-glmnet_to_table <- function(fit, s="lambda.1se", min_coef=1E-10) {
-  ce <- coef(fit, s=s)
+glmnet_to_table <- function(fit, ..., min_coef=1E-10) {
+  ce <- coef(fit, ...)
   coef_mat <- as.matrix(ce)
   level_names <- rownames(ce)
   tibble::tibble(name = rownames(coef_mat), coef = coef_mat[, 1]) %>%
