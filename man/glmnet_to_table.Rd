@@ -4,12 +4,12 @@
 \alias{glmnet_to_table}
 \title{Summarise coefficients from glmnet in a table}
 \usage{
-glmnet_to_table(fit, s = "lambda.1se", min_coef = 1e-10)
+glmnet_to_table(fit, ..., min_coef = 1e-10)
 }
 \arguments{
 \item{fit}{A fitted glmnet model.}
 
-\item{s}{The regularisation parameter determines which model is used from \code{fit} (as used in glmnet).}
+\item{...}{Arguments passed to \code{coef()}. For \code{glmnet}, most commonly used will be \code{s} (see \code{predict.cv.glmnet()}).}
 
 \item{min_coef}{Coefficients with smaller absolute value than this are excluded from the table.}
 }
