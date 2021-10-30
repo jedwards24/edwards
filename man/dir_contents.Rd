@@ -5,26 +5,31 @@
 \alias{dir_size}
 \title{Summarise the contents of a directory}
 \usage{
-dir_contents(dir = ".", ...)
+dir_contents(dir = ".", recurse = TRUE, ..., shorten = TRUE)
 
-dir_size(dir = ".")
+dir_size(dir = ".", recurse = TRUE, ...)
 }
 \arguments{
 \item{dir}{A character vector of one or more directory paths.}
 
+\item{recurse}{Passed to \code{dir_info()}. Change default so that sub-directory contents are included.}
+
 \item{...}{Additional arguments passed to \code{dir_info()}.}
+
+\item{shorten}{If \code{TRUE} (default), replace \code{dir} in directory column of the output with \code{"."}.}
 }
 \value{
 The data frame returned by \code{dir_contents()} has columns as follows.
 \item{directory}{The path of the directory.}
 \item{files_size}{The total size of all files the directory, as a \code{fs::fs_bytes()} numeric vector.}
-\item{num_files}{The number of files the immediate directory.}
+\item{num_files}{The number of files in the immediate directory.}
 \item{num_dirs}{The number of immediate sub-directories of the directory.}
 \item{total_size}{The total size of all files the directory, including sub-directories.}
+\item{level}{The level of the directory relative to \code{dir}.}
 }
 \description{
 The main purpose of these functions is to give information about the size of directories.
 \code{dir_contents()} returns a data frame with rows for each directory or sub-directories.
-\code{dir_size()} returns a \code{fs::fs_bytes()} numeric vector of the total size the directories, including
-the contents of sub-directories.
+\code{dir_size()} returns a \code{fs::fs_bytes()} numeric vector of the total size the directories,
+by default including the contents of sub-directories.
 }

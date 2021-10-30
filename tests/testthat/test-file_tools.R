@@ -10,7 +10,12 @@ test_that("latest_file() works", {
   expect_identical(latest_file(dir, "test", n = 2, silent = TRUE), "../testdata/file_tools/test_201.RDS")
 })
 
-test_that("latest_file() does not overwrite incorrectly", {
+test_that("save_check() does not overwrite incorrectly", {
   testthat::expect_message(save_check(1, "../testdata/file_tools/test_20.RDS", version = 2), "Output not saved")
 })
 
+test_that("dir_...() functions run", {
+  expect_type(dir_contents("../testdata"), "list")
+  expect_type(dir_files("../testdata"), "list")
+  expect_type(dir_size("../testdata"), "double")
+})

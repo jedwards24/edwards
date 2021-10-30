@@ -9,6 +9,9 @@
 + ??var_summary() - add na_string arg to include in missing count
 + need() could work with a vector input (multiple names). Error message can give all packages missing.
 + Review `convert_date()`. It uses `dmy()` or `dmy_hms()` as appropriate with a simplifying step. It perhaps is better broken up.
+* dir_contents() - maybe add output columns total_files and total_dirs. These would count files and 
+dirs with full recursion (similarly to total_size). Probably call new dir_total_files() and
+dir_total_dirs() which would be similar to dir_size().
 
 ## New functions
 
