@@ -94,37 +94,46 @@ prinf <- function(x) {
   invisible(x)
 }
 
-#########################################################################################
-# max_n: nth largest element in a vector
-#########################################################################################
-#'
-#' nth largest element in a vector
+#' nth maximum element in a vector
 #'
 #' @param x A vector.
 #' @param n Numeric vector giving the ranks of elements to be returned.
+#' @param na.rm A logical indicating whether missing values should be ignored.
+#'   If `FALSE` an `NA` value in any of the arguments will cause a value of `NA`
+#'   to be returned.
 #'
 #' @export
-max_n <- function(x, n = 2L){
-  if (!is.numeric(n)) stop('`n` must be numeric.', call. = FALSE)
+max_n <- function(x, n = 2L, na.rm = FALSE){
+  if (!is.numeric(n)) stop("`n` must be numeric.", call. = FALSE)
+  if ((max(n) > length(x)) | (min(n) < 1L))
+    stop('All elements of `n` must be between 1 and `length(x)`.', call. = FALSE)
+  if (!na.rm && any(is.na(x))) return (x[is.na(x)][1]) # match class of x
+  if (na.rm) x <- x[!is.na(x)]
   len <- length(x)
-  if ((max(n) > len) | (min(n) <= 0L)) stop('All elements of `n` must be between 1 and `length(x)`.', call. = FALSE)
+  if (max(n) >= len + 1)
+    stop("All elements of `n` must be no greater than the number of non-missing values
+         in `x`.", call. = FALSE)
   sort(x, partial = len - n + 1)[len - n + 1]
 }
 
-#########################################################################################
-# min_n: nth smallest element in a vector
-#########################################################################################
-#'
-#' nth smallest element in a vector
+#' nth minimum element in a vector
 #'
 #' @param x A vector.
 #' @param n Numeric vector giving the ranks of elements to be returned.
+#' @param na.rm A logical indicating whether missing values should be ignored.
+#'   If `FALSE` an `NA` value in any of the arguments will cause a value of `NA`
+#'   to be returned.
 #'
 #' @export
-min_n <- function(x, n = 2L){
-  if (!is.numeric(n)) stop('`n` must be numeric.', call. = FALSE)
-  len <- length(x)
-  if ((max(n) > len) | (min(n) <= 0L)) stop('All elements of `n` must be between 1 and `length(x)`.', call. = FALSE)
+min_n <- function(x, n = 2L, na.rm = FALSE){
+  if (!is.numeric(n)) stop("`n` must be numeric.", call. = FALSE)
+  if ((max(n) > length(x)) | (min(n) < 1L))
+    stop('All elements of `n` must be between 1 and `length(x)`.', call. = FALSE)
+  if (!na.rm && any(is.na(x))) return (x[is.na(x)][1]) # match class of x
+  if (na.rm) x <- x[!is.na(x)]
+  if (max(n) >= length(x) + 1)
+    stop("All elements of `n` must be no greater than the number of non-missing values
+         in `x`.", call. = FALSE)
   sort(x, partial = n)[n]
 }
 

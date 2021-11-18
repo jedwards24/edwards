@@ -15,6 +15,20 @@ test_that("factor_to_numeric() works", {
   expect_equal(factor_to_numeric(factor(x3)), x3)
 })
 
+test_that("min_n() and max_n() work", {
+  x <- c(4:6, NA)
+  expect_error(min_n(x, 5), "must be between")
+  expect_error(min_n(x, 4, na.rm = TRUE), "must be no greater")
+  expect_true(is.na(min_n(x, 4, na.rm = FALSE)))
+  expect_true(is.na(min_n(x, 2, na.rm = FALSE)))
+  expect_equal(min_n(x, 1:3, na.rm = TRUE), 4:6)
+  expect_error(max_n(x, 5), "must be between")
+  expect_error(max_n(x, 4, na.rm = TRUE), "must be no greater")
+  expect_true(is.na(max_n(x, 4, na.rm = FALSE)))
+  expect_true(is.na(max_n(x, 2, na.rm = FALSE)))
+  expect_equal(max_n(x, 1:3, na.rm = TRUE), 6:4)
+})
+
 test_that("need() works", {
   expect_error(need("fakePackage"), "Package \"fakePackage\" needed")
   expect_silent(need("stats")) # Assumes stats package is always installed

@@ -2,15 +2,19 @@
 % Please edit documentation in R/utils.R
 \name{max_n}
 \alias{max_n}
-\title{nth largest element in a vector}
+\title{nth maximum element in a vector}
 \usage{
-max_n(x, n = 2L)
+max_n(x, n = 2L, na.rm = FALSE)
 }
 \arguments{
 \item{x}{A vector.}
 
 \item{n}{Numeric vector giving the ranks of elements to be returned.}
+
+\item{na.rm}{A logical indicating whether missing values should be ignored.
+If \code{FALSE} an \code{NA} value in any of the arguments will cause a value of \code{NA}
+to be returned.}
 }
 \description{
-nth largest element in a vector
+nth maximum element in a vector
 }
