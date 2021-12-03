@@ -109,13 +109,13 @@ count_string <- function(df, pattern, all = FALSE){
   }
 }
 
-#' Count elements by column in a data frame, which exactly match a value
+#' Count elements, by column in a data frame, which exactly match a value
 #'
 #' @description
 #' Counts the number of entries of each column in a data frame that exactly match the supplied values.
 #' No coercion is used so the type must also match.
 #'
-#' * `count_matches()` count smatches to a single `value` of any type and returns a named integer vector
+#' * `count_matches()` counts matches to a single `value` of any type and returns a named integer vector
 #' with elements corresponding to columns of `df`.
 #' * `count_matches2()` counts matches to each element of a character vector `strings`. The
 #'   output is a tibble with a row for each element of `strings` (see examples).

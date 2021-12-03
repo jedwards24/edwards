@@ -3,7 +3,7 @@
 \name{count_matches}
 \alias{count_matches}
 \alias{count_matches2}
-\title{Count elements by column in a data frame, which exactly match a value}
+\title{Count elements, by column in a data frame, which exactly match a value}
 \usage{
 count_matches(df, value, all = FALSE, prop = FALSE)
 
@@ -27,7 +27,7 @@ A named integer vector for \code{count_matches()}. A tibble for \code{count_matc
 Counts the number of entries of each column in a data frame that exactly match the supplied values.
 No coercion is used so the type must also match.
 \itemize{
-\item \code{count_matches()} count smatches to a single \code{value} of any type and returns a named integer vector
+\item \code{count_matches()} counts matches to a single \code{value} of any type and returns a named integer vector
 with elements corresponding to columns of \code{df}.
 \item \code{count_matches2()} counts matches to each element of a character vector \code{strings}. The
 output is a tibble with a row for each element of \code{strings} (see examples).
