@@ -1,6 +1,7 @@
 # Since 0.3.0
 
-* Renamed `count_string()` to `count_pattern()`
+* Renamed `count_string()` to `count_pattern()`.
+* Deprecate `prop_ci()`. Replaced by `response` package [https://github.com/jedwards24/response](https://github.com/jedwards24/response).
 
 # edwards 0.3.0
 
