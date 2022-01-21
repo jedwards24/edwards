@@ -56,33 +56,3 @@ summarise_if(dt2, is.numeric, count_int) %>% pivot_longer(cols = everything())
 #Explore which are simple datetimes. Maybe also check which are 0 in Excel i.e.equal as.POSIXct("1899-12-31", tz = "UTC")
 summarise_if(dt, is.POSIXct, is_simple_datetime) %>% pivot_longer(cols = everything())
 
-
-# Check package is installed----------
-# The aim here is for scripts where a function is called using `::` but I don't
-# call library to avoid attaching it (to avoid conflicts etc.)
-# I want to check that package is installed and indicate that it is needed.
-#
-# Don't use require() since that attaches it.
-
-# options are:
-#
-#https://stackoverflow.com/questions/9341635/check-for-installed-packages-before-running-install-packages
-nzchar(system.file(package = "lesson"))
-pkg %in% rownames(installed.packages())
-
-# From R packages book for “suggests” packages:
-  if (!requireNamespace("DataExplorer", quietly = TRUE)) {
-    stop("Package \"DataExplorer\" needed for this function to work. Please install it.",
-         call. = FALSE)
-  }
-# `requireNamespace()` loads but does not attach its target.
-
-# Check if package is loaded:
-if(!("tidyverse" %in% tolower(.packages())))
-# If installed:
-nzchar(system.file(package = "rpart.plot"))
-library()$results[,1]
-#  https://rpubs.com/Mentors_Ubiqum/list_packages
-# Also:
-search()
-

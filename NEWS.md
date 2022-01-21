@@ -1,8 +1,13 @@
+# Since 0.3.0
+
+* Renamed `count_string()` to `count_pattern()`
+
 # edwards 0.3.0
 
 ## Remove Modelling Functions (Breaking Change)
 
-Removed all deprecated modelling functions (ones starting `rang_`, `glmnet_`, or `roc_`). Use are all available in the jemodel package. A simplified version of `glmnet_to_table()` has been kept in the package because I have used this most often out of these functions. 
+Removed all deprecated modelling functions (ones starting `rang_`, `glmnet_`, or `roc_`). All are
+available in the jemodel package. A simplified version of `glmnet_to_table()` has been kept in the package because I have used this most often out of these functions. 
 
 ## Remove Deprecated Functions (Breaking Change)
 

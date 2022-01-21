@@ -69,10 +69,6 @@ count_levels <- function(df, all = FALSE) {
   }
 }
 
-#########################################################################################
-# count_string: Counts the total number of string pattern matches in a data frame by column.
-#########################################################################################
-#'
 #' Count the total number, by column, of entries in a data frame that match a string pattern
 #'
 #' Returns a named integer vector with elements that give the number of entries in the corresponding
@@ -86,13 +82,13 @@ count_levels <- function(df, all = FALSE) {
 #' @param all By default variables with no matches are omitted from the output. Set all=T to show all.
 #' @examples
 #' x <- data.frame(a = c("an", "banana", "candy"), b = c("on", "bon", "bonbon"), d = 1:3)
-#' count_string(x, "an", all = TRUE)
-#' count_string(x, "an")
-#' count_string(x, "b")
-#' count_string(x, "1") # not matched to integers
+#' count_pattern(x, "an", all = TRUE)
+#' count_pattern(x, "an")
+#' count_pattern(x, "b")
+#' count_pattern(x, "1") # not matched to integers
 #'
 #' @export
-count_string <- function(df, pattern, all = FALSE){
+count_pattern <- function(df, pattern, all = FALSE){
   if (!is.list(df)) {
     stop("Argument \"df\" must be a list.", call. = FALSE)
   }
