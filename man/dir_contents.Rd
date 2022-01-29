@@ -3,33 +3,53 @@
 \name{dir_contents}
 \alias{dir_contents}
 \alias{dir_size}
+\alias{dir_count_files}
+\alias{dir_count_dirs}
 \title{Summarise the contents of a directory}
 \usage{
 dir_contents(dir = ".", recurse = TRUE, ..., shorten = TRUE)
 
 dir_size(dir = ".", recurse = TRUE, ...)
+
+dir_count_files(dir = ".", recurse = TRUE, ...)
+
+dir_count_dirs(dir = ".", recurse = TRUE, ...)
 }
 \arguments{
 \item{dir}{A character vector of one or more directory paths.}
 
-\item{recurse}{Passed to \code{dir_info()}. Change default so that sub-directory contents are included.}
+\item{recurse}{Passed to \code{dir_info()}. Defaults to \code{TRUE} so that all sub-directory contents are
+included. For \code{dir_contents()} this only effects which rows are included in the output, not
+how the counts or totals are calculated.}
 
 \item{...}{Additional arguments passed to \code{dir_info()}.}
 
 \item{shorten}{If \code{TRUE} (default), replace \code{dir} in directory column of the output with \code{"."}.}
 }
 \value{
-The data frame returned by \code{dir_contents()} has columns as follows.
+\code{dir_size()} returns a \code{fs::fs_bytes} vector.
+
+\code{dir_count_files()} and \code{dir_count_dirs()} each return integer vectors.
+
+\code{dir_contents()} returns a data frame with columns:
 \item{directory}{The path of the directory.}
 \item{files_size}{The total size of all files the directory, as a \code{fs::fs_bytes()} numeric vector.}
 \item{num_files}{The number of files in the immediate directory.}
 \item{num_dirs}{The number of immediate sub-directories of the directory.}
-\item{total_size}{The total size of all files the directory, including sub-directories.}
+\item{total_size}{The total size of all files in the directory, including sub-directories.}
+\item{total_files}{The total number of all files in the directory, including sub-directories.}
+\item{total_dirs}{The total number of all directories in the directory (fully recursive).}
 \item{level}{The level of the directory relative to \code{dir}.}
 }
 \description{
-The main purpose of these functions is to give information about the size of directories.
+These functions give information about the size of directories as well as the number of
+files and sub-directories they contain (both in the immediate directory and recursively over
+sub-directories).
+
 \code{dir_contents()} returns a data frame with rows for each directory or sub-directories.
-\code{dir_size()} returns a \code{fs::fs_bytes()} numeric vector of the total size the directories,
-by default including the contents of sub-directories.
+
+\code{dir_size()}, \code{dir_count_files()} and \code{dir_count_dirs()} return atomic vectors of, respectively,
+the size, the number of files, and the number of directories in \code{dir}. All information
+returned by these functions is included in the output of \code{dir_contents()}, but they may be useful
+for simplicity or speed.
 }

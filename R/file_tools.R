@@ -1,8 +1,3 @@
-
-#########################################################################################
-# latest_file: Get file name of most recent file in a directory
-#########################################################################################
-#'
 #' Get file name of most recent file in a directory
 #'
 #' Looks for files in a directory `path` with names beginning `"root_name_dd"`, where
@@ -96,21 +91,34 @@ dir_files <- function(dir = ".", ...) {
 
 #' Summarise the contents of a directory
 #'
-#' The main purpose of these functions is to give information about the size of directories.
-#'  `dir_contents()` returns a data frame with rows for each directory or sub-directories.
-#'  `dir_size()` returns a `fs::fs_bytes()` numeric vector of the total size the directories,
-#'  by default including the contents of sub-directories.
+#' @description
+#' These functions give information about the size of directories as well as the number of
+#' files and sub-directories they contain (both in the immediate directory and recursively over
+#' sub-directories).
+#'
+#' `dir_contents()` returns a data frame with rows for each directory or sub-directories.
+#'
+#' `dir_size()`, `dir_count_files()` and `dir_count_dirs()` return atomic vectors of, respectively,
+#' the size, the number of files, and the number of directories in `dir`. All information
+#' returned by these functions is included in the output of `dir_contents()`, but they may be useful
+#' for simplicity or speed.
 #'
 #' @param dir A character vector of one or more directory paths.
-#' @param recurse Passed to `dir_info()`. Change default so that sub-directory contents are included.
+#' @param recurse Passed to `dir_info()`. Defaults to `TRUE` so that all sub-directory contents are
+#' included. For `dir_contents()` this only effects which rows are included in the output, not
+#' how the counts or totals are calculated.
 #' @param ... Additional arguments passed to `dir_info()`.
 #' @param shorten If `TRUE` (default), replace `dir` in directory column of the output with `"."`.
-#' @return The data frame returned by `dir_contents()` has columns as follows.
+#' @return `dir_size()` returns a `fs::fs_bytes` vector.
+#' @return `dir_count_files()` and `dir_count_dirs()` each return integer vectors.
+#' @return `dir_contents()` returns a data frame with columns:
 #'  \item{directory}{The path of the directory.}
 #'  \item{files_size}{The total size of all files the directory, as a `fs::fs_bytes()` numeric vector.}
 #'  \item{num_files}{The number of files in the immediate directory.}
 #'  \item{num_dirs}{The number of immediate sub-directories of the directory.}
-#'  \item{total_size}{The total size of all files the directory, including sub-directories.}
+#'  \item{total_size}{The total size of all files in the directory, including sub-directories.}
+#'  \item{total_files}{The total number of all files in the directory, including sub-directories.}
+#'  \item{total_dirs}{The total number of all directories in the directory (fully recursive).}
 #'  \item{level}{The level of the directory relative to `dir`.}
 #' @export
 dir_contents <- function(dir = ".", recurse = TRUE, ..., shorten = TRUE) {
@@ -120,7 +128,9 @@ dir_contents <- function(dir = ".", recurse = TRUE, ..., shorten = TRUE) {
     dplyr::summarise(files_size = sum(.data$size),
                      num_files = sum(.data$type == "file"),
                      num_dirs = sum(.data$type == "directory")) %>%
-    dplyr::mutate(total_size = dir_size(.data$directory))
+    dplyr::mutate(total_size = dir_size(.data$directory, recurse = TRUE)) %>%
+    dplyr::mutate(total_files = dir_count_files(.data$directory, recurse = TRUE)) %>%
+    dplyr::mutate(total_dirs = dir_count_dirs(.data$directory, recurse = TRUE))
   short_directory <- stringr::str_replace(tbl$directory, stringr::fixed(dir), ".")
   tbl <- dplyr::mutate(tbl, level = stringr::str_count(short_directory, "/"))
   if (shorten) tbl <- dplyr::mutate(tbl, directory = short_directory)
@@ -131,9 +141,39 @@ dir_contents <- function(dir = ".", recurse = TRUE, ..., shorten = TRUE) {
 #' @rdname dir_contents
 # Total size of a directory.
 # This is vectorised to fit in with the fs package functions.
-# Note that using file_size() is not faster because it calls dir_info() anyway.
+# Note that using `file_size()` is not faster because it calls `dir_info()` anyway.
 dir_size <- function(dir = ".", recurse = TRUE, ...) {
-  fn <- function(x, ...) sum(fs::dir_info(x, recurse = recurse, ...)$size)
-  sz <- purrr::map_dbl(dir, fn, ...)
+  fn <- function(x, ...) sum(fs::dir_info(x, ...)$size)
+  sz <- purrr::map_dbl(dir, fn, recurse = recurse, ...)
   fs::fs_bytes(sz)
+}
+
+#' @export
+#' @rdname dir_contents
+# Total number of files in a directory.
+dir_count_files <- function(dir = ".", recurse = TRUE, ...) {
+  purrr::map_int(dir, count_files, recurse = recurse, ...)
+}
+
+#' @export
+#' @rdname dir_contents
+# Total number of files in a directory.
+dir_count_dirs <- function(dir = ".", recurse = TRUE, ...) {
+  purrr::map_int(dir, count_dirs, recurse = recurse, ...)
+}
+
+#' @noRd
+# Helper for `dir_count_files()` (non-vectorised version).
+count_files <- function(dir, recurse, ...) {
+  fs::dir_ls(dir, recurse = recurse, ...) %>%
+    fs::is_file() %>%
+    sum()
+}
+
+#' @noRd
+# Helper for `dir_count_dirs()` (non-vectorised version).
+count_dirs <- function(dir, recurse, ...) {
+  fs::dir_ls(dir, recurse = recurse, ...) %>%
+    fs::is_dir() %>%
+    sum()
 }
