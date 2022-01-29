@@ -6,9 +6,10 @@ tb <- tibble::tibble(group = c(rep("a", 25), rep("b", 15), rep("c", 10)),
   dplyr::mutate(outbf = factor(outb)) %>%
   dplyr::mutate(outc = ifelse(outb, "yes", "no"))
 n_vals <- length(unique(tb$group))
-ref <- suppressMessages(prop_ci(tb, "outcome", "group", plot = FALSE))
+ref <- suppressWarnings(suppressMessages(prop_ci(tb, "outcome", "group", plot = FALSE)))
 
 test_that("prop_ci works", {
+  withr::local_options(lifecycle_verbosity = "quiet")
   expect_s3_class(ref, "data.frame")
   expect_s3_class(suppressMessages(prop_ci(tb, "outcome", "group", return_plot = TRUE)), "ggplot")
   expect_identical(nrow(ref), n_vals)
@@ -18,6 +19,7 @@ test_that("prop_ci works", {
 })
 
 test_that("prop_ci handles inputs", {
+  withr::local_options(lifecycle_verbosity = "quiet")
   expect_identical(suppressMessages(prop_ci(tb, "outf", "group", plot = FALSE)), ref)
   expect_identical(suppressMessages(prop_ci(tb, "outb", "group", plot = FALSE)), ref)
   expect_identical(suppressMessages(prop_ci(tb, "outbf", "group", pos_class = "TRUE", plot = FALSE)), ref)

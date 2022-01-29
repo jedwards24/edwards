@@ -47,7 +47,7 @@ count_string <- function(...){
 prop_ci <- function(dt, target_name, var_name, min_n = 1, show_all = TRUE, order_n = NULL,
                     conf_level = 0.95, prop_lim = NULL, pos_class = NULL, plot = TRUE,
                     return_plot = FALSE) {
-  warning("`prop_ci() is depreciated. Use `response::response()` instead.", call. = FALSE)
+  lifecycle::deprecate_warn("0.3.1", "prop_ci()", "response::response()")
   if (!is.data.frame(dt)) stop("`dt` must be a data frame.", call. = FALSE)
   y_label <- names(dplyr::select(dt, {{var_name}})) #for plot
   dt <- dplyr::rename(dt,
@@ -141,8 +141,7 @@ prop_ci <- function(dt, target_name, var_name, min_n = 1, show_all = TRUE, order
 #'
 #' @export
 glmnet_to_table <- function(fit, ..., min_coef=1E-10) {
-  warning("`glmnet_to_table() is depreciated. Use `jemodel::coef_to_table()` instead.", call. = FALSE)
-
+  lifecycle::deprecate_warn("0.3.1", "glmnet_to_table()", "jemodel::coef_to_table()")
   ce <- coef(fit, ...)
   coef_mat <- as.matrix(ce)
   tibble::tibble(name = rownames(coef_mat), coef = coef_mat[, 1]) %>%
