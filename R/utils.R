@@ -1,7 +1,3 @@
-#########################################################################################
-# mode_stat: Calculate mode of a vector.
-#########################################################################################
-#'
 #' Calculate the statistical mode of an atomic vector
 #'
 #' Returns the statistical mode of an atomic vector (can be numeric, character or factor).
@@ -26,10 +22,6 @@ mode_stat <- function(x, multiple = TRUE, na.rm = TRUE) {
   ux[mode_loc]
 }
 
-#########################################################################################
-# factor_to_numeric: Convert a numeric factor to a numeric vector.
-#########################################################################################
-#'
 #' Convert a factor with numeric or logical levels to a numeric vector
 #'
 #' The obvious `as.numeric()` is incorrect. No checks are made on the level contents except to check if levels are
@@ -48,10 +40,6 @@ factor_to_numeric <- function(x) {
   as.numeric(levels(x))[x]
 }
 
-#########################################################################################
-# ilogit: Vectorised inverse logit function.
-#########################################################################################
-#'
 #' Vectorised inverse logit function
 #'
 #' Calculate the inverse logit function \eqn{exp(x) / (1 + exp(x))}. Modified from Faraway package.
@@ -64,6 +52,7 @@ factor_to_numeric <- function(x) {
 #'
 #' @export
 ilogit <- function (x){
+  warning("`ilogit() is depreciated. Use `jemodel::ilogit()` instead.", call. = FALSE)
   if (any(big <- (x > 20))) {
     lv <- x
     lv[big] <- 1
@@ -74,10 +63,6 @@ ilogit <- function (x){
   exp(x) / (1 + exp(x))
 }
 
-#########################################################################################
-# prinf: Shorthand for print(n = Inf)
-#########################################################################################
-#'
 #' Print all rows of a tibble
 #'
 #' Shorthand for `print_tbl(x, n = Inf)`. Ok, I'm lazy.
@@ -137,10 +122,6 @@ min_n <- function(x, n = 2L, na.rm = FALSE){
   sort(x, partial = n)[n]
 }
 
-#########################################################################################
-# %notin%: negation of %in%
-#########################################################################################
-#'
 #' Negation of `%in%`
 #'
 #' Binary operator, which returns a logical vector with `TRUE` element where there is
@@ -153,10 +134,6 @@ min_n <- function(x, n = 2L, na.rm = FALSE){
 #' @export
 `%notin%` <- function(a, b) ! a %in% b
 
-#########################################################################################
-# need: check if a package is installed and stop if not
-#########################################################################################
-#'
 #' Check if a package is installed and stop if not
 #'
 #' If the package is not installed then the function will error and give an appropriate message.

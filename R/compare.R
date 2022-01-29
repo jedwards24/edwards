@@ -1,7 +1,3 @@
-#########################################################################################
-# compare_vars: Summarise pairwise element comparison of two variables in a dataframe.
-#########################################################################################
-#'
 #' Pairwise element comparison of two variables in a dataframe
 #'
 #' Returns a table summarising the ordering of corresponding elements of two columns in a data frame. Columns
@@ -30,10 +26,6 @@ compare_vars <- function(df, ..., simple = FALSE, tol = 1E-6, na.rm = FALSE) {
   compare_vecs(vec1, vec2, names = c(name1, name2), simple = simple, tol = tol, na.rm = na.rm)
 }
 
-#########################################################################################
-# compare_vecs: Summarise pairwise element comparison of two vectors.
-#########################################################################################
-#'
 #' Pairwise element comparison of two vectors
 #'
 #' Returns a table summarising the ordering of corresponding elements of the two supplied vectors. Inputs can be
@@ -111,11 +103,6 @@ compare_vecs <- function(x, y, names = NULL, simple = FALSE, tol = 1E-6, na.rm =
   tbl[1:3, ]
 }
 
-#########################################################################################
-# find_similar: Counts pairwise matches between columns between two data frames or within a single
-# data frame.
-#########################################################################################
-#'
 #' Returns a table of counts of pairwise matches between columns of two data frames
 #'
 #' This is used to identify columns in the two data frames that might be the same. This will only be meaningfull
@@ -176,10 +163,6 @@ find_similar <- function(df1, df2 = NULL){
     dplyr::mutate(prop_match_nz = (match - match_zero) / (nrow(df1) - match_zero - both_na - na_1 - na_2))
 }
 
-#########################################################################################
-# find_similar_single: Counts pairwise matches between columns in a data frame.
-#########################################################################################
-#'
 #' Count pairwise matches between columns in a single data frame
 #'
 #' Is called from `find_similar()` when the second data frame argument is omitted.
@@ -224,10 +207,6 @@ find_similar_single <- function(df){
     dplyr::mutate(prop_match_nz = (match - match_zero) / (nrow(df) - match_zero - both_na - na_1 - na_2))
 }
 
-#########################################################################################
-# compare_sets(): Compare two sets for overlap and differences.
-#########################################################################################
-#'
 #' Compare two sets for overlap and differences.
 #'
 #' Compares two vectors and returns information on their overlap and differences, ignoring

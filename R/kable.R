@@ -1,7 +1,3 @@
-########################################################################################
-# my_kable: Version of kable with standard styling to save typing.
-#########################################################################################
-#'
 #' Version of `kable()` with specific default kableExtra styling
 #'
 #' Shorthand to apply both `knitr::kable()` and `kableExtra::kable_styling()` to a table,
@@ -51,10 +47,6 @@ kbl_ctable <- function(ct, digits = 3) {
   my_kable(df, digits = digits)
 }
 
-#########################################################################################
-# split_kable: Split a table in into `n` parts of balanced size.
-#########################################################################################
-#'
 #' Split a table in into parts of balanced size
 #'
 #' Splits a table into a  `n_tb` parts of similar sizing using standard styling in  `my_kable()`. This is

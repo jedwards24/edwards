@@ -1,8 +1,3 @@
-
-#########################################################################################
-# is_one2one: Check if specified columns in a dataframe have one-to-one relationship.
-#########################################################################################
-#'
 #' Check data frame columns for one-to-one relationship.
 #'
 #' Returns `TRUE` if all chosen columns are one-to-one and `FALSE` otherwise.
@@ -33,11 +28,6 @@ is_one2one <- function(df, ...) {
   TRUE
 }
 
-
-#########################################################################################
-# fd_cols: Find candidate functional dependencies of a set of columns
-#########################################################################################
-#'
 #' Find all size one candidate functional dependencies of a set of columns.
 #'
 #' Returns names of columns in a data frame that may be individually functionally determined a supplied set
@@ -68,4 +58,3 @@ fd_cols <- function(df, ...) {
   all_same <- purrr::map_int(same, all)
   c(group_cols, names(all_same[all_same == TRUE]))
 }
-

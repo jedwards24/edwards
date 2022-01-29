@@ -1,7 +1,3 @@
-#########################################################################################
-# count_nas: counts NAs in a data frame by column.
-#########################################################################################
-#'
 #' Count NAs in a data frame by column
 #'
 #' Returns a vector of the number of NAs of each variable in a data frame.
@@ -24,10 +20,6 @@ count_nas <- function(df, all = FALSE) {
   }
 }
 
-#########################################################################################
-# count_unique: counts the number of unique values in a data frame by column.
-#########################################################################################
-#'
 #' Count the number of unique values in a data frame by column
 #'
 #' Returns a vector of the number of unique values of each variable in a data frame. Any NA entries are included as
@@ -43,10 +35,6 @@ count_unique <- function(df) {
   vapply(df, function(x) length(unique(x)), integer(1))
 }
 
-#########################################################################################
-# count_levels: counts the total number of levels in a data frame by column.
-#########################################################################################
-#'
 #' Count the number of levels in a data frame by column
 #'
 #' Returns a vector of the number of levels of each variable in a data frame.
@@ -199,10 +187,6 @@ count_matches2 <- function(df, strings = string_missing(), all = FALSE, prop = F
   tb
 }
 
-#########################################################################################
-# var_summary: Simple summary of the variables in a data frame.
-#########################################################################################
-#'
 #' Simple summary of the variables in a data frame
 #'
 #' Returns a tibble with the names, class, number of unique values, and the number and percent of
@@ -228,10 +212,6 @@ var_summary <- function(df) {
   )
 }
 
-#########################################################################################
-# count_over: Performs dplyr::count for a range of variables in a data frame.
-#########################################################################################
-#'
 #' Perform  `count2()` for a range of variables in a data frame
 #'
 #' Prints output from `count2()` for multiple columns in `df`.
@@ -254,10 +234,6 @@ count_over <- function(df, ..., sort = TRUE, n = 10L) {
   invisible(df)
 }
 
-#########################################################################################
-# count_n: Shorthand for `count(df, ...) %>% count(n)`
-#########################################################################################
-#'
 #' Count group sizes by grouped variables
 #'
 #' Shorthand for `count(count(df, ...), n)`.
@@ -273,10 +249,6 @@ count_n <- function(df, ...) {
   dplyr::count(dplyr::count(df, ...), .data$n, name = "freq")
 }
 
-#########################################################################################
-# count2: dplyr::count() with proportion column and default sort = T
-#########################################################################################
-#'
 #' `dplyr::count()` with proportion column and default `sort = TRUE`.
 #'
 #' Adds a column "prop" which gives the proportion of total rows in that group.

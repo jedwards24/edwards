@@ -1,7 +1,3 @@
-#########################################################################################
-# bin_integer: Converts numeric into binned factor with appropriately named levels.
-#########################################################################################
-#'
 #' Convert integer vector into binned factor with integer cuts and appropriately named levels
 #'
 #' Takes a numeric input vector, groups into bins based on the argument `cuts`, and
@@ -39,10 +35,6 @@ bin_integer <- function(x, cuts, na_level = NULL, na_at_end = FALSE){
   forcats::fct_relevel(na_level)
 }
 
-#########################################################################################
-# bin_integer_fct: Bins integer levels in a factor.
-#########################################################################################
-#'
 #' Bin integer levels in a factor
 #'
 #' Input is a vector with levels that, all except one, are naturally integers e.g. "60". The other level is a

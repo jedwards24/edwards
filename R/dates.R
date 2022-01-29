@@ -1,7 +1,3 @@
-#########################################################################################
-# convert_date: Parse a string in a particular format and convert to a date or datetime.
-#########################################################################################
-#'
 #' Parse a character vector in a particular format and convert to a date or datetime
 #'
 #' Reads text vectors which are either in dmy or dmy:time format. If all of the times are
@@ -32,10 +28,6 @@ convert_date <- function(x) {
   lubridate::dmy(x)
 }
 
-#########################################################################################
-# is_simple_datetime: Test if a datetime object has times that are all zero.
-#########################################################################################
-#'
 #' Test if a datetime object has times that are all zero
 #'
 #' Returns `TRUE` if the input is a datetime object where the time part of every element is zero.
@@ -63,10 +55,6 @@ is_simple_datetime <- function(x) {
   FALSE
 }
 
-#########################################################################################
-# diff_days: Difference in days of two dates as a numeric
-#########################################################################################
-#'
 #' Difference in days of two dates as a numeric
 #'
 #' Finds `difftime(date1, date2)` (i.e. `date1 - date2`) using `units = "days"`, then converts
@@ -99,4 +87,3 @@ diff_days <- function(date1, date2, keep_times = FALSE) {
   }
   as.numeric(difftime(lubridate::as_date(date1), lubridate::as_date(date2), units = "days"))
 }
-

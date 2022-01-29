@@ -1,7 +1,3 @@
-############
-# object_size_all: Returns table of sizes of all object in Mb, in order.
-############
-#'
 #' Get sizes, in Mb, of all objects in global environment
 #'
 #' Returns table of sizes of all objects in the global environment in Mb (1024^2 B), in decreasing order of size.
