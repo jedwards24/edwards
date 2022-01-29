@@ -294,3 +294,27 @@ n_name <- function (x) {
 string_missing <- function(){
   c("", " ", ".", "-", "NA", "na", "n/a", "N/A", "(missing)")
 }
+
+#' Frequency count for values of a vector with tibble output.
+#'
+#' This behaves similarly to `count2()` but with a vector input.
+#'
+#' @param x An atomic vector.
+#' @param sort Logical. Sort output by descending frequency. If `FALSE` sort by value.
+#' @param name Name of count column in output. If omitted `n` will be used (as in `dplyr::count`).
+#' @param value_name Name of value column.
+#'
+#' @export
+vcount <- function(x, sort = TRUE, name = NULL, value_name = "value") {
+  if (!is.null(name) && (value_name == name)){
+    stop("`name` and `value_name` must not be the same.", call. = FALSE)
+  }
+  df <- tibble::as_tibble_col(x, value_name) %>%
+    dplyr::count(.data[[value_name]], sort = sort, name = name)
+  if (!is.null(name)){
+    count_name <- name
+  }else{
+    count_name <- n_name(value_name)
+  }
+  dplyr::mutate(df, prop = .data[[count_name]] / sum(.data[[count_name]]))
+}

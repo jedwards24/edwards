@@ -78,3 +78,18 @@ test_that("count2 is correct", {
   expect_identical(x4, y4)
   expect_identical(x5, dplyr::count(tb, x))
 })
+
+test_that("vcount is correct", {
+  x <- c(1L, 1L, 2L, 2L, 2L, 2L, 3L)
+  x1 <- vcount(x)
+  x2 <- vcount(x, sort = FALSE)
+  x3 <- vcount(x, name = "freq", value_name = "vals")
+  tb <- tibble::tibble(value = x)
+  y1 <- count2(tb, value)
+
+  expect_message(x4 <- vcount(x, value_name = "n"), "Storing counts in `nn`")
+  expect_identical(x1, y1)
+  expect_identical(names(x3), c("vals", "freq", "prop"))
+  expect_identical(x1$value, c(2L, 1L, 3L))
+  expect_identical(x2$value, 1:3)
+})
