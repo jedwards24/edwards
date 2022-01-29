@@ -265,25 +265,8 @@ count_n <- function(df, ...) {
 #' @export
 count2 <- function(df, ..., sort = TRUE, wt = NULL, name = NULL) {
   x <- dplyr::count(df, ..., wt = {{wt}}, sort = sort, name = name)
-  if (!is.null(name)){
-    count_name <- name
-  }else{
-    count_name <- dplyr::group_by(df, ...) %>%
-      dplyr::group_vars() %>%
-      n_name()
-  }
-  dplyr::mutate(x, prop = !!rlang::sym(count_name) / sum(!!rlang::sym(count_name)))
-}
-
-#' Copy of `dplyr:::n_name()`
-#' Used in `count2()`
-#' @noRd
-n_name <- function (x) {
-  name <- "n"
-  while (name %in% x) {
-    name <- paste0("n", name)
-  }
-  name
+  count_name <- names(x)[ncol(x)]
+  dplyr::mutate(x, prop = .data[[count_name]] / sum(.data[[count_name]]))
 }
 
 #' Strings commonly indicating missing values
@@ -309,12 +292,8 @@ vcount <- function(x, sort = TRUE, name = NULL, value_name = "value") {
   if (!is.null(name) && (value_name == name)){
     stop("`name` and `value_name` must not be the same.", call. = FALSE)
   }
-  df <- tibble::as_tibble_col(x, value_name) %>%
+  res <- tibble::as_tibble_col(x, value_name) %>%
     dplyr::count(.data[[value_name]], sort = sort, name = name)
-  if (!is.null(name)){
-    count_name <- name
-  }else{
-    count_name <- n_name(value_name)
-  }
-  dplyr::mutate(df, prop = .data[[count_name]] / sum(.data[[count_name]]))
+  count_name <- names(res)[ncol(res)]
+  dplyr::mutate(res, prop = .data[[count_name]] / sum(.data[[count_name]]))
 }
