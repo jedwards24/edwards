@@ -24,10 +24,6 @@ my_kable <- function(df, digits = 3, position = "center", ...){
   return(tb)
 }
 
-########################################################################################
-# kbl_ctable: edwards::my_kable() with a 2-d contingency table input
-#########################################################################################
-#'
 #' `edwards::my_kable()` with a two way contingency table input.
 #'
 #' @param ct A two way table object.

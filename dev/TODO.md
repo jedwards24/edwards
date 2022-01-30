@@ -8,10 +8,11 @@
 + ??var_summary() - add na_string arg to include in missing count
 + `need()` could work with a vector input (multiple names). Error message can give all packages missing.
 + Review `convert_date()`. It uses `dmy()` or `dmy_hms()` as appropriate with a simplifying step. It perhaps is better broken up.
-+ rewrite latest_file(). Take `...` argument of regex patterns and filter to file names that match 
++ rewrite `latest_file()`. Take `...` argument of regex patterns and filter to file names that match 
   all of these. Then return latest file name by simple sort. Add helper funcs to give likely date 
   patterns. Maybe rename function? recent_file()??
 + `dir_contents()` has minimal tests.
+* Combine `count_matches()` and `count_matches2()` into single user-facing function.  
 
 ## New functions
 

@@ -103,7 +103,7 @@ compare_vecs <- function(x, y, names = NULL, simple = FALSE, tol = 1E-6, na.rm =
   tbl[1:3, ]
 }
 
-#' Returns a table of counts of pairwise matches between columns of two data frames
+#' Count pairwise matches between columns of two data frames
 #'
 #' This is used to identify columns in the two data frames that might be the same. This will only be meaningfull
 #' if the rows of the two data frames correspond to each other in some way i.e. they are sorted appropriately.
