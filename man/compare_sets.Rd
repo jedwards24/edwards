@@ -16,7 +16,7 @@ Compares two vectors and returns information on their overlap and differences, i
 ordering and duplicated elements.
 }
 \details{
-A tibble is returned with contents dependent on the argument \code{summmary}. If \code{TRUE},
+A tibble is returned with contents dependent on the argument \code{summary}. If \code{TRUE},
 counts of elements in both sets and only one set is given. If \code{FALSE}, the returned tibble
 will have a row for each element in the union of \code{x} and \code{y}, together with which set(s)
 it belongs to.

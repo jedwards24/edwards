@@ -83,21 +83,14 @@ compare_vecs <- function(x, y, names = NULL, simple = FALSE, tol = 1E-6, na.rm =
     same = sum(both_na) + equal
     return(tibble::tibble(comparison = c("Match", "Different"),
                           count = c(same, length(x) - same),
-                          prop = .data$count / length(x)
-    ))
+                          prop = .data$count / length(x)))
   }
-  tbl <- tibble::tibble(comparison = c(paste(name1, "==", name2),
-                                       paste(name1, ">", name2),
-                                       paste(name1, "<", name2),
-                                       "Both NA",
-                                       paste(name1, "NA only"),
-                                       paste(name2, "NA only")),
-                        count = c(equal,
-                                  hi,
-                                  lo,
-                                  sum(both_na),
-                                  sum(!both_na & is.na(x)),
-                                  sum(!both_na & is.na(y))),
+  comparison_names <- c(paste(name1, c("==", ">", "<"), name2),
+                        "Both NA",
+                        paste(c(name1, name2), "NA only"))
+  count_vals <- c(equal, hi, lo, sum(both_na), sum(!both_na & is.na(x)), sum(!both_na & is.na(y)))
+  tbl <- tibble::tibble(comparison = comparison_names,
+                        count = count_vals,
                         prop = .data$count / length(x))
   if (!na.rm) return(tbl)
   tbl[1:3, ]
