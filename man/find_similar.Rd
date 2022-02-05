@@ -2,7 +2,7 @@
 % Please edit documentation in R/compare.R
 \name{find_similar}
 \alias{find_similar}
-\title{Returns a table of counts of pairwise matches between columns of two data frames}
+\title{Count pairwise matches between columns of two data frames}
 \usage{
 find_similar(df1, df2 = NULL)
 }
