@@ -22,12 +22,14 @@ mode_stat <- function(x, multiple = TRUE, na.rm = TRUE) {
   ux[mode_loc]
 }
 
-#' Convert a factor with numeric or logical levels to a numeric vector
+#' Convert a factor with numeric or logical-type levels to a numeric vector
 #'
-#' The obvious `as.numeric()` is incorrect. No checks are made on the level contents except to check if levels are
-#' `c("TRUE", "FALSE")`, in which case they will be converted to a integer vector (0 for FALSE, 1 for TRUE).
+#' The obvious `as.numeric()` is incorrect. No checks are made on the level contents except
+#' to check if levels are `c("TRUE", "FALSE")`, in which case they will be converted to a
+#' integer vector (0 for FALSE, 1 for TRUE).
 #'
-#' Numeric part is from <https://stackoverflow.com/questions/3418128/how-to-convert-a-factor-to-integer-numeric-without-loss-of-information>.
+#' Numeric part is from
+#' <https://stackoverflow.com/questions/3418128/how-to-convert-a-factor-to-integer-numeric-without-loss-of-information>.
 #'
 #' @param x A factor.
 #'
@@ -153,4 +155,18 @@ need <- function(package) {
     stop("Package \"", package, "\" needed for this script/function to work. Please install it.",
          call. = FALSE)
   }
+}
+
+#' Get sizes, in Mb, of all objects in global environment
+#'
+#' Returns table of sizes of all objects in the global environment in Mb (1024^2 B), in
+#' decreasing order of size.
+#'
+#' @return A tibble with two columns: object name and size in Mb.
+#' @export
+object_size_all <- function(){
+  names <- ls(envir = .GlobalEnv)
+  mb <- vapply(names, function(x) utils::object.size(get(x, envir = .GlobalEnv)) / 1024^2, numeric(1))
+  mb <- sort(mb, decreasing = TRUE)
+  tibble::tibble(object = names(mb), Mb = mb)
 }
