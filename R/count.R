@@ -107,10 +107,11 @@ count_pattern <- function(df, pattern, all = FALSE){
 #' @returns A named integer vector for `count_matches()`. A tibble for `count_matches2()`.
 #'
 #' @param df A data frame.
-#' @param value A length one vector.
+#' @param values Vector of values to match.
 #' @param all By default variables with no matches are omitted from the output. Set `all=T` to show all.
 #' @param prop Default is to return counts of matches. Set `prop=TRUE` to return proportions of the number of rows.
-#'
+#' @param detail Logical. If `TRUE` returns a tibble with counts for each element in `values`. If
+#' `FALSE` then only total matches per column are returned, as a named vector.
 #' @examples
 #' x <- data.frame(a = c("an", "banana", "candy"), b = c("on", "bon", "bonbon"), c = 1:3)
 #' count_matches(x, "an", all = TRUE)
@@ -120,59 +121,21 @@ count_pattern <- function(df, pattern, all = FALSE){
 #' count_matches(x, "1") # type must match
 #'
 #' @export
-count_matches <- function(df, value, all = FALSE, prop = FALSE){
+count_matches <- function(df, values = string_missing(), all = FALSE, prop = FALSE, detail = FALSE) {
   if (!is.list(df)) {
     stop("Argument \"df\" must be a list.", call. = FALSE)
   }
-  if (length(value) != 1){
-    stop("Argument \"value\" must be length 1.", call. = FALSE)
+  if (!detail){
+    return(count_matches_simple(df, values, all = all, prop = prop))
   }
-  type <- typeof(value)
-  f <- function(x){
-    if (typeof(x) == type | (is.factor(x) & type == "character")){
-      sum(x == value, na.rm = TRUE)
-    }else{
-      0L
-    }
-  }
-  vals <- vapply(df, f, integer(1))
-  vals <- vals[vals > 0 | all]
-  if (prop) vals <- vals / nrow(df)
-  if(length(vals) == 0){
-    message("No matches in the data.")
-    invisible(vals)
-  }else{
-    vals
-  }
-}
-
-#' @param strings A character vector. Defaults to `string_missing()`.
-#' @examples
-#' df <- data.frame(col1 = c("a", ".", ".", "a"),
-#'                  col2 = c("-", "-", "b", "b"),
-#'                  col3 = rep("z", 4),
-#'                  col4 = c("n/a", "f", "f", ""))
-#' strs <- c(".", "-", "n/a", "na", "")
-#' count_matches2(df, strs, all = TRUE)
-#' count_matches2(df, strs)
-#'
-#' @rdname count_matches
-#' @export
-count_matches2 <- function(df, strings = string_missing(), all = FALSE, prop = FALSE) {
-  if (!is.list(df)) {
-    stop("Argument \"df\" must be a list.", call. = FALSE)
-  }
-  if (!is.character(strings)||!is.vector(strings)){
-    stop("Argument \"strings\" must be a character vector.", call. = FALSE)
-  }
-  tb <- lapply(strings,
-               FUN = count_matches,
+  tb <- lapply(values,
+               FUN = count_matches_simple,
                df = df,
                all = TRUE,
                prop = prop) %>%
     dplyr::bind_rows() %>%
-    dplyr::mutate(string = strings) %>%
-    dplyr::select(.data$string, dplyr::everything())
+    dplyr::mutate(value = values) %>%
+    dplyr::select(.data$value, dplyr::everything())
 
   if (all){
     return(tb)
@@ -185,6 +148,40 @@ count_matches2 <- function(df, strings = string_missing(), all = FALSE, prop = F
     return(invisible(tb))
   }
   tb
+}
+
+#' Count matches to a value in a vector
+#'
+#' Helper for `count_matches()`. Counts occurrences of `value` in `x`. The type must also match.
+#' @param x Vector to search.
+#' @param value Value to match.
+#' @noRd
+total_matches_vec <- function(x, value){
+  if (typeof(x) == typeof(value) | (is.factor(x) & typeof(value) == "character")){
+    sum(x == value, na.rm = TRUE)
+  }else{
+    0L
+  }
+}
+
+#' Count elements, by column in a data frame, which exactly match a value
+#'
+#' Used in `count_matches()` when `detail = FALSE`.
+#' @param df A data frame.
+#' @param value A length one vector.
+#' @param all By default variables with no matches are omitted from the output. Set `all=T` to show all.
+#' @param prop Default is to return counts of matches. Set `prop=TRUE` to return proportions of the number of rows.
+#' @noRd
+count_matches_simple <- function(df, value, all = FALSE, prop = FALSE){
+  vals <- vapply(df, total_matches_vec, integer(1), value = value)
+  vals <- vals[vals > 0 | all]
+  if (prop) vals <- vals / nrow(df)
+  if(length(vals) == 0){
+    message("No matches in the data.")
+    invisible(vals)
+  }else{
+    vals
+  }
 }
 
 #' Simple summary of the variables in a data frame

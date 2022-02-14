@@ -148,3 +148,44 @@ glmnet_to_table <- function(fit, ..., min_coef=1E-10) {
     dplyr::filter(abs(coef) >= min_coef) %>%
     dplyr::arrange(dplyr::desc(coef))
 }
+
+#' @param strings A character vector. Defaults to `string_missing()`.
+#' @examples
+#' df <- data.frame(col1 = c("a", ".", ".", "a"),
+#'                  col2 = c("-", "-", "b", "b"),
+#'                  col3 = rep("z", 4),
+#'                  col4 = c("n/a", "f", "f", ""))
+#' strs <- c(".", "-", "n/a", "na", "")
+#' count_matches2(df, strs, all = TRUE)
+#' count_matches2(df, strs)
+#'
+#' @rdname count_matches
+#' @export
+count_matches2 <- function(df, strings = string_missing(), all = FALSE, prop = FALSE) {
+  if (!is.list(df)) {
+    stop("Argument \"df\" must be a list.", call. = FALSE)
+  }
+  if (!is.character(strings)||!is.vector(strings)){
+    stop("Argument \"strings\" must be a character vector.", call. = FALSE)
+  }
+  tb <- lapply(strings,
+               FUN = count_matches_simple,
+               df = df,
+               all = TRUE,
+               prop = prop) %>%
+    dplyr::bind_rows() %>%
+    dplyr::mutate(string = strings) %>%
+    dplyr::select(.data$string, dplyr::everything())
+
+  if (all){
+    return(tb)
+  }
+  sum_rows <- rowSums(tb[, -1])
+  sum_cols <- c(1L, colSums(tb[, -1]))
+  tb <- tb[sum_rows > 0, sum_cols > 0]
+  if (sum(sum_rows) == 0){
+    message("No matches in the data.")
+    return(invisible(tb))
+  }
+  tb
+}

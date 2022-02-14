@@ -45,6 +45,23 @@ test_that("count_matches2 works", {
   expect_message(count_matches2(y, "x"), "No matches in the data")
 })
 
+test_that("count_matches with detail=TRUE works", {
+  tb1 <- count_matches(y, strs, TRUE, detail=TRUE)
+  tb2 <- count_matches(y[, 1], strs, TRUE, detail=TRUE)
+  tb3 <- count_matches(y, ".", TRUE, detail=TRUE)
+  tb4 <- count_matches(y[, 1], ".", TRUE, detail=TRUE)
+  n_str <- length(strs)
+  ycol <- ncol(y)
+  expect_identical(dim(tb1), c(n_str, ycol + 1L))
+  expect_identical(dim(tb2), c(n_str, 2L))
+  expect_identical(dim(tb3), c(1L, ycol + 1L))
+  expect_identical(dim(tb4), c(1L, 2L))
+  expect_identical(count_matches(y, strs, detail=TRUE), count_matches(y, c(strs, "x"), detail=TRUE))
+  expect_identical(names(tb1), c("value", colnames(y)))
+  expect_identical(tb1$value, strs)
+  expect_message(count_matches(y, "x", detail=TRUE), "No matches in the data")
+})
+
 test_that("count_nas is correct", {
   expect_message(mt <- count_nas(mtcars), "no NAs in the data")
   expect_identical(length(mt), 0L)
