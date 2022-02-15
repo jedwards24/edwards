@@ -149,32 +149,25 @@ glmnet_to_table <- function(fit, ..., min_coef=1E-10) {
     dplyr::arrange(dplyr::desc(coef))
 }
 
-#' @param strings A character vector. Defaults to `string_missing()`.
-#' @examples
-#' df <- data.frame(col1 = c("a", ".", ".", "a"),
-#'                  col2 = c("-", "-", "b", "b"),
-#'                  col3 = rep("z", 4),
-#'                  col4 = c("n/a", "f", "f", ""))
-#' strs <- c(".", "-", "n/a", "na", "")
-#' count_matches2(df, strs, all = TRUE)
-#' count_matches2(df, strs)
-#'
+#' @description
+#' `count_matches2()` is a deprecated function that has been replaced by the `detail` argument.
 #' @rdname count_matches
 #' @export
-count_matches2 <- function(df, strings = string_missing(), all = FALSE, prop = FALSE) {
+count_matches2 <- function(df, values = string_missing(), all = FALSE, prop = FALSE) {
+  lifecycle::deprecate_warn("0.3.1", "count_matches2()", "count_matches(detail=TRUE)")
   if (!is.list(df)) {
     stop("Argument \"df\" must be a list.", call. = FALSE)
   }
-  if (!is.character(strings)||!is.vector(strings)){
-    stop("Argument \"strings\" must be a character vector.", call. = FALSE)
+  if (!is.character(values)||!is.vector(values)){
+    stop("Argument \"values\" must be a character vector.", call. = FALSE)
   }
-  tb <- lapply(strings,
+  tb <- lapply(values,
                FUN = count_matches_simple,
                df = df,
                all = TRUE,
                prop = prop) %>%
     dplyr::bind_rows() %>%
-    dplyr::mutate(string = strings) %>%
+    dplyr::mutate(string = values) %>%
     dplyr::select(.data$string, dplyr::everything())
 
   if (all){
