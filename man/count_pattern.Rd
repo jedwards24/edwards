@@ -4,14 +4,16 @@
 \alias{count_pattern}
 \title{Count the total number, by column, of entries in a data frame that match a string pattern}
 \usage{
-count_pattern(df, pattern, all = FALSE)
+count_pattern(df, pattern, all = FALSE, negate = FALSE)
 }
 \arguments{
 \item{df}{A data frame.}
 
-\item{pattern}{A string pattern (regular expression).}
+\item{pattern}{Pattern to look for. Passed to \code{stringr::str_detect()}.}
 
 \item{all}{By default variables with no matches are omitted from the output. Set all=T to show all.}
+
+\item{negate}{Passed to \code{stringr::str_detect()}.}
 }
 \description{
 Returns a named integer vector with elements that give the number of entries in the corresponding

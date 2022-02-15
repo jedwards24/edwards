@@ -9,8 +9,8 @@ strs <- c(".", "-", "n/a", "na", "")
 
 test_that("count_pattern is correct", {
   expect_identical(count_pattern(x, "an"), c(a = 3L))
-  expect_identical(count_pattern(x, "an", all = T), c(a = 3L, b = 0L, c = 0L))
-  expect_identical(count_pattern(x, "nun", all = T), c(a = 0L, b = 0L, c = 0L))
+  expect_identical(count_pattern(x, "an", all = TRUE), c(a = 3L, b = 0L, c = 0L))
+  expect_identical(count_pattern(x, "nun", all = TRUE), c(a = 0L, b = 0L, c = 0L))
   expect_message(res1 <- count_pattern(x, "un"), "not found in the data")
   expect_identical(res1, rlang::set_names(integer(0L)))
   expect_message(res2 <- count_pattern(x, "1"), "not found in the data")
