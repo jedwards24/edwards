@@ -38,15 +38,9 @@ count_matches <- function(df, values = string_missing(), all = FALSE, prop = FAL
   if (!detail){
     return(count_matches_simple(df, values, all = all, prop = prop))
   }
-  tb <- lapply(values,
-               FUN = count_matches_single,
-               df = df) %>%
-    dplyr::bind_rows()
+  tb <- purrr::map_dfr(values, ~count_matches_single(df, .))
   if (prop) tb <- tb / nrow(df)
-  tb <- tb %>%
-    dplyr::mutate(value = values) %>%
-    dplyr::select(.data$value, dplyr::everything())
-
+  tb <- dplyr::bind_cols(value = values, tb)
   if (all){
     return(tb)
   }
@@ -123,15 +117,14 @@ total_matches_single <- function(x, value){
 #' Count the total number, by column, of entries in a data frame that match a string pattern
 #'
 #' Returns a named integer vector with elements that give the number of entries in the corresponding
-#' column of `df` that contain a match to the string pattern `pattern`. No coercion is used
-#' so only characters or factors are matched (see examples).
+#' column of `df` that match the string pattern `pattern`. No coercion is used
+#' so only characters or factors are matched.
 #'
 #' Note that repeated occurrences of `pattern` in a single string are only counted once (see examples).
 #'
 #' @param df A data frame.
 #' @param pattern Pattern to look for. Passed to `stringr::str_detect()`.
 #' @param all By default variables with no matches are omitted from the output. Set all=T to show all.
-#' @param negate Passed to `stringr::str_detect()`.
 #' @examples
 #' x <- data.frame(a = c("an", "banana", "candy"), b = c("on", "bon", "bonbon"), d = 1:3)
 #' count_pattern(x, "an", all = TRUE)
@@ -140,11 +133,11 @@ total_matches_single <- function(x, value){
 #' count_pattern(x, "1") # not matched to integers
 #'
 #' @export
-count_pattern <- function(df, pattern, all = FALSE, negate = FALSE){
+count_pattern <- function(df, pattern, all = FALSE){
   if (!is.data.frame(df)) {
     stop("Argument \"df\" must be a data frame", call. = FALSE)
   }
-  vals <- vapply(df, count_pattern_vec, integer(1), pattern = pattern, negate = negate)
+  vals <- vapply(df, count_pattern_vec, integer(1), pattern = pattern)
   vals <- vals[all | vals > 0]
   if(length(vals) == 0){
     message("Pattern not found in the data.")
@@ -159,11 +152,10 @@ count_pattern <- function(df, pattern, all = FALSE, negate = FALSE){
 #' Helper for `count_pattern()`. Counts occurrences of `value` in `x`. The type must also match.
 #' @param x Vector to search.
 #' @param pattern Pattern to look for. Passed to `stringr::str_detect()`.
-#' @param negate Passed to `stringr::str_detect()`.
 #' @noRd
-count_pattern_vec <- function(x, pattern, negate = FALSE){
+count_pattern_vec <- function(x, pattern){
   if (is.character(x) | is.factor(x)){
-    sum(stringr::str_detect(x, pattern, negate), na.rm = TRUE)
+    sum(stringr::str_detect(x, pattern), na.rm = TRUE)
   }else{
     0L
   }

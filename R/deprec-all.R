@@ -43,6 +43,7 @@ count_string <- function(...){
 #'   `plot` argument).
 #'
 #' @importFrom ggplot2 aes
+#' @keywords internal
 #' @export
 prop_ci <- function(dt, target_name, var_name, min_n = 1, show_all = TRUE, order_n = NULL,
                     conf_level = 0.95, prop_lim = NULL, pos_class = NULL, plot = TRUE,
@@ -138,7 +139,7 @@ prop_ci <- function(dt, target_name, var_name, min_n = 1, show_all = TRUE, order
 #' @param fit A fitted glmnet model.
 #' @param min_coef Coefficients with smaller absolute value than this are excluded from the table.
 #' @param ... Arguments passed to `coef()`. For `glmnet`, most commonly used will be `s` (see `predict.cv.glmnet()`).
-#'
+#' @keywords internal
 #' @export
 glmnet_to_table <- function(fit, ..., min_coef=1E-10) {
   lifecycle::deprecate_warn("0.3.1", "glmnet_to_table()", "jemodel::coef_to_table()")
@@ -154,7 +155,8 @@ glmnet_to_table <- function(fit, ..., min_coef=1E-10) {
 #' @rdname count_matches
 #' @export
 count_matches2 <- function(df, values = string_missing(), all = FALSE, prop = FALSE) {
-  lifecycle::deprecate_warn("0.3.1", "count_matches2()", "count_matches(detail=TRUE)")
+  lifecycle::deprecate_warn("0.3.1", "count_matches2()",
+                            details = "Replaced by `count_matches(detail=TRUE)`")
   if (!is.list(df)) {
     stop("Argument \"df\" must be a list.", call. = FALSE)
   }

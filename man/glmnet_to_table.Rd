@@ -21,3 +21,4 @@ coefficients with absolute value greater than \code{min_coef} are included.
 This is a simplified version of \code{jemodel::glmnet_to_table()} kept here to provide some backwards
 compatibility. Longer term it may be removed from this package.
 }
+\keyword{internal}
