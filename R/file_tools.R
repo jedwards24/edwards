@@ -1,49 +1,56 @@
-#' Get file name of most recent file in a directory
+#' Get paths of files using file name ordering
 #'
-#' Looks for files in a directory `path` with names beginning `"root_name_dd"`, where
-#' dd are digits. Returns the full path of the file with the maximum numeric part of its name.
-#' This maximum is decided alphabetically so the numeric part of the file names should be structured
-#' similarly across the compared files e.g. a two digit version number or date in yyyy-mm-dd form.
+#' @description
+#' Looks for files in a directory `path` with file name matching `pattern`. The path of the `n`th
+#' file, ordered alphabetically by file name is returned. "File name" here refers to the part of
+#' the path without any directory names i.e. the part following the final "/".
 #'
-#' The string `root_name` can be a regex pattern. Lower and upper case versions of `file_ext`
-#' will also be matched.
+#' The intended use is with files names with matching structure with well-ordered numeric endings,
+#' such as "yyyy-mm-dd" or fixed length numeric ids. Output may not be as intended if
+#' comparing files with different structures.
 #'
 #' @param path A string path name for the directory to search in.
-#' @param root_name A string giving the part of the file name before the date.
-#' @param file_ext An optional string giving a file extension which the returned file name must end in.
-#' @param verbose If `TRUE` will give detail about all matched files and other files containing `root_name`.
-#' @param silent If `TRUE` will suppress all messages.
-#' @param n Integer. Option to return the nth latest file.
-#'
+#' @param pattern A string pattern to filter file names by. The pattern is only applied to the part
+#'   of the path following the final "/".
+#' @param ext An optional string giving a file extension which the returned file name must end in.
+#'   The supplied extension is checked for an exact match (ignoring case) to the ".xxx" part of the
+#'   file name.
+#' @param n Integer. Return the nth file path. This can have length > 1, in which case multiple file
+#'   paths are returned. An error will be thrown if there are insufficient matches.
+#' @param decreasing Logical passed to `order()`. By default returns the (nth) largest value.
+#' @param ... Other arguments passed to `fs:dir_ls()`. The argument `type` is always set to `"file"`
+#'   and so must not be supplied. Arguments `regexp` or `glob` are applied to the full file path and
+#'   so affect output differently than `pattern`.
 #' @export
-latest_file <- function(path = ".", root_name=".*", file_ext = NULL, verbose = FALSE, silent = FALSE, n = 1L) {
-  if (!is.numeric(n)) stop("`n` must be numeric.", call. = FALSE)
-  if (!dir.exists(path)){
-    stop(paste0("Directory ", path, " does not exist."), call. = FALSE)
+latest_file <- function(path = ".", pattern = NULL, ext = NULL, n = 1L, decreasing = TRUE, ...) {
+  if (!is.numeric(n)){
+    stop("`n` must be numeric.", call. = FALSE)
   }
-  files_match <- list.files(path, pattern = paste0("^", root_name, "_\\d{2}"))
-  if (!is.null(file_ext)){
-    patt <- paste0(file_ext, "$|", stringr::str_to_lower(file_ext), "$|", stringr::str_to_upper(file_ext), "$")
-    files_match <- stringr::str_subset(files_match, pattern = patt)
+  if (!rlang::is_character(path, 1L)){
+    stop("`path` must be a length one string", call. = FALSE)
   }
-  if(length(files_match) == 0){
-    stop("No matching files found in that directory.", call. = FALSE)
+  if (!is.null(pattern) && !rlang::is_character(pattern, 1L)){
+    stop("`pattern` must be a length one string", call. = FALSE)
   }
-  if (verbose){
-    message('Filenames found containing "', root_name, '_dd":\n', paste0(sort(files_match), sep = "\n"))
-    other_matches <- setdiff(stringr::str_subset(list.files(path), root_name), files_match)
-    if (length(other_matches) > 0){
-      warning('There are other filenames containing "', root_name, '" that are ignored for latest file:\n',
-              paste0(sort(other_matches), sep = "\n"), call. = FALSE)
+  fpaths <- fs::dir_ls(path, type = "file", ...)
+  if (!is.null(pattern)){
+    fnames <- fs::path_file(fpaths)
+    fpaths <- fpaths[grep(pattern, fnames)]
+  }
+  if (!is.null(ext)){
+    fpaths <- fpaths[grep(ext, fs::path_ext(fpaths), ignore.case = TRUE)]
+  }
+  if (length(fpaths) < max(n)){
+    msg <- "There are fewer than `n` matching files.\n"
+    if (length(fpaths) == 0){
+      msg <- paste0(msg, "No files match.")
+    }else{
+      msg <- paste0(msg, "Matching file(s):\n", paste0(fpaths, collapse = "\n"))
     }
+    stop(msg, call. = FALSE)
   }
-  chosen <- max_n(files_match, n)
-  if(!silent) message("Matched file is ", chosen)
-  if (stringr::str_detect(path, "/$")){
-    paste0(path, chosen)
-  }else{
-    paste0(path, "/", chosen)
-  }
+  name_order <- order(fs::path_file(fpaths), decreasing = decreasing)
+  fpaths[name_order][n]
 }
 
 #' Conditionally save file to RDS.

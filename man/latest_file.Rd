@@ -2,37 +2,42 @@
 % Please edit documentation in R/file_tools.R
 \name{latest_file}
 \alias{latest_file}
-\title{Get file name of most recent file in a directory}
+\title{Get paths of files using file name ordering}
 \usage{
 latest_file(
   path = ".",
-  root_name = ".*",
-  file_ext = NULL,
-  verbose = FALSE,
-  silent = FALSE,
-  n = 1L
+  pattern = NULL,
+  ext = NULL,
+  n = 1L,
+  decreasing = TRUE,
+  ...
 )
 }
 \arguments{
 \item{path}{A string path name for the directory to search in.}
 
-\item{root_name}{A string giving the part of the file name before the date.}
+\item{pattern}{A string pattern to filter file names by. The pattern is only applied to the part
+of the path following the final "/".}
 
-\item{file_ext}{An optional string giving a file extension which the returned file name must end in.}
+\item{ext}{An optional string giving a file extension which the returned file name must end in.
+The supplied extension is checked for an exact match (ignoring case) to the ".xxx" part of the
+file name.}
 
-\item{verbose}{If \code{TRUE} will give detail about all matched files and other files containing \code{root_name}.}
+\item{n}{Integer. Return the nth file path. This can have length > 1, in which case multiple file
+paths are returned. An error will be thrown if there are insufficient matches.}
 
-\item{silent}{If \code{TRUE} will suppress all messages.}
+\item{decreasing}{Logical passed to \code{order()}. By default returns the (nth) largest value.}
 
-\item{n}{Integer. Option to return the nth latest file.}
+\item{...}{Other arguments passed to \code{fs:dir_ls()}. The argument \code{type} is always set to \code{"file"}
+and so must not be supplied. Arguments \code{regexp} or \code{glob} are applied to the full file path and
+so affect output differently than \code{pattern}.}
 }
 \description{
-Looks for files in a directory \code{path} with names beginning \code{"root_name_dd"}, where
-dd are digits. Returns the full path of the file with the maximum numeric part of its name.
-This maximum is decided alphabetically so the numeric part of the file names should be structured
-similarly across the compared files e.g. a two digit version number or date in yyyy-mm-dd form.
-}
-\details{
-The string \code{root_name} can be a regex pattern. Lower and upper case versions of \code{file_ext}
-will also be matched.
+Looks for files in a directory \code{path} with file name matching \code{pattern}. The path of the \code{n}th
+file, ordered alphabetically by file name is returned. "File name" here refers to the part of
+the path without any directory names i.e. the part following the final "/".
+
+The intended use is with files names with matching structure with well-ordered numeric endings,
+such as "yyyy-mm-dd" or fixed length numeric ids. Output may not be as intended if
+comparing files with different structures.
 }
