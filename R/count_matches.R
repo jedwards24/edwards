@@ -82,7 +82,7 @@ count_matches_simple <- function(df, values, all = FALSE, prop = FALSE){
 #' @param value Vector of values to match.
 #' @noRd
 total_matches_vec <- function(x, value){
-  if (typeof(x) == typeof(value) | (is.factor(x) & typeof(value) == "character")){
+  if (typeof(x) == typeof(value) || (is.factor(x) && typeof(value) == "character")){
     sum(x %in% value, na.rm = TRUE)
   }else{
     0L
@@ -107,7 +107,7 @@ count_matches_single <- function(df, value){
 #' @param value Value to match (length one).
 #' @noRd
 total_matches_single <- function(x, value){
-  if (typeof(x) == typeof(value) | (is.factor(x) & typeof(value) == "character")){
+  if (typeof(x) == typeof(value) || (is.factor(x) && typeof(value) == "character")){
     sum(x == value, na.rm = TRUE)
   }else{
     0L
@@ -154,7 +154,7 @@ count_pattern <- function(df, pattern, all = FALSE){
 #' @param pattern Pattern to look for. Passed to `stringr::str_detect()`.
 #' @noRd
 count_pattern_vec <- function(x, pattern){
-  if (is.character(x) | is.factor(x)){
+  if (is.character(x) || is.factor(x)){
     sum(stringr::str_detect(x, pattern), na.rm = TRUE)
   }else{
     0L
