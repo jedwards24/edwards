@@ -2,19 +2,29 @@
 % Please edit documentation in R/utils.R
 \name{max_n}
 \alias{max_n}
-\title{nth maximum element in a vector}
+\alias{min_n}
+\title{Select vector elements by sorted position}
 \usage{
-max_n(x, n = 2L, na.rm = FALSE)
+max_n(x, n = 2L)
+
+min_n(x, n = 2L)
 }
 \arguments{
 \item{x}{A vector.}
 
 \item{n}{Numeric vector giving the ranks of elements to be returned.}
-
-\item{na.rm}{A logical indicating whether missing values should be ignored.
-If \code{FALSE} an \code{NA} value in any of the arguments will cause a value of \code{NA}
-to be returned.}
+}
+\value{
+A vector of length equal to \code{n}.
 }
 \description{
-nth maximum element in a vector
+Returns elements of \code{x} by position \code{n} after sorting by, decreasing for \code{max_n()} or increasing for \code{min_n()}.
+Any \code{NA} elements of \code{x} are ranked last for either function.
+}
+\examples{
+x <- 5:8
+max_n(x, 2)
+min_n(x, 1:2)
+max_n(c(5:7, NA), 1:4)
+min_n(c(5:7, NA), 1:4)
 }

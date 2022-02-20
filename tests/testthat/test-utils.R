@@ -14,19 +14,19 @@ test_that("factor_to_numeric() works", {
   expect_identical(factor_to_numeric(factor(x2)), x2)
   expect_equal(factor_to_numeric(factor(x3)), x3)
 })
+test_that("extend_vector() works", {
+  expect_identical(extend_vector(2:4, 5), c(2:4, NA, NA))
+  expect_identical(extend_vector(2:4, 2), 2:4)
+})
 
 test_that("min_n() and max_n() work", {
   x <- c(4:6, NA)
   expect_error(min_n(x, 5), "must be between")
-  expect_error(min_n(x, 4, na.rm = TRUE), "must be no greater")
-  expect_true(is.na(min_n(x, 4, na.rm = FALSE)))
-  expect_true(is.na(min_n(x, 2, na.rm = FALSE)))
-  expect_equal(min_n(x, 1:3, na.rm = TRUE), 4:6)
   expect_error(max_n(x, 5), "must be between")
-  expect_error(max_n(x, 4, na.rm = TRUE), "must be no greater")
-  expect_true(is.na(max_n(x, 4, na.rm = FALSE)))
-  expect_true(is.na(max_n(x, 2, na.rm = FALSE)))
-  expect_equal(max_n(x, 1:3, na.rm = TRUE), 6:4)
+  expect_equal(min_n(x, 1:4), x)
+  expect_equal(max_n(x, 1:4), c(6:4, NA))
+  expect_equal(min_n(x, 3:4), c(6L, NA))
+  expect_equal(max_n(x, 3:4), c(4L, NA))
 })
 
 test_that("need() works", {

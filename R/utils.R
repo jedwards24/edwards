@@ -81,47 +81,69 @@ prinf <- function(x) {
   invisible(x)
 }
 
-#' nth maximum element in a vector
+#' Select vector elements by sorted position
 #'
+#' Returns elements of `x` by position `n` after sorting by, decreasing for `max_n()` or increasing for `min_n()`.
+#' Any `NA` elements of `x` are ranked last for either function.
+#' @examples
+#' x <- 5:8
+#' max_n(x, 2)
+#' min_n(x, 1:2)
+#' max_n(c(5:7, NA), 1:4)
+#' min_n(c(5:7, NA), 1:4)
 #' @param x A vector.
 #' @param n Numeric vector giving the ranks of elements to be returned.
-#' @param na.rm A logical indicating whether missing values should be ignored.
-#'   If `FALSE` an `NA` value in any of the arguments will cause a value of `NA`
-#'   to be returned.
-#'
+#' @return A vector of length equal to `n`.
 #' @export
-max_n <- function(x, n = 2L, na.rm = FALSE){
-  if (!is.numeric(n)) stop("`n` must be numeric.", call. = FALSE)
+max_n <- function(x, n = 2L){
+  if (!is.numeric(n)){
+    stop("`n` must be numeric.", call. = FALSE)
+  }
   if ((max(n) > length(x)) | (min(n) < 1L))
     stop('All elements of `n` must be between 1 and `length(x)`.', call. = FALSE)
-  if (!na.rm && any(is.na(x))) return (x[is.na(x)][1]) # match class of x
-  if (na.rm) x <- x[!is.na(x)]
   len <- length(x)
-  if (max(n) >= len + 1)
-    stop("All elements of `n` must be no greater than the number of non-missing values
-         in `x`.", call. = FALSE)
+  if (any(is.na(x))){
+    return(sort(x, decreasing = TRUE, na.last = TRUE)[n])
+  }
   sort(x, partial = len - n + 1)[len - n + 1]
 }
 
-#' nth minimum element in a vector
-#'
-#' @param x A vector.
-#' @param n Numeric vector giving the ranks of elements to be returned.
-#' @param na.rm A logical indicating whether missing values should be ignored.
-#'   If `FALSE` an `NA` value in any of the arguments will cause a value of `NA`
-#'   to be returned.
-#'
+#' @rdname max_n
 #' @export
-min_n <- function(x, n = 2L, na.rm = FALSE){
-  if (!is.numeric(n)) stop("`n` must be numeric.", call. = FALSE)
+min_n <- function(x, n = 2L){
+  if (!is.numeric(n)){
+    stop("`n` must be numeric.", call. = FALSE)
+  }
   if ((max(n) > length(x)) | (min(n) < 1L))
     stop('All elements of `n` must be between 1 and `length(x)`.', call. = FALSE)
-  if (!na.rm && any(is.na(x))) return (x[is.na(x)][1]) # match class of x
-  if (na.rm) x <- x[!is.na(x)]
-  if (max(n) >= length(x) + 1)
-    stop("All elements of `n` must be no greater than the number of non-missing values
-         in `x`.", call. = FALSE)
+  if (any(is.na(x))){
+    return(sort(x, na.last = TRUE)[n])
+  }
   sort(x, partial = n)[n]
+}
+
+#' Extend vector to given length
+#'
+#' Appends `NA` values to `x` so that its length is `n`.
+#' @param x An atomic vector.
+#' @param n Length one numeric.
+#' @return A vector of length `n`.
+#' @examples
+#' extend_vector(2:5, 7)
+#' extend_vector(2:5, 2)
+#' @export
+extend_vector <- function(x, n) {
+  if (!is.numeric(n) || length(n) != 1){
+    stop("`n` must be a length 1 numeric.", call. = FALSE)
+  }
+  if (!is.atomic(x)){
+    stop("`x` must be atomic.", call. = FALSE)
+  }
+  if (length(x) >= n){
+    return(x)
+  }
+  extra <- rep(NA, n - length(x))
+  c(x, extra)
 }
 
 #' Negation of `%in%`
