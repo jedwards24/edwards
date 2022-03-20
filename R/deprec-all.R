@@ -5,6 +5,30 @@ count_string <- function(...){
   count_pattern(...)
 }
 
+
+#' Vectorised inverse logit function
+#'
+#' Calculate the inverse logit function \eqn{exp(x) / (1 + exp(x))}. Modified from Faraway package.
+#' The original allowed for some elements to be `NA` which this does not. I added a check
+#' on `x` to avoid `NaN`. This occurs when `x` is greater than about
+#' 750 but, since \eqn{exp(x) / (1 + exp(x)) = 1} for \eqn{x>=20}, I only check for x > 20 and
+#' output 1 for these cases.
+#'
+#' @param x A numeric vector.
+#'
+#' @export
+ilogit <- function (x){
+  warning("`ilogit() is depreciated. Use `jemodel::ilogit()` instead.", call. = FALSE)
+  if (any(big <- (x > 20))) {
+    lv <- x
+    lv[big] <- 1
+    if (any(!big))
+      lv[!big] <- Recall(x[!big])
+    return(lv)
+  }
+  exp(x) / (1 + exp(x))
+}
+
 #########################################################################################
 # prop_ci: Confidence intervals for binary target variable by values of a discrete predictor.
 #########################################################################################

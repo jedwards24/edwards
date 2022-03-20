@@ -33,22 +33,6 @@ only_uniques(c("mpg", "wt"), dt)
 
 ?anyDuplicated
 
-# benchmarking func ---------
-# I want to automate comparisons between functions with a range of n arguments, then plot the results.
-library(microbenchmark)
-#https://stackoverflow.com/questions/48362852/microbenchmark-pass-a-variable-to-the-function
-#https://github.com/r-lib/bench
-
-n_vec <- c(1e3, 1e4, 1e5, 1e6)
-set.seed(11)
-for(i in seq_along(n_vec)){
-  mb <- microbenchmark(...)
-}
-
-#simplify_datetime() --------------
-# Wrapper for following but print which cols are converted.
-# mutate_if(dt, is_simple_datetime, ~as.Date(.))
-
 # count_int() var_integer()? ---------
 summarise_if(dt2, is.numeric, count_int) %>% pivot_longer(cols = everything())
 
@@ -56,3 +40,19 @@ summarise_if(dt2, is.numeric, count_int) %>% pivot_longer(cols = everything())
 #Explore which are simple datetimes. Maybe also check which are 0 in Excel i.e.equal as.POSIXct("1899-12-31", tz = "UTC")
 summarise_if(dt, is.POSIXct, is_simple_datetime) %>% pivot_longer(cols = everything())
 
+# here()----------
+# See loadable() https://github.com/yihui/xfun/blob/main/R/packages.R
+
+# factor_to_logical() --------
+
+x <- factor(c(T, F), levels = c(T, F))
+as.logical(x)
+
+x <- factor(c(1, 0))
+as.logical(x) # NA, NA
+as.logical(as.integer(x)) # T, T
+as.logical(factor_to_numeric(x)) #ok
+as.logical(factor_to_numeric(factor(0:3))) # not ok
+
+as.numeric(x) %>% as.logical()
+factor_to_numeric(x)

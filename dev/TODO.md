@@ -2,22 +2,34 @@
 
 ## General
 
+Update README.md.
+
 ## Existing functions
 
-+ Possible name change: find_similar() --> similar_cols() or compare_???
-+ ??var_summary() - add na_string arg to include in missing count
++ count funcs - just df inputs? (not list)
++ `var_summary()`: 
+    - add na_string arg to include in missing count (or separate column).
+    - Many columns are named vectors - strip these names?
+    - Check class used with multiclass cols.
 + `need()` could work with a vector input (multiple names). Error message can give all packages missing.
 + Review `convert_date()`. It uses `dmy()` or `dmy_hms()` as appropriate with a simplifying step. It perhaps is better broken up.
-+ rewrite `latest_file()`. Take `...` argument of regex patterns and filter to file names that match 
-  all of these. Then return latest file name by simple sort. Add helper funcs to give likely date 
-  patterns. Maybe rename function? recent_file()??
 + `dir_contents()` has minimal tests.
-* Combine `count_matches()` and `count_matches2()` into single user-facing function.  
+* find_similar() 
+    - test it handles columns with class length > 1.
+    - Add `key` arg when comparing 2 dfs.
+    - `binary_numeric` arg - treat numerics with all vals 0/1/NA as separate class.
+    - Rename to `find_similar_cols()` or `similar_cols()`.
+* `bin_integer()` 
+    - Replace with bin_numeric().
+    - Will `findInterval()` be faster than cut if generate my own labels?
+* standard runtime tests to reduce code duplication (check_df?)
+* `save_check` to work with csv etc.? 
 
 ## New functions
 
 These may already be in dev_code().
 
+* na_if_string()
 + key function
 + benchmarking over arguments
 + ??Add count_sheets() - see func google doc. Used in treat....Prob won't do this unless I use it anywhere else
@@ -32,4 +44,3 @@ These may already be in dev_code().
 + Non-missing head function.
 + Convert Excel dates from char or numeric: as.Date(as.numeric(vec), origin = "1899-12-30")
 + lengths <- function(x) vapply(x, length, integer(1))
-+ bin_numeric() - similar to bin_integer() (could replace it).
