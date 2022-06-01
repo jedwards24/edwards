@@ -80,20 +80,23 @@ save_check <- function(object, file, overwrite = FALSE, ...) {
 #' Similar to `fs::dir_info()` but with reduced output. Only files, not sub-directories are included.
 #'
 #' @return A data frame with columns as follows.
-#'  \item{path}{The path of the file, as a [fs_path()] character vector.}
 #'  \item{file_name}{The name of the file, as a character vector.}
 #'  \item{ext}{The extension of the file, as a character vector.}
+#'  \item{size}{The file size as an [fs_bytes()] vector.}
 #'  \item{mod_date}{The date of last data modification.}
+#'  \item{dir}{The directory part of the file path, as a character vector.}
 #' @param dir A character vector of one or more directory paths.
 #' @param ... Additional arguments passed to `dir_info()`.
 #' @export
 dir_files <- function(dir = ".", ...) {
-  fs::dir_info(dir, ...) %>%
+  out_cols <- c("file", "ext", "size", "mod_date", "dir")
+  fs::dir_info(path = dir, ...) %>%
     dplyr::filter(.data$type == "file") %>%
     dplyr::mutate(mod_date = lubridate::as_date(.data$modification_time)) %>%
-    dplyr::mutate(file_name = fs::path_file(.data$path)) %>%
+    dplyr::mutate(file = fs::path_file(.data$path)) %>%
     dplyr::mutate(ext = fs::path_ext(.data$path)) %>%
-    dplyr::select(dplyr::all_of(c("file_name", "ext", "size", "mod_date")))
+    dplyr::mutate(dir = fs::path_dir(.data$path)) %>%
+    dplyr::select(dplyr::all_of(out_cols))
 }
 
 #' Summarise the contents of a directory

@@ -1,6 +1,6 @@
 # edwards 0.3.2
 
-Deprecated functions:
+## Deprecated functions
 
 * Renamed `count_string()` to `count_pattern()`.
 * Deprecate `prop_ci()`. Replaced by `response` package [https://github.com/jedwards24/response](https://github.com/jedwards24/response).
@@ -8,7 +8,7 @@ Deprecated functions:
 * Deprecate `ilogit()`. Moved to jemodel package.
 * Deprecate `count_matches2()`. Absorbed into rewritten `count_matches()`.
 
-File tools:
+## File tools
 
 * Add new columns to `dir_contents()` output.
 * Add `recurse` argument to `dir_contents()` and `dir_size()`.
@@ -16,13 +16,13 @@ File tools:
 * Add `dir_count_files()` and  `dir_count_dirs()`.
 * Rewrite `latest_file()` to simplify (breaking). 
 
-Changes to existing functions: 
+## Changes to existing functions
 
 * Refactor `count_matches()` (tidier and faster). Absorb `count_matches2()` into `count_matches()`.
 * Refactor `find_similar()` code and add tests.
 * Rewrite `min_n()` and `max_n()`. Now length stable due to handling `NA`s differently (breaking).
 
-New functions:
+## New functions
 
 * Add `vcount()`. Like `count()` but for vectors.
 * Add `na_if_string()` and `na_if_all()`. Used to convert elements to `NA`.

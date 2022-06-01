@@ -13,10 +13,11 @@ dir_files(dir = ".", ...)
 }
 \value{
 A data frame with columns as follows.
-\item{path}{The path of the file, as a \code{\link[=fs_path]{fs_path()}} character vector.}
 \item{file_name}{The name of the file, as a character vector.}
 \item{ext}{The extension of the file, as a character vector.}
+\item{size}{The file size as an \code{\link[=fs_bytes]{fs_bytes()}} vector.}
 \item{mod_date}{The date of last data modification.}
+\item{dir}{The directory part of the file path, as a character vector.}
 }
 \description{
 Similar to \code{fs::dir_info()} but with reduced output. Only files, not sub-directories are included.

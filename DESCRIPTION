@@ -21,7 +21,6 @@ Imports:
     knitr,
     lubridate,
     stringr,
-    tidyr,
     kableExtra,
     purrr,
     binom,
