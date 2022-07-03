@@ -5,7 +5,7 @@
 #' No coercion is used so the type must also match (unless the column is a factor in which case
 #' character values will be matched to levels).
 #'
-#' @returns A named integer vector or tibble depending on the `detail` argument.
+#' @return A named integer vector or tibble depending on the `detail` argument.
 #'
 #' @param df A data frame.
 #' @param values Vector of values to match.
@@ -52,6 +52,17 @@ count_matches <- function(df, values = string_missing(), all = FALSE, prop = FAL
     return(invisible(tb))
   }
   tb
+}
+
+#' Strings commonly indicating missing values
+#'
+#' Used as a default argument in `count_matches()` and `var_summary()`.
+#'
+#' @return A character vector `c("", " ", ".", "-", "NA", "na", "n/a", "N/A", "(missing)")`.
+#'
+#' @export
+string_missing <- function(){
+  c("", " ", ".", "-", "NA", "na", "n/a", "N/A", "(missing)")
 }
 
 #' Count elements, by column in a data frame, which exactly match a value

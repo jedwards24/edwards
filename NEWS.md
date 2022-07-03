@@ -1,3 +1,16 @@
+# Since last version
+
+* Add `dir` column to output for `dir_files()` which gives directory path for each file.  
+* `var_summary()`: add `str_missing` columnn to output to count matches to supplied strings.
+* `var_summary()`: remove name attributes from elements in columns of output.
+* `var_summary()` now uses `dplyr::n_distinct()` instead of `length(unique()` to count unique values in columns. This should only change counts for data frame columns. Previously the columns in the data frame column were compared for uniqueness, whereas now the rows are compared. For examples,
+  
+```
+x <- tibble::tibble(a = c(1:3, 1), b = c(1, 1, 1, 1))
+length(unique(x))
+dplyr::n_distinct(x)
+```
+
 # edwards 0.3.2
 
 ## Deprecated functions

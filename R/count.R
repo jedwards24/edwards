@@ -55,15 +55,6 @@ count2 <- function(df, ..., sort = TRUE, wt = NULL, name = NULL) {
   dplyr::mutate(x, prop = .data[[count_name]] / sum(.data[[count_name]]))
 }
 
-#' Strings commonly indicating missing values
-#'
-#' @return A character vector `c("", " ", ".", "-", "NA", "na", "n/a", "N/A", "(missing)")`.
-#'
-#' @export
-string_missing <- function(){
-  c("", " ", ".", "-", "NA", "na", "n/a", "N/A", "(missing)")
-}
-
 #' Frequency count for values of a vector with tibble output.
 #'
 #' This behaves similarly to `count2()` but with a vector input.

@@ -81,17 +81,17 @@ compare_vecs <- function(x, y, names = NULL, simple = FALSE, tol = 1E-6, na.rm =
   }
   if(simple){
     same = sum(both_na) + equal
-    return(tibble::tibble(comparison = c("Match", "Different"),
-                          count = c(same, length(x) - same),
-                          prop = .data$count / length(x)))
+    return(tibble(comparison = c("Match", "Different"),
+                  count = c(same, length(x) - same),
+                  prop = .data$count / length(x)))
   }
   comparison_names <- c(paste(name1, c("==", ">", "<"), name2),
                         "Both NA",
                         paste(c(name1, name2), "NA only"))
   count_vals <- c(equal, hi, lo, sum(both_na), sum(!both_na & is.na(x)), sum(!both_na & is.na(y)))
-  tbl <- tibble::tibble(comparison = comparison_names,
-                        count = count_vals,
-                        prop = .data$count / length(x))
+  tbl <- tibble(comparison = comparison_names,
+                count = count_vals,
+                prop = .data$count / length(x))
   if (!na.rm) return(tbl)
   tbl[1:3, ]
 }
@@ -170,26 +170,26 @@ find_similar_single <- function(df){
 #' @param name_x Length one character. Name to be used for `x` in output.
 #' @noRd
 compare_cols_to_vector <- function(x, df_y, name_x) {
-  tibble::tibble(var1 = name_x,
-                 var2 = names(df_y),
-                 class = class(x),
-                 match = purrr::map_int(df_y, ~sum(. == x, na.rm = TRUE)),
-                 match_zero = purrr::map_int(df_y, ~sum(x == 0 & . == 0, na.rm = TRUE)),
-                 both_na = purrr::map_int(df_y, ~sum(is.na(x) & is.na(.))),
-                 na_1 = purrr::map_int(df_y, ~sum(is.na(x) & !is.na(.))),
-                 na_2 = purrr::map_int(df_y, ~sum(!is.na(x) & is.na(.))))
+  tibble(var1 = name_x,
+         var2 = names(df_y),
+         class = class(x),
+         match = purrr::map_int(df_y, ~sum(. == x, na.rm = TRUE)),
+         match_zero = purrr::map_int(df_y, ~sum(x == 0 & . == 0, na.rm = TRUE)),
+         both_na = purrr::map_int(df_y, ~sum(is.na(x) & is.na(.))),
+         na_1 = purrr::map_int(df_y, ~sum(is.na(x) & !is.na(.))),
+         na_2 = purrr::map_int(df_y, ~sum(!is.na(x) & is.na(.))))
 }
 
 # Used in find_similar() and find_similar_single().
 blank_find_similar <- function() {
-  tibble::tibble(var1 = character(0),
-                 var2 = character(0),
-                 class = character(0),
-                 match = integer(0),
-                 match_zero = integer(0),
-                 both_na = integer(0),
-                 na_1 = integer(0),
-                 na_2 = integer(0))
+  tibble(var1 = character(0),
+         var2 = character(0),
+         class = character(0),
+         match = integer(0),
+         match_zero = integer(0),
+         both_na = integer(0),
+         na_1 = integer(0),
+         na_2 = integer(0))
 }
 
 #' Compare two sets for overlap and differences.
@@ -215,12 +215,12 @@ compare_sets <- function(x, y, summary = TRUE) {
   just_y <- setdiff(y, x)
   union <- union(x, y)
   if(summary){
-    return(tibble::tibble(set = c("both", "just x", "just y"),
-                          count = c(length(both), length(just_x), length(just_y)),
-                          prop = .data$count / length(union)))
+    return(tibble(set = c("both", "just x", "just y"),
+                  count = c(length(both), length(just_x), length(just_y)),
+                  prop = .data$count / length(union)))
   }
-  tibble::tibble(element = union,
-                 both = union %in% both,
-                 just_x = union %in% just_x,
-                 just_y = union %in% just_y)
+  tibble(element = union,
+         both = union %in% both,
+         just_x = union %in% just_x,
+         just_y = union %in% just_y)
 }
