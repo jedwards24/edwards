@@ -4,6 +4,7 @@
 #' @importFrom rlang .data
 #' @importFrom stats coef
 #' @importFrom rlang :=
+#' @importFrom tibble tibble
 "_PACKAGE"
 
 globalVariables(".")

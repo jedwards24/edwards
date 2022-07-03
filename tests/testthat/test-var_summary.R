@@ -11,3 +11,10 @@ test_that("var_summary works", {
   expect_type(vv, "list")
   expect_error(var_summary(list(1)), "must be a data frame")
 })
+
+test_that("var_summary is correct", {
+  x <- tibble::tibble(a = 1:4,
+                      b = c(1, 1, NA, NaN),
+                      c = c(".", "", "NA", NA))
+  expect_snapshot_output(var_summary(x, na_strings = c("", "NA")))
+})

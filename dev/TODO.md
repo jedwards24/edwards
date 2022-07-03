@@ -12,10 +12,7 @@ Update README.md.
     - Option for pct instead of prop?
     - Arg for prop name.
     - Check for name clash with prop - use prop_prop/prop2?
-+ `var_summary()`: 
-    - add na_string arg to include in missing count (or separate column).
-    - Many columns are named vectors - strip these names?
-    - Check class used with multi-class cols.
+    - rename to countp/pcount? could vcount be countv?
 + `need()` could work with a vector input (multiple names). Error message can give all packages missing.
 + Review `convert_date()`. It uses `dmy()` or `dmy_hms()` as appropriate with a simplifying step. It perhaps is better broken up.
 + `dir_contents()` has minimal tests.
@@ -31,6 +28,8 @@ Update README.md.
 * `save_check` to work with csv etc.? 
 * `factor_to_numeric()` converts "TRUE"/"FALSE" levels - maybe should not do this. If it does then it should also handle "True", "T" etc. (i.e., anything that as.logical() handles).
 * `latest_file()` the `ext` arg maybe should accept a dot in front. So ".csv" and "csv" behave the same.
+* `dir_files()` to give modification date/time instead of date?
+
 
 ## New functions
 
@@ -38,7 +37,6 @@ These may already be in dev_code().
 
 * na_if_string()
 + key function
-+ benchmarking over arguments
 + ??Add count_sheets() - see func google doc. Used in treat....Prob won't do this unless I use it anywhere else
 + calibration plot for binary responses - split preds into deciles and get mean response for each. Plot & table.
 + simplify_datetime()

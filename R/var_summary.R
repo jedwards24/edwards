@@ -1,25 +1,38 @@
 #' Simple summary of the variables in a data frame
 #'
-#' Returns a tibble with the names, class, number of unique values, and the number and percent of
-#' `NA`s for each variable in the data. If there are `NA` values then they are included as
-#' a unique value.
+#' A summary tibble of the columns of a data frame. Each row in the output corresponds to a column
+#' in `df`.
 #'
 #' @param df A data frame.
-#'
+#' @param na_strings Character vector to match for the `str_missing` column.
+#' @return A tibble with columns as follows.
+#'  \item{var}{The name of the column in `df`.}
+#'  \item{index}{The position of the column in `df`.}
+#'  \item{class}{The first element of the class of the column.}
+#'  \item{unique}{The number of unique values in the column. Note that `NA` and `NaN`
+#'    are counted as distinct value in this.}
+#'  \item{missing}{The number of missing values in the column (`NA` or `NaN`).}
+#'  \item{pct_missing}{The percentage of values in the column that are missing.}
+#'  \item{str_missing}{The number of matches to strings in the `na_strings` argument. See
+#'    `count_matches()` for details of how the count is done.}
 #' @export
-var_summary <- function(df) {
+var_summary <- function(df, na_strings = string_missing()) {
   if (!is.data.frame(df)) {
-    stop("Argument \"df\" must be a data frame.", call. = FALSE)
+    stop("Argument `df` must be a data frame.", call. = FALSE)
   }
   if (ncol(df) == 0) {
     message("The data frame has zero columns.")
   }
-  tibble::tibble(var = names(df),
-                 index = seq_along(df),
-                 class = vapply(df, function(x) class(x)[1], character(1)),
-                 unique = vapply(df, function(x) length(unique(x)), integer(1)),
-                 missing = vapply(df, function(x) sum(is.na(x)), integer(1)),
-                 pct_miss = 100 * missing / nrow(df)
+  if (!is.character(na_strings)) {
+    stop("Argument `na_strings` must be a character vector", call. = FALSE)
+  }
+  tibble(var = names(df),
+         index = seq_along(df),
+         class = vapply(df, function(x) class(x)[1], character(1), USE.NAMES = FALSE),
+         unique = vapply(df, dplyr::n_distinct, integer(1), USE.NAMES = FALSE),
+         missing = vapply(df, function(x) sum(is.na(x)), integer(1), USE.NAMES = FALSE),
+         pct_miss = 100 * missing / nrow(df),
+         str_missing = vapply(df, total_matches_vec, integer(1), value = na_strings, USE.NAMES = FALSE)
   )
 }
 
@@ -33,7 +46,7 @@ var_summary <- function(df) {
 #' @export
 count_nas <- function(df, all = FALSE) {
   if (!is.list(df)) {
-    stop("`df` must be a list.", call. = FALSE)
+    stop("Argument `df` must be a list.", call. = FALSE)
   }
   vals <- vapply(df, function(x) sum(is.na(x)), integer(1))
   vals <- vals[vals > 0 | all]
@@ -55,7 +68,7 @@ count_nas <- function(df, all = FALSE) {
 #' @export
 count_unique <- function(df) {
   if (!is.list(df)) {
-    stop("Argument \"df\" must be a list.", call. = FALSE)
+    stop("Argument `df` must be a list.", call. = FALSE)
   }
   vapply(df, function(x) length(unique(x)), integer(1))
 }
@@ -70,7 +83,7 @@ count_unique <- function(df) {
 #' @export
 count_levels <- function(df, all = FALSE) {
   if (!is.list(df)) {
-    stop("Argument \"df\" must be a list.", call. = FALSE)
+    stop("Argument `df` must be a list.", call. = FALSE)
   }
   vals <- vapply(df, nlevels, integer(1))
   vals <- vals[vals > 0 | all]

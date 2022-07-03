@@ -4,13 +4,26 @@
 \alias{var_summary}
 \title{Simple summary of the variables in a data frame}
 \usage{
-var_summary(df)
+var_summary(df, na_strings = string_missing())
 }
 \arguments{
 \item{df}{A data frame.}
+
+\item{na_strings}{Character vector to match for the \code{str_missing} column.}
+}
+\value{
+A tibble with columns as follows.
+\item{var}{The name of the column in \code{df}.}
+\item{index}{The position of the column in \code{df}.}
+\item{class}{The first element of the class of the column.}
+\item{unique}{The number of unique values in the column. Note that \code{NA} and \code{NaN}
+are counted as distinct value in this.}
+\item{missing}{The number of missing values in the column (\code{NA} or \code{NaN}).}
+\item{pct_missing}{The percentage of values in the column that are missing.}
+\item{str_missing}{The number of matches to strings in the \code{na_strings} argument. See
+\code{count_matches()} for details of how the count is done.}
 }
 \description{
-Returns a tibble with the names, class, number of unique values, and the number and percent of
-\code{NA}s for each variable in the data. If there are \code{NA} values then they are included as
-a unique value.
+A summary tibble of the columns of a data frame. Each row in the output corresponds to a column
+in \code{df}.
 }
