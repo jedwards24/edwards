@@ -11,7 +11,7 @@ count_over(df, ..., sort = TRUE, n = 10L)
 
 \item{...}{Columns to count over. Accepts tidyselect inputs. If omitted then count is applied to every column.}
 
-\item{sort}{Logical passed to \code{count()} to say whether results are sorted by descending number of observation.}
+\item{sort}{Logical, passed to \code{count()}. If \code{TRUE} each result is sorted by group size.}
 
 \item{n}{Integer passed to \code{print()} which gives the maximum number of rows printed in each count summary.}
 }

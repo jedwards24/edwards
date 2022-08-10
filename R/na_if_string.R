@@ -1,9 +1,9 @@
 #' Convert character elements in a data frame to NA
 #'
-#' In `data` any character columns, any elements matching any of `na_strings` are replaced with `NA`.
+#' In all character columns in `data` any elements matching any of `na_strings` are replaced with `NA`.
 #' @return A modified version of `data` with the same rows and columns.
 #' @param data A data frame.
-#' @param na_strings Character vector of strings to convert missing values.
+#' @param na_strings Character vector of strings to convert to missing values.
 #' @export
 #' @examples
 #' df <- tibble::tibble(x1 = c("a", "", "1"),
@@ -26,7 +26,7 @@ na_if_string <- function(data, na_strings = c("")) {
 #' Convert values to NA
 #'
 #' Convert values in `x` to `NA` if they match any elements of `y`.
-#' @seealso This is similar to `dplyr::is_na()` but checks each element of `x` for a match with
+#' @seealso This is similar to `dplyr::na_if()` but checks each element of `x` for a match with
 #' any elements of `y`.
 #' @param x Vector to modify.
 #' @param y Values to replace with NA.

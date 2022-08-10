@@ -4,7 +4,7 @@
 #'
 #' @param df A data frame.
 #' @param ... Columns to count over. Accepts tidyselect inputs. If omitted then count is applied to every column.
-#' @param sort Logical passed to `count()` to say whether results are sorted by descending number of observation.
+#' @param sort Logical, passed to `count()`. If `TRUE` each result is sorted by group size.
 #' @param n Integer passed to `print()` which gives the maximum number of rows printed in each count summary.
 #'
 #' @export

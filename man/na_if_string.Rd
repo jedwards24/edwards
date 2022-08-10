@@ -9,13 +9,13 @@ na_if_string(data, na_strings = c(""))
 \arguments{
 \item{data}{A data frame.}
 
-\item{na_strings}{Character vector of strings to convert missing values.}
+\item{na_strings}{Character vector of strings to convert to missing values.}
 }
 \value{
 A modified version of \code{data} with the same rows and columns.
 }
 \description{
-In \code{data} any character columns, any elements matching any of \code{na_strings} are replaced with \code{NA}.
+In all character columns in \code{data} any elements matching any of \code{na_strings} are replaced with \code{NA}.
 }
 \examples{
 df <- tibble::tibble(x1 = c("a", "", "1"),

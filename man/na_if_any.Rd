@@ -21,6 +21,6 @@ Convert values in \code{x} to \code{NA} if they match any elements of \code{y}.
 na_if_any(1:5, c(2, 4))
 }
 \seealso{
-This is similar to \code{dplyr::is_na()} but checks each element of \code{x} for a match with
+This is similar to \code{dplyr::na_if()} but checks each element of \code{x} for a match with
 any elements of \code{y}.
 }

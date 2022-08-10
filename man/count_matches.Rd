@@ -3,7 +3,7 @@
 \name{count_matches}
 \alias{count_matches}
 \alias{count_matches2}
-\title{Count elements, by column in a data frame, which exactly match a value}
+\title{Count elements in data frame which exactly match a value}
 \usage{
 count_matches(
   df,

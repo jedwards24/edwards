@@ -1,4 +1,4 @@
-#' Count elements, by column in a data frame, which exactly match a value
+#' Count elements in data frame which exactly match a value
 #'
 #' @description
 #' Counts the number of entries of each column in a data frame that exactly match the supplied values.
