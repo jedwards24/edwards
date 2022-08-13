@@ -2,8 +2,6 @@
 
 ## General
 
-Update README.md.
-
 ## Existing functions
 
 + count funcs 
@@ -12,7 +10,8 @@ Update README.md.
     - Option for pct instead of prop?
     - Arg for prop name.
     - Check for name clash with prop - use prop_prop/prop2?
-    - rename to countp/pcount? could vcount be countv?
+    - Check if input is atomic vector and if is then call vcount??
+    - rename to countp? Rename vcount to countv??
 + `need()` could work with a vector input (multiple names). Error message can give all packages missing.
 + Review `convert_date()`. It uses `dmy()` or `dmy_hms()` as appropriate with a simplifying step. It perhaps is better broken up.
 + `dir_contents()` has minimal tests.
@@ -35,7 +34,6 @@ Update README.md.
 
 These may already be in dev_code().
 
-* na_if_string()
 + key function
 + ??Add count_sheets() - see func google doc. Used in treat....Prob won't do this unless I use it anywhere else
 + calibration plot for binary responses - split preds into deciles and get mean response for each. Plot & table.
