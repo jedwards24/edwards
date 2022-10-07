@@ -6,14 +6,19 @@ test_that("mode_stat() works", {
 
 test_that("factor_to_numeric() works", {
   x1 <- c(TRUE, FALSE, TRUE)
-  x2 <- c(0.4, 1.5, -1)
-  x3 <- 9:3
-  y <- c(1L, 0L, 1L)
+  x2 <- c("T", "false", "True")
+  x3 <- c(0.4, 1.5, -1)
+  x4 <- 9:3
+  y <- c(1, 0, 1)
   expect_identical(factor_to_numeric(factor(x1)), y)
   expect_identical(factor_to_numeric(factor(x1, levels = c(TRUE, FALSE))), y)
-  expect_identical(factor_to_numeric(factor(x2)), x2)
-  expect_equal(factor_to_numeric(factor(x3)), x3)
+  expect_identical(factor_to_numeric(factor(x2)), y)
+  expect_identical(factor_to_numeric(factor(x3)), x3)
+  out <- factor_to_numeric(factor(x4))
+  expect_equal(out, x4)
+  expect_type(out, "double")
 })
+
 test_that("extend_vector() works", {
   expect_identical(extend_vector(2:4, 5), c(2:4, NA, NA))
   expect_identical(extend_vector(2:4, 2), 2:4)

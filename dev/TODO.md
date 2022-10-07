@@ -24,7 +24,6 @@
     - Will `findInterval()` be faster than cut if generate my own labels?
 * standard runtime tests to reduce code duplication (check_df?)
 * `save_check` to work with csv etc.? 
-* `factor_to_numeric()` converts "TRUE"/"FALSE" levels - maybe should not do this. If it does then it should also handle "True", "T" etc. (i.e., anything that as.logical() handles).
 
 ## New functions
 

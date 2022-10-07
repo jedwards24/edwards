@@ -7,6 +7,8 @@
     * Restrict to single `dir` input (would not have worked with multiple before anyway).
 * `dir_files()` now gives modification time instead of just date.
 * `latest_file()` now handles `ext` arguments starting in ".".
+* Change `factor_to_numeric()` convert logical strings consistent with `as.logical()`. Output is 
+now always numeric.
 * Minor docs fixes.
 
 # edwards 0.3.3

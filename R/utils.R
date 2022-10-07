@@ -22,25 +22,36 @@ mode_stat <- function(x, multiple = TRUE, na.rm = TRUE) {
   ux[mode_loc]
 }
 
-#' Convert a factor with numeric or logical-type levels to a numeric vector
+#' Convert a factor to a numeric vector using its levels
 #'
-#' The obvious `as.numeric()` is incorrect. No checks are made on the level contents except
-#' to check if levels are `c("TRUE", "FALSE")`, in which case they will be converted to a
-#' integer vector (0 for FALSE, 1 for TRUE).
+#' Converts to a numeric vector factors with levels that could be appropriately converted to
+#' numeric values (either number or logical-type strings).
 #'
-#' Numeric part is from
-#' <https://stackoverflow.com/questions/3418128/how-to-convert-a-factor-to-integer-numeric-without-loss-of-information>.
+#' The output from the obvious `as.numeric()` is unlikely to be what is desired, since it acts
+#' on the underlying integers, rather than the levels. This function instead uses
+#' `as.integer(as.logical(x))` to attempt to coerce the character levels. If all levels are
+#' strings that would be coercible by `as.logical()`, that is in
+#' `c("T", "TRUE", "True", "true", "F", "FALSE", "False", "false", NA)`, then they
+#' are converted appropriately to a numeric vector instead. The two methods are never mixed, so
+#' `factor_to_numeric(factor(c("T", "1")))` will attempt numeric conversion and produce `NA`
+#' for the `"T"`.
 #'
 #' @param x A factor.
-#'
+#' @examples
+#' x <- factor(3:5)
+#' as.numeric(x)
+#' factor_to_numeric(x)
+#' factor_to_numeric(factor(c("T", "false", NA)))
 #' @export
 factor_to_numeric <- function(x) {
   if (!is.factor(x)) stop("`x` must be a factor.", call. = FALSE)
-  if (all(levels(x) %in% c("TRUE", "FALSE"))){
-    return(as.integer(as.logical(x)))
+  lgl_str <- c("T", "TRUE", "True", "true", "F", "FALSE", "False", "false", NA_character_)
+  if (all(levels(x) %in% lgl_str)){
+    return(as.numeric(as.logical(x)))
   }
   as.numeric(levels(x))[x]
 }
+
 
 #' Print all rows of a tibble
 #'
