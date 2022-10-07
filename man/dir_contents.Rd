@@ -24,7 +24,8 @@ how the counts or totals are calculated.}
 
 \item{...}{Additional arguments passed to \code{dir_info()}.}
 
-\item{shorten}{If \code{TRUE} (default), replace \code{dir} in directory column of the output with \code{"."}.}
+\item{shorten}{If \code{TRUE} (default), the directory column gives the path relative to \code{dir} (the
+\code{dir} entry is displayed as "."). If \code{FALSE}, the full path is given.}
 }
 \value{
 \code{dir_size()} returns a \code{fs::fs_bytes} vector.
@@ -32,14 +33,15 @@ how the counts or totals are calculated.}
 \code{dir_count_files()} and \code{dir_count_dirs()} each return integer vectors.
 
 \code{dir_contents()} returns a data frame with columns:
-\item{directory}{The path of the directory.}
-\item{files_size}{The total size of all files the directory, as a \code{fs::fs_bytes()} numeric vector.}
-\item{num_files}{The number of files in the immediate directory.}
-\item{num_dirs}{The number of immediate sub-directories of the directory.}
+\item{directory}{The path of the directory as an \code{fs::path}.}
+\item{level}{The level of the directory relative to \code{dir}.}
 \item{total_size}{The total size of all files in the directory, including sub-directories.}
 \item{total_files}{The total number of all files in the directory, including sub-directories.}
 \item{total_dirs}{The total number of all directories in the directory (fully recursive).}
-\item{level}{The level of the directory relative to \code{dir}.}
+\item{files_size}{The total size of all files in the immediate directory (not sub-directories).}
+\item{num_files}{The number of files in the immediate directory.}
+\item{num_dirs}{The number of immediate sub-directories of the directory.}
+All size columns are \code{fs::fs_bytes()} numeric vectors.
 }
 \description{
 These functions give information about the size of directories as well as the number of

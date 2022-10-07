@@ -1,6 +1,11 @@
 # edwards (development version)
 
-Minor docs fixes.
+* `dir_contents()`: 
+    * Fixes to level and directory columns in output.
+    * Directory column is now a `fs:path` relative path. 
+    * Add "call" attribute to output.
+    * Reorder columns in output.
+* Minor docs fixes.
 
 # edwards 0.3.3
 

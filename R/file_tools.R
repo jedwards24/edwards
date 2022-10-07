@@ -118,21 +118,23 @@ dir_files <- function(dir = ".", ...) {
 #' included. For `dir_contents()` this only effects which rows are included in the output, not
 #' how the counts or totals are calculated.
 #' @param ... Additional arguments passed to `dir_info()`.
-#' @param shorten If `TRUE` (default), replace `dir` in directory column of the output with `"."`.
+#' @param shorten If `TRUE` (default), the directory column gives the path relative to `dir` (the
+#' `dir` entry is displayed as "."). If `FALSE`, the full path is given.
 #' @return `dir_size()` returns a `fs::fs_bytes` vector.
 #' @return `dir_count_files()` and `dir_count_dirs()` each return integer vectors.
 #' @return `dir_contents()` returns a data frame with columns:
-#'  \item{directory}{The path of the directory.}
-#'  \item{files_size}{The total size of all files the directory, as a `fs::fs_bytes()` numeric vector.}
-#'  \item{num_files}{The number of files in the immediate directory.}
-#'  \item{num_dirs}{The number of immediate sub-directories of the directory.}
+#'  \item{directory}{The path of the directory as an `fs::path`.}
+#'  \item{level}{The level of the directory relative to `dir`.}
 #'  \item{total_size}{The total size of all files in the directory, including sub-directories.}
 #'  \item{total_files}{The total number of all files in the directory, including sub-directories.}
 #'  \item{total_dirs}{The total number of all directories in the directory (fully recursive).}
-#'  \item{level}{The level of the directory relative to `dir`.}
+#'  \item{files_size}{The total size of all files in the immediate directory (not sub-directories).}
+#'  \item{num_files}{The number of files in the immediate directory.}
+#'  \item{num_dirs}{The number of immediate sub-directories of the directory.}
+#'  All size columns are `fs::fs_bytes()` numeric vectors.
 #' @export
 dir_contents <- function(dir = ".", recurse = TRUE, ..., shorten = TRUE) {
-  if(dir == ".") dir <- as.character(fs::path_real(dir)) # to fix `path` output from `dir_info()`
+  dir <- fs::path_abs(dir)
   tbl <- fs::dir_info(dir, recurse = recurse, ...) %>%
     dplyr::group_by(directory = fs::path_dir(.data$path)) %>%
     dplyr::summarise(files_size = sum(.data$size),
@@ -141,9 +143,12 @@ dir_contents <- function(dir = ".", recurse = TRUE, ..., shorten = TRUE) {
     dplyr::mutate(total_size = dir_size(.data$directory, recurse = TRUE)) %>%
     dplyr::mutate(total_files = dir_count_files(.data$directory, recurse = TRUE)) %>%
     dplyr::mutate(total_dirs = dir_count_dirs(.data$directory, recurse = TRUE))
-  short_directory <- stringr::str_replace(tbl$directory, stringr::fixed(dir), ".")
-  tbl <- dplyr::mutate(tbl, level = stringr::str_count(short_directory, "/"))
-  if (shorten) tbl <- dplyr::mutate(tbl, directory = short_directory)
+  root_level <- stringr::str_count(dir, "/")
+  tbl <- dplyr::mutate(tbl, level = stringr::str_count(.data$directory, "/") - root_level) %>%
+    dplyr::mutate(directory = fs::path(directory)) %>%
+    dplyr::select("directory", "level", dplyr::contains("total"), dplyr::everything())
+  if (shorten) tbl <- dplyr::mutate(tbl, directory = fs::path_rel(.data$directory, dir))
+  attr(tbl, "call") <- match.call()
   tbl
 }
 
