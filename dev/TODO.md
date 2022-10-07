@@ -14,7 +14,6 @@
     - rename to countp? Rename vcount to countv??
 + `need()` could work with a vector input (multiple names). Error message can give all packages missing.
 + Review `convert_date()`. It uses `dmy()` or `dmy_hms()` as appropriate with a simplifying step. It perhaps is better broken up.
-+ `dir_contents()` has minimal tests.
 * `find_similar()` 
     - test it handles columns with class length > 1.
     - Add `key` arg when comparing 2 dfs.
@@ -26,9 +25,6 @@
 * standard runtime tests to reduce code duplication (check_df?)
 * `save_check` to work with csv etc.? 
 * `factor_to_numeric()` converts "TRUE"/"FALSE" levels - maybe should not do this. If it does then it should also handle "True", "T" etc. (i.e., anything that as.logical() handles).
-* `latest_file()` the `ext` arg maybe should accept a dot in front. So ".csv" and "csv" behave the same.
-* `dir_files()` to give modification date/time instead of date?
-
 
 ## New functions
 

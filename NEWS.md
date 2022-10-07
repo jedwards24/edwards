@@ -6,6 +6,7 @@
     * Add "call" attribute to output.
     * Restrict to single `dir` input (would not have worked with multiple before anyway).
 * `dir_files()` now gives modification time instead of just date.
+* `latest_file()` now handles `ext` arguments starting in ".".
 * Minor docs fixes.
 
 # edwards 0.3.3

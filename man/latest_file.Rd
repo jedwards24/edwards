@@ -20,8 +20,8 @@ latest_file(
 of the path following the final "/".}
 
 \item{ext}{An optional string giving a file extension which the returned file name must end in.
-The supplied extension is checked for an exact match (ignoring case) to the ".xxx" part of the
-file name.}
+The supplied extension is checked for an exact match (ignoring case) to the last extension in
+the file name.}
 
 \item{n}{Integer. Return the nth file path. This can have length > 1, in which case multiple file
 paths are returned. An error will be thrown if there are insufficient matches.}

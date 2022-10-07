@@ -15,6 +15,7 @@ test_that("latest_file() works", {
   expect_equal(latest_file(dir, "test_", recurse = TRUE), out[4])
   expect_equal(latest_file(dir, "test_", recurse = TRUE, decreasing = FALSE), out[5])
   expect_equal(latest_file(dir, "test_", ext = "rdata"), out[6])
+  expect_equal(latest_file(dir, "test_", ext = ".rdata"), out[6])
   expect_equal(latest_file(dir, "test_", n = 1:2), out[2:3])
 
   expect_error(latest_file(dir, "whereisit"), "fewer than `n`.*No files match")

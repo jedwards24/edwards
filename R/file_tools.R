@@ -13,8 +13,8 @@
 #' @param pattern A string pattern to filter file names by. The pattern is only applied to the part
 #'   of the path following the final "/".
 #' @param ext An optional string giving a file extension which the returned file name must end in.
-#'   The supplied extension is checked for an exact match (ignoring case) to the ".xxx" part of the
-#'   file name.
+#'   The supplied extension is checked for an exact match (ignoring case) to the last extension in
+#'   the file name.
 #' @param n Integer. Return the nth file path. This can have length > 1, in which case multiple file
 #'   paths are returned. An error will be thrown if there are insufficient matches.
 #' @param decreasing Logical passed to `order()`. By default returns the (nth) largest value.
@@ -38,6 +38,7 @@ latest_file <- function(path = ".", pattern = NULL, ext = NULL, n = 1L, decreasi
     fpaths <- fpaths[grep(pattern, fnames)]
   }
   if (!is.null(ext)){
+   ext <- stringr::str_remove(ext, "^\\.")
     fpaths <- fpaths[grep(ext, fs::path_ext(fpaths), ignore.case = TRUE)]
   }
   if (length(fpaths) < max(n)){
