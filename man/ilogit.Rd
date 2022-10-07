@@ -16,3 +16,4 @@ on \code{x} to avoid \code{NaN}. This occurs when \code{x} is greater than about
 750 but, since \eqn{exp(x) / (1 + exp(x)) = 1} for \eqn{x>=20}, I only check for x > 20 and
 output 1 for these cases.
 }
+\keyword{internal}

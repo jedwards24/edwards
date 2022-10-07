@@ -5,7 +5,6 @@ count_string <- function(...){
   count_pattern(...)
 }
 
-
 #' Vectorised inverse logit function
 #'
 #' Calculate the inverse logit function \eqn{exp(x) / (1 + exp(x))}. Modified from Faraway package.
@@ -15,7 +14,7 @@ count_string <- function(...){
 #' output 1 for these cases.
 #'
 #' @param x A numeric vector.
-#'
+#' @keywords internal
 #' @export
 ilogit <- function (x){
   warning("`ilogit() is depreciated. Use `jemodel::ilogit()` instead.", call. = FALSE)
@@ -177,6 +176,7 @@ glmnet_to_table <- function(fit, ..., min_coef=1E-10) {
 #' @description
 #' `count_matches2()` is a deprecated function that has been replaced by the `detail` argument.
 #' @rdname count_matches
+#' @keywords internal
 #' @export
 count_matches2 <- function(df, values = string_missing(), all = FALSE, prop = FALSE) {
   lifecycle::deprecate_warn("0.3.1", "count_matches2()",

@@ -55,3 +55,4 @@ count_matches(df, strs, all = TRUE)
 count_matches(df, strs, all = TRUE, detail = TRUE)
 count_matches(df, strs, detail = TRUE)
 }
+\keyword{internal}
