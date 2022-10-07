@@ -1,10 +1,11 @@
 # edwards (development version)
 
-* `dir_contents()`: 
-    * Fixes to level and directory columns in output.
-    * Directory column is now a `fs:path` relative path. 
+* `dir_contents()`: fixes to level and directory columns. Reorder output columns.
+* `dir_contents()` and `dir_files`:
+    * The directory column is now a `fs:path` relative path. 
     * Add "call" attribute to output.
-    * Reorder columns in output.
+    * Restrict to single `dir` input (would not have worked with multiple before anyway).
+* `dir_files()` now gives modification time instead of just date.
 * Minor docs fixes.
 
 # edwards 0.3.3
