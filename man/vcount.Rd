@@ -2,9 +2,12 @@
 % Please edit documentation in R/count.R
 \name{vcount}
 \alias{vcount}
+\alias{countv}
 \title{Frequency count for values of a vector with tibble output.}
 \usage{
 vcount(x, sort = TRUE, name = NULL, value_name = "value")
+
+countv(x, sort = TRUE, name = NULL, value_name = "value")
 }
 \arguments{
 \item{x}{An atomic vector.}
@@ -16,5 +19,5 @@ vcount(x, sort = TRUE, name = NULL, value_name = "value")
 \item{value_name}{Name of value column.}
 }
 \description{
-This behaves similarly to \code{count2()} but with a vector input.
+This behaves similarly to \code{count2()} but with a vector input. \code{countv()} is an alternative name.
 }

@@ -2,9 +2,12 @@
 % Please edit documentation in R/count.R
 \name{count2}
 \alias{count2}
+\alias{countp}
 \title{\code{dplyr::count()} with proportion column and default \code{sort = TRUE}.}
 \usage{
-count2(df, ..., sort = TRUE, wt = NULL, name = NULL)
+count2(df, ..., sort = TRUE, wt = NULL, name = NULL, pname = "prop")
+
+countp(df, ..., sort = TRUE, wt = NULL, name = NULL, pname = "prop")
 }
 \arguments{
 \item{df}{A data frame.}
@@ -14,9 +17,12 @@ count2(df, ..., sort = TRUE, wt = NULL, name = NULL)
 \item{sort}{Passed to \code{count}, but defaults to \code{TRUE}.}
 
 \item{wt, name}{Optional, passed to \code{count}.}
+
+\item{pname}{Name for the proportion column.}
 }
 \description{
-Adds a column "prop" which gives the proportion of total rows in that group.
+Adds a column \code{pname} which gives the proportion of total rows in that group.
+\code{countp()} is an alternative name.
 }
 \examples{
 count2(mtcars, cyl)

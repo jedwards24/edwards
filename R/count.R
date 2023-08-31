@@ -37,27 +37,37 @@ count_n <- function(df, ...) {
 
 #' `dplyr::count()` with proportion column and default `sort = TRUE`.
 #'
-#' Adds a column "prop" which gives the proportion of total rows in that group.
+#' Adds a column `pname` which gives the proportion of total rows in that group.
+#' `countp()` is an alternative name.
 #'
 #' @param df A data frame.
 #' @param ... Variables to group by. Passed to `count()`.
 #' @param sort Passed to `count`, but defaults to `TRUE`.
 #' @param wt,name Optional, passed to `count`.
+#' @param pname Name for the proportion column.
 #'
 #' @examples
 #' count2(mtcars, cyl)
 #' count2(mtcars, cyl, sort = FALSE)
 #'
 #' @export
-count2 <- function(df, ..., sort = TRUE, wt = NULL, name = NULL) {
+count2 <- function(df, ..., sort = TRUE, wt = NULL, name = NULL, pname = "prop") {
+  if (pname %in% names(df)){
+    stop('A column called "', pname, '" already exists in `df`. Choose a different `pname`.',
+         call. = FALSE)
+  }
   x <- dplyr::count(df, ..., wt = {{wt}}, sort = sort, name = name)
   count_name <- names(x)[ncol(x)]
-  dplyr::mutate(x, prop = .data[[count_name]] / sum(.data[[count_name]]))
+  dplyr::mutate(x, !!pname := .data[[count_name]] / sum(.data[[count_name]]))
 }
+
+#' @rdname count2
+#' @export
+countp <- count2
 
 #' Frequency count for values of a vector with tibble output.
 #'
-#' This behaves similarly to `count2()` but with a vector input.
+#' This behaves similarly to `count2()` but with a vector input. `countv()` is an alternative name.
 #'
 #' @param x An atomic vector.
 #' @param sort Logical. Sort output by descending frequency. If `FALSE` sort by value.
@@ -74,3 +84,7 @@ vcount <- function(x, sort = TRUE, name = NULL, value_name = "value") {
   count_name <- names(res)[ncol(res)]
   dplyr::mutate(res, prop = .data[[count_name]] / sum(.data[[count_name]]))
 }
+
+#' @rdname vcount
+#' @export
+countv <- vcount
