@@ -37,22 +37,36 @@ only_uniques(c("mpg", "wt"), dt)
 summarise_if(dt2, is.numeric, count_int) %>% pivot_longer(cols = everything())
 
 # datetime_summary() -------
-#Explore which are simple datetimes. Maybe also check which are 0 in Excel i.e.equal as.POSIXct("1899-12-31", tz = "UTC")
+#Explore which are simple datetimes. Maybe also check which are 0 in Excel i.e.
+# equal as.POSIXct("1899-12-31", tz = "UTC")
 summarise_if(dt, is.POSIXct, is_simple_datetime) %>% pivot_longer(cols = everything())
 
 # here()----------
 # See loadable() https://github.com/yihui/xfun/blob/main/R/packages.R
 
-# factor_to_logical() --------
+#dir_contents--------
+library(tidyverse)
+library(fs)
 
-x <- factor(c(T, F), levels = c(T, F))
-as.logical(x)
+fs::dir_info(".", recurse = 1) %>% select(path)
+fs::dir_info(getwd(), recurse = 0) %>% select(path)
+dir_files("/home/james/rrr/edwards2")
 
-x <- factor(c(1, 0))
-as.logical(x) # NA, NA
-as.logical(as.integer(x)) # T, T
-as.logical(factor_to_numeric(x)) #ok
-as.logical(factor_to_numeric(factor(0:3))) # not ok
 
-as.numeric(x) %>% as.logical()
+dir_files(c(".", "/home/james/rrr/edwards/R"))
+fs::dir_info(c("/home/james/rrr/edwards/R"))
+
+dir_files(".", recurse = 1) %>% prinf()
+dir_files(getwd(), recurse = 1)
+
+dir_files(".", recurse = 1)
+dir_files(".", recurse = 1)
+dir_files(getwd(), recurse = 1)
+dir_files(".", recurse = 1, shorten = F)
+dir_files(getwd(), recurse = 1, shorten = F)
+
+x <- factor(3:5)
+as.numeric(x)
 factor_to_numeric(x)
+factor_to_numeric(factor(c("T", "false", NA)))
+factor_to_numeric(factor(c("T", "1")))

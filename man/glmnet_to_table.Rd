@@ -4,7 +4,7 @@
 \alias{glmnet_to_table}
 \title{Summarise coefficients from glmnet in a table}
 \usage{
-glmnet_to_table(fit, ..., min_coef = 1e-10)
+glmnet_to_table(fit, ..., min_coef = 0.0000000001)
 }
 \arguments{
 \item{fit}{A fitted glmnet model.}

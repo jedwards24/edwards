@@ -1,4 +1,4 @@
-# edwards (development version)
+# edwards 0.3.4
 
 * `dir_contents()`: fixes to level and directory columns. Reorder output columns.
 * `dir_contents()` and `dir_files`:

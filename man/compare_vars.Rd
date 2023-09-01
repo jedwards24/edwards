@@ -4,7 +4,7 @@
 \alias{compare_vars}
 \title{Pairwise element comparison of two variables in a dataframe}
 \usage{
-compare_vars(df, ..., simple = FALSE, tol = 1e-06, na.rm = FALSE)
+compare_vars(df, ..., simple = FALSE, tol = 0.000001, na.rm = FALSE)
 }
 \arguments{
 \item{df}{A data frame.}

@@ -1,7 +1,7 @@
 Package: edwards
 Type: Package
 Title: James Edwards personal package
-Version: 0.3.3.9001
+Version: 0.3.4
 Author: James Edwards <jamese1326+gh@gmail.com> 
 Maintainer: James Edwards <jamese1326+gh@gmail.com>
 Description: A collection of miscellaneous data science functions for my own use.
