@@ -3,11 +3,17 @@
 \name{count2}
 \alias{count2}
 \alias{countp}
-\title{\code{dplyr::count()} with proportion column and default \code{sort = TRUE}.}
+\alias{vcount}
+\alias{countv}
+\title{\code{dplyr::count()} with proportion column and default \code{sort = TRUE}}
 \usage{
-count2(df, ..., sort = TRUE, wt = NULL, name = NULL, pname = "prop")
+count2(df, ..., sort = TRUE, wt = NULL, name = NULL, pname = NULL)
 
-countp(df, ..., sort = TRUE, wt = NULL, name = NULL, pname = "prop")
+countp(df, ..., sort = TRUE, wt = NULL, name = NULL, pname = NULL)
+
+vcount(x, sort = TRUE, name = NULL, pname = NULL)
+
+countv(x, sort = TRUE, name = NULL, pname = NULL)
 }
 \arguments{
 \item{df}{A data frame.}
@@ -18,14 +24,25 @@ countp(df, ..., sort = TRUE, wt = NULL, name = NULL, pname = "prop")
 
 \item{wt, name}{Optional, passed to \code{count}.}
 
-\item{pname}{Name for the proportion column.}
+\item{pname}{Name for the proportion column. If omitted, it will default to p. If there's
+already a column called p, it will use pp. If there's a column called p and pp, it'll use ppp,
+and so on, adding ps until it gets a new name.}
+
+\item{x}{A vector (including a data frame).}
 }
 \description{
-Adds a column \code{pname} which gives the proportion of total rows in that group.
-\code{countp()} is an alternative name.
+Adds a column which gives the proportion of total rows in that group.
+\itemize{
+\item \code{vcount()} is similar but works with a vector input.
+\item \code{countp()} and \code{countv()} are alternative names for, respectively, \code{count2()} and \code{vcount()}.
+}
 }
 \examples{
 count2(mtcars, cyl)
 count2(mtcars, cyl, sort = FALSE)
+vcount(c(1, 2, 2, 3))
 
+}
+\seealso{
+\code{\link[vctrs:vec_count]{vctrs::vec_count()}}
 }

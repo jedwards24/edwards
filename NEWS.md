@@ -9,8 +9,9 @@
 * `latest_file()` now handles `ext` arguments starting in ".".
 * Change `factor_to_numeric()` convert logical strings consistent with `as.logical()`. Output is 
 now always numeric.
-* Add `pname` argument to `count2()`.
-* Add `countp()` and `countv()` as alternative names for `count2()` and `vcount()`.
+* `count2()` and `vcount()`:
+    * Add `pname` argument which defaults to p.
+    * Add `countp()` and `countv()` as alternative names for `count2()` and `vcount()`.
 * Minor docs fixes.
 
 # edwards 0.3.3
